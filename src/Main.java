@@ -13,7 +13,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class Main extends Application {
-
+//
     Image logo = new Image(getClass().getResourceAsStream("res/stylinLogo2white.png"));
 
     @Override

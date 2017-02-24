@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="868.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindowController">
+    <children>
+        <AnchorPane prefHeight="70.0" prefWidth="1349.0" style="-fx-background-color: #00BCD4;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <AnchorPane layoutX="139.0" layoutY="2.0" prefHeight="70.0" prefWidth="879.0" AnchorPane.bottomAnchor="1.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <JFXButton fx:id="schedulingTab" layoutX="313.0" layoutY="30.0" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" ripplerFill="WHITE" style="-fx-background-color: #0097a7;" text="SCHEDULING" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="30.0">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="clientsTab" layoutX="463.0" layoutY="30.0" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" style="-fx-background-color: #0097a7;" text="CLIENTS" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="30.0">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="otherTab" layoutX="613.0" layoutY="30.0" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" style="-fx-background-color: #0097a7;" text="OTHER" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="30.0">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton fx:id="homeTab" layoutX="323.0" layoutY="40.0" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" ripplerFill="WHITE" style="-fx-background-color: #0097a7;" text="HOME" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </JFXButton>
+                    </children>
+                </AnchorPane>
+                <JFXHamburger layoutX="16.0" layoutY="9.0" prefHeight="75.0" prefWidth="75.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

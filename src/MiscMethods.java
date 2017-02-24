@@ -28,7 +28,7 @@ public class MiscMethods {
 			  
 			  conn.close(); //closing the connection
 		  }
-		  catch(ClassNotFoundException | SQLException ex) {
+		  catch(Exception ex) {
 			  System.out.println(ex);
 			  System.exit(1);
 		  }
@@ -57,7 +57,7 @@ public class MiscMethods {
 			  
 			  conn.close(); //closing the connection
 		  }
-		  catch(ClassNotFoundException | SQLException ex) {
+		  catch(Exception ex) {
 			  System.out.println(ex);
 			  System.exit(1);
 		  }
@@ -89,7 +89,7 @@ public class MiscMethods {
 			  
 			  conn.close(); //closing the connection
 		  }
-		  catch(ClassNotFoundException | SQLException ex) {
+		  catch(Exception ex) {
 			  System.out.println(ex);
 			  System.exit(1);
 		  }

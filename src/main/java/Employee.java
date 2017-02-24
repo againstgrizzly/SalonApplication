@@ -18,12 +18,7 @@ public class Employee {
 		setEmail(email);
 		setPhone(phone);
 		setDate_of_birth(date_of_birth);
-		
-		/*
-		 * Here I want to set the username to be auto generated
-		 * by using some combination of the first and last name
-		 * with maybe an integer.
-		 */
+		setUsername();
 	}
 	
 	
@@ -66,7 +61,14 @@ public class Employee {
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
+	public void setUsername() {
+		/*
+		 * Here I want to set the username to be auto generated
+		 * by using some combination of the first and last name
+		 * with maybe an integer.
+		 */
+		String username;
+		username = f_name.substring(0,1) + l_name;
 		this.username = username;
 	}
 	public Date getDate_of_birth() {

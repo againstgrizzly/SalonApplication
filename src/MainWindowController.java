@@ -41,6 +41,7 @@ import java.util.concurrent.Exchanger;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
@@ -67,6 +68,7 @@ public class MainWindowController implements Initializable {
     @FXML private JFXButton clientsTab;
     @FXML private JFXButton otherTab;
     @FXML private JFXButton homeTab;
+    @FXML private JFXTextField searchTextField;
     @FXML private AnchorPane mainMenuTabPane;
     @FXML BorderPane basePane;
 
@@ -87,9 +89,32 @@ public class MainWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         tabColor();
         hamburgerAndSideMenuTransitionHandling();
+        searchFieldHandling();
+
+
 
 
     }
+
+    public void searchFieldHandling(){
+        searchTextFieldBeautification();
+
+
+
+
+        searchTextField.setOnInputMethodTextChanged(e ->{
+            System.out.println("your mom");
+        });
+
+    }
+
+    private void searchTextFieldBeautification() {
+
+   searchTextField.setPromptText("SEARCH");
+        searchTextField.setFont(Font.loadFont("res/Roboto-Light.ttf", 123));
+
+    }
+
 
     public void tabTransitions(){
 
@@ -227,7 +252,18 @@ public class MainWindowController implements Initializable {
 
     }
 
+    public String searchPolling(){
+
+        String searchField = searchTextField.getText();
+
+
+        return "sr";
+    }
+
 
     //Getters & Setters
+
+
+
 
 }

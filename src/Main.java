@@ -35,7 +35,7 @@ public class Main extends Application {
             Stage primaryStage2 = new Stage();
             primaryStage2.getIcons().add(logo); //makes the taskbar icon our logo again because the original window was closed
             Parent root2 = FXMLLoader.load(getClass().getResource("fxml/mainWindow.fxml")); //sets window to main window
-            primaryStage2.setTitle("Circuit Simulator"); //set window title
+            primaryStage2.setTitle("Stylin'"); //set window title
             Scene scene = new Scene(root2, 1200, 800); //set default window size
             scene.getStylesheets().add("FGCU/css/myCss.css");
             primaryStage2.setScene(scene);

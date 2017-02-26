@@ -1,55 +1,22 @@
-
+package Controller;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.effects.JFXDepthManager;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
-import javafx.animation.Interpolator;
-import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.Bloom;
-import javafx.scene.image.Image;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-
 import java.io.IOException;
 import java.net.URL;
-import java.text.NumberFormat;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.concurrent.Exchanger;
-
 import com.jfoenix.controls.JFXButton;
-import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.util.Duration;
 
-import javax.sound.sampled.Clip;
-
-
-public class MainWindowController implements Initializable {
+public class MainWindowController implements Initializable{
 
     //Color codes
     String cyan = "#00bcd4";
@@ -58,10 +25,6 @@ public class MainWindowController implements Initializable {
     String pink = "#e91e63";
 
 
-
-
-
-    //Main Window Stuff
     @FXML private AnchorPane topBarAnchorPane;
     @FXML private JFXHamburger menuHamburger;
     @FXML private JFXButton schedulingTab;
@@ -69,29 +32,28 @@ public class MainWindowController implements Initializable {
     @FXML private JFXButton otherTab;
     @FXML private JFXButton homeTab;
     @FXML private JFXTextField searchTextField;
+    @FXML private JFXDatePicker datePicker;
+    @FXML private DatePicker datePickerNormal;
     @FXML private AnchorPane mainMenuTabPane;
     @FXML BorderPane basePane;
 
 
 
 
-    @FXML
-    ChoiceBox lightChoiceBox;
 
     HashMap<JFXButton, Boolean> selectedTracker = new HashMap<>();
 
-
-    //Components Window Stuff
-    AnchorPane pane;
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tabColor();
+
+
+        tabTransitions();
         hamburgerAndSideMenuTransitionHandling();
         searchFieldHandling();
 
+    }
 
+    public void testing() {
 
 
     }
@@ -118,11 +80,56 @@ public class MainWindowController implements Initializable {
 
     public void tabTransitions(){
 
-        homeTab.setOnMouseClicked(e -> {
+        selectedTracker.put(homeTab,true); //Default tab
+        selectedTracker.put(schedulingTab, false);
+        selectedTracker.put(clientsTab, false);
+        selectedTracker.put(otherTab, false);
+        homeTab.setStyle("-fx-background-color:" + pink);
+        homeTab.setButtonType(JFXButton.ButtonType.RAISED);
 
+        homeTab.setOnMouseClicked(e -> {
+            System.out.println("home Tab pressed");
+            mainMenuTabPane.getChildren().clear();
+
+            for(JFXButton button : selectedTracker.keySet()){
+                button.setStyle("-fx-background-color:" + darkCyan);
+                selectedTracker.replace(button, false);
+                button.setButtonType(JFXButton.ButtonType.FLAT);
+
+            }
+
+            selectedTracker.replace(homeTab, true);
+            homeTab.setStyle("-fx-background-color:" + pink);
+            homeTab.setButtonType(JFXButton.ButtonType.RAISED);
         });
 
         schedulingTab.setOnMouseClicked(e -> {
+            try {
+                AnchorPane myPane = FXMLLoader.load(getClass().getResource("/fxml/schedulingTab.fxml")); //sets window to main window
+                mainMenuTabPane.getChildren().setAll(myPane);
+                mainMenuTabPane.setBottomAnchor(myPane, 0.0);
+                mainMenuTabPane.setTopAnchor(myPane, 0.0);
+                mainMenuTabPane.setLeftAnchor(myPane, 0.0);
+                mainMenuTabPane.setRightAnchor(myPane, 0.0);
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            System.out.println("Scheduling Pressed");
+
+            for(JFXButton button : selectedTracker.keySet()){
+
+                button.setStyle("-fx-background-color:" + darkCyan);
+                selectedTracker.replace(button, false);
+                button.setButtonType(JFXButton.ButtonType.FLAT);
+
+            }
+
+            selectedTracker.replace(schedulingTab, true);
+            schedulingTab.setStyle("-fx-background-color:" + pink);
+            schedulingTab.setButtonType(JFXButton.ButtonType.RAISED);
+
 
         });
 
@@ -197,24 +204,6 @@ public class MainWindowController implements Initializable {
 
         });
 
-        //Scheduling tab handle
-        schedulingTab.setOnMouseClicked(e -> {
-            System.out.println("Scheduling Pressed");
-
-            for(JFXButton button : selectedTracker.keySet()){
-
-                button.setStyle("-fx-background-color:" + darkCyan);
-                selectedTracker.replace(button, false);
-                button.setButtonType(JFXButton.ButtonType.FLAT);
-
-            }
-
-            selectedTracker.replace(schedulingTab, true);
-            schedulingTab.setStyle("-fx-background-color:" + pink);
-            schedulingTab.setButtonType(JFXButton.ButtonType.RAISED);
-
-
-        });
 
         //Client tab handle
         clientsTab.setOnMouseClicked(e -> {

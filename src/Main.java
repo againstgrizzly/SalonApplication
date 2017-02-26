@@ -36,7 +36,7 @@ public class Main extends Application {
             primaryStage2.getIcons().add(logo); //makes the taskbar icon our logo again because the original window was closed
             Parent root2 = FXMLLoader.load(getClass().getResource("fxml/mainWindow.fxml")); //sets window to main window
             primaryStage2.setTitle("Stylin'"); //set window title
-            Scene scene = new Scene(root2, 1200, 800); //set default window size
+            Scene scene = new Scene(root2, 1366, 768); //set default window size
             scene.getStylesheets().add("FGCU/css/myCss.css");
             primaryStage2.setScene(scene);
             primaryStage2.show();

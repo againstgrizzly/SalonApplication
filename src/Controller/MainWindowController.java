@@ -37,11 +37,20 @@ public class MainWindowController implements Initializable{
     @FXML private AnchorPane mainMenuTabPane;
     @FXML BorderPane basePane;
 
+    AnchorPane myPane;// = FXMLLoader.load(getClass().getResource("/fxml/schedulingTab.fxml"));
+    SchedulingTabController schedulingTabController = new SchedulingTabController();
+    HomeTabController homeTabController = new HomeTabController();
 
-
-
+    FXMLLoader loader;
 
     HashMap<JFXButton, Boolean> selectedTracker = new HashMap<>();
+
+    public MainWindowController() throws IOException {
+        loader = new FXMLLoader(getClass().getResource("/fxml/homeTab.fxml"));
+        loader.setController(homeTabController);
+        System.out.println("Your mom");
+
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,23 +59,11 @@ public class MainWindowController implements Initializable{
         tabTransitions();
         hamburgerAndSideMenuTransitionHandling();
         searchFieldHandling();
-
     }
 
-    public void testing() {
-
-
-    }
 
     public void searchFieldHandling(){
         searchTextFieldBeautification();
-
-
-
-
-        searchTextField.setOnInputMethodTextChanged(e ->{
-            System.out.println("your mom");
-        });
 
     }
 
@@ -91,11 +88,17 @@ public class MainWindowController implements Initializable{
             System.out.println("home Tab pressed");
             mainMenuTabPane.getChildren().clear();
 
+            mainMenuTabPane.getChildren().setAll(homeTabController.getSchedulingTabAnchorPane());
+            mainMenuTabPane.setBottomAnchor(myPane, 0.0);
+            mainMenuTabPane.setTopAnchor(myPane, 0.0);
+            mainMenuTabPane.setLeftAnchor(myPane, 0.0);
+            mainMenuTabPane.setRightAnchor(myPane, 0.0);
+
+            //Change Button Colors
             for(JFXButton button : selectedTracker.keySet()){
                 button.setStyle("-fx-background-color:" + darkCyan);
                 selectedTracker.replace(button, false);
                 button.setButtonType(JFXButton.ButtonType.FLAT);
-
             }
 
             selectedTracker.replace(homeTab, true);
@@ -104,17 +107,13 @@ public class MainWindowController implements Initializable{
         });
 
         schedulingTab.setOnMouseClicked(e -> {
-            try {
-                AnchorPane myPane = FXMLLoader.load(getClass().getResource("/fxml/schedulingTab.fxml")); //sets window to main window
-                mainMenuTabPane.getChildren().setAll(myPane);
-                mainMenuTabPane.setBottomAnchor(myPane, 0.0);
-                mainMenuTabPane.setTopAnchor(myPane, 0.0);
-                mainMenuTabPane.setLeftAnchor(myPane, 0.0);
-                mainMenuTabPane.setRightAnchor(myPane, 0.0);
 
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+//                mainMenuTabPane.getChildren().setAll(schedulingTabController.getSchedulingTabAnchorPane());
+//                mainMenuTabPane.setBottomAnchor(myPane, 0.0);
+//                mainMenuTabPane.setTopAnchor(myPane, 0.0);
+//                mainMenuTabPane.setLeftAnchor(myPane, 0.0);
+//                mainMenuTabPane.setRightAnchor(myPane, 0.0);
+
 
             System.out.println("Scheduling Pressed");
 
@@ -177,82 +176,5 @@ public class MainWindowController implements Initializable{
 //            }
         });
     }
-
-    public void tabColor(){
-        selectedTracker.put(homeTab,true);
-        selectedTracker.put(schedulingTab, false);
-        selectedTracker.put(clientsTab, false);
-        selectedTracker.put(otherTab, false);
-
-        homeTab.setStyle("-fx-background-color:" + pink);
-        homeTab.setButtonType(JFXButton.ButtonType.RAISED);
-
-        //Other tab handle
-        otherTab.setOnMouseClicked(e -> {
-
-            for(JFXButton button : selectedTracker.keySet()){
-                button.setStyle("-fx-background-color:" + darkCyan);
-                selectedTracker.replace(button, false);
-                button.setButtonType(JFXButton.ButtonType.FLAT);
-            }
-
-            selectedTracker.replace(otherTab, true);
-            otherTab.setStyle("-fx-background-color:" + pink);
-            otherTab.setButtonType(JFXButton.ButtonType.RAISED);
-
-
-
-        });
-
-
-        //Client tab handle
-        clientsTab.setOnMouseClicked(e -> {
-
-            for(JFXButton button : selectedTracker.keySet()){
-                button.setStyle("-fx-background-color:" + darkCyan);
-                selectedTracker.replace(button, false);
-                button.setButtonType(JFXButton.ButtonType.FLAT);
-
-            }
-
-            selectedTracker.replace(clientsTab, true);
-            clientsTab.setStyle("-fx-background-color:" + pink);
-            clientsTab.setButtonType(JFXButton.ButtonType.RAISED);
-
-
-        });
-
-        //Home tab handle
-        homeTab.setOnMouseClicked(e -> {
-
-            for(JFXButton button : selectedTracker.keySet()){
-                button.setStyle("-fx-background-color:" + darkCyan);
-                selectedTracker.replace(button, false);
-                button.setButtonType(JFXButton.ButtonType.FLAT);
-
-            }
-
-            selectedTracker.replace(homeTab, true);
-            homeTab.setStyle("-fx-background-color:" + pink);
-            homeTab.setButtonType(JFXButton.ButtonType.RAISED);
-
-
-        });
-
-    }
-
-    public String searchPolling(){
-
-        String searchField = searchTextField.getText();
-
-
-        return "sr";
-    }
-
-
-    //Getters & Setters
-
-
-
 
 }

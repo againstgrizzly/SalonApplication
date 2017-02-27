@@ -1,5 +1,6 @@
 
 
+import com.aquafx_project.AquaFx;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        //AquaFx.style();
 
 //        Parent root = FXMLLoader.load(getClass().getResource("fxml/SplashScreen.fxml")); //Loads the splash screen
 //        primaryStage.initStyle(StageStyle.UNDECORATED); //takes away minimize, close, etc.

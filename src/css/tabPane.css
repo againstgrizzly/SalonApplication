@@ -1,0 +1,16 @@
+.root {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15;
+}
+
+.solartab .tab:selected  {
+    -fx-background-color: #FFB84D;
+}
+
+.tab:selected .tab-label {
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #BDBDBD;
+}

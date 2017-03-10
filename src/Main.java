@@ -1,53 +1,49 @@
 
-
-import com.aquafx_project.AquaFx;
-import javafx.animation.PauseTransition;
+import Controller.FirstTimeSetupWelcomeScreenController;
+import Controller.MainWindowController;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Main extends Application {
-//
-    Image logo = new Image(getClass().getResourceAsStream("res/stylinLogo2white.png"));
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        //AquaFx.style();
-
-//        Parent root = FXMLLoader.load(getClass().getResource("fxml/SplashScreen.fxml")); //Loads the splash screen
-//        primaryStage.initStyle(StageStyle.UNDECORATED); //takes away minimize, close, etc.
-//        primaryStage.getIcons().add(logo);//Makes the taskbar icon our logo
-//        primaryStage.setScene(new Scene(root, 400, 300)); //sets the scene to the splashscreen
-//        primaryStage.show(); //shows the splash screen
-//
-//        PauseTransition delay = new PauseTransition(Duration.seconds(0)); //Duration of splashscreen
-//        delay.setOnFinished(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                primaryStage.close(); //after the delay, closes the splashscreen
-        try {
-
-            Stage primaryStage2 = new Stage();
-            primaryStage2.getIcons().add(logo); //makes the taskbar icon our logo again because the original window was closed
-            Parent root2 = FXMLLoader.load(getClass().getResource("fxml/mainWindow.fxml")); //sets window to main window
-            primaryStage2.setTitle("Stylin'"); //set window title
-            Scene scene = new Scene(root2, 1366, 768); //set default window size
-            scene.getStylesheets().add("FGCU/css/myCss.css");
-            primaryStage2.setScene(scene);
-            primaryStage2.show();
-        }catch(Exception e){
-            e.printStackTrace();
+    public void start(Stage stage) throws Exception {
+        //this creates the flags.dat file and directory if it hasn't been created yet
+        //I figure we could use this for a whole bunch of flag files for saving different
+        //preferences and persistent data that wouldn't make sense to put into a database
+        if (Files.notExists(Paths.get("./flags/flags.dat"))) {
+            new File("./flags").mkdir();
+            File temp = new File("./flags/flags.dat");
+            //FileWriter writer = new FileWriter(temp, true);
         }
+//        FXMLLoader welcomeScreen = new FXMLLoader(getClass().getResource("/fxml/FirstTimeSetupWelcomeScreen.fxml"));
+//        AnchorPane rootGroup = welcomeScreen.load();
+//        FirstTimeSetupWelcomeScreenController controller = welcomeScreen.getController();
+//        Scene scene = new Scene(rootGroup, 1366, 768);
+//        scene.getStylesheets().add("css/myCss.css");
+//        scene.setFill(Color.TRANSPARENT);
+//        stage.setScene(scene);
+//        stage.show();
+
+        FXMLLoader mainWindow = new FXMLLoader(getClass().getResource("/fxml/MainWindow.fxml"));
+        AnchorPane rootGroup = mainWindow.load();
+        MainWindowController controller = mainWindow.getController();
+        Scene scene = new Scene(rootGroup, 1366, 768);
+        scene.getStylesheets().add("css/myCss.css"); //Comment this out to remove the CSS skinning
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
+
 
     }
-
 
     public static void main(String[] args) {
         launch(args);

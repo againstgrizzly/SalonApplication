@@ -1,15 +1,111 @@
 
-.jfx-slider .thumb{
-   -fx-background-color:black;
+.my-date-picker .text-field {
+    -fx-font: 14px "Segoe UI";
+}
 
+.button { /*button is in normal state*/
+-fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 0px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
+    -fx-background-color: #00c7d4
+}
+
+.image-view{
+-fx-background-color: #00c7d4
+}
+
+.button:hover{ /*mouse is over button*/
+ -fx-background-color: #00efff
+}
+
+.button:armed { /*Button is pressed*/
+ -fx-background-color: #ff0073
+}
+
+.button: focused{} /*unusued for now*/
+
+.LocalDatePickerSkin .CalendarPickerControlSkin .weeknumber .text{
+
+ -fx-fill: #FFFFFF
 
 }
 
-.combo-box{
-
+.LocalDatePickerSkin .CalendarPickerControlSkin .weekday .text{
+ -fx-fill: #FFFFFF
 }
 
-.combo-box .menu-item:focused {
-  -fx-background-color: yellow ; /* for example */
+.LocalDatePickerSkin .CalendarPickerControlSkin .weekend .text{
+ -fx-fill: #FFFFFF
+}
+
+.toggle-button { /* FX theme stylesheet */
+-fx-alignment: CENTER;
+-fx-background-color: #00c7d4;
+-fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
+-fx-background-radius: 3px, 3px, 2px, 1px;
+-fx-content-display: LEFT;
+-fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+}
+
+.toggle-button: hover {
+-fx-alignment: CENTER;
+-fx-background-color: #00efff;
+-fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
+-fx-background-radius: 3px, 3px, 2px, 1px;
+-fx-content-display: LEFT;
+-fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+}
+
+.toggle-button: focused {
+ -fx-alignment: CENTER;
+ -fx-background-color: #ff0073;
+ -fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
+ -fx-background-radius: 3px, 3px, 2px, 1px;
+ -fx-content-display: LEFT;
+ -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+ }
+
+.toggle-button: selected {
+-fx-alignment: CENTER;
+-fx-background-color: #ff0073;
+-fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
+-fx-background-radius: 3px, 3px, 2px, 1px;
+-fx-content-display: LEFT;
+-fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+}
+
+.ListSpinner { /* FX theme stylesheet */
+-fx-background-color: #00c7d4;
+-fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
+-fx-background-radius: 5px, 5px, 4px, 3px;
+-fx-padding: 0.266667em 0.233333em 0.25em 0.233333em;
+}
+
+.ListSpinner: hover { /* FX theme stylesheet */
+-fx-background-color: #00efff;
+-fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
+-fx-background-radius: 5px, 5px, 4px, 3px;
+-fx-padding: 0.266667em 0.233333em 0.25em 0.233333em;
+}
+
+.root { /* FX theme stylesheet */
+-fx-text-background-color: #FFFFFF;
+-fx-background: derive(-fx-base, 26.4%);
+-fx-base: #ececec;
+-fx-light-text-color: white;
+-fx-dark-text-color: black;
+-fx-mid-text-color: #333333;
+}
+
+.split-pane>*.split-pane-divider { /* FX theme stylesheet */
+-fx-padding: 0px 0.25em 0px 0.25em;
+-fx-background-color: transparent
+}
+
+.split-pane *.horizontal-grabber {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-shape: " ";
 }
 

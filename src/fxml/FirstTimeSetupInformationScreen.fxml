@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="firstTimeSetupAnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #00d5e3;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FirstTimeSetupInformationScreenController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" text="First Time Setup" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="72.0" />
+         </font>
+      </Label>
+      <Label text="Name" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="firstNameTextField" onKeyTyped="#firstTimeSetupFirstNameTextFieldOnKeyTyped" prefHeight="0.0" prefWidth="179.0" promptText="First" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="lastNameTextField" prefHeight="0.0" prefWidth="179.0" promptText="Last" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="150.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label text="Choose your username" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="220.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userNameTextField" prefHeight="12.0" prefWidth="380.0" promptText="Username" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="250.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label text="Create a pin" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="320.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="pinTextField" prefHeight="0.0" prefWidth="179.0" promptText="Enter a 4-digit pin" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="350.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <Label text="Confirm pin" textFill="WHITE" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="320.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="confirmPinTextField" prefHeight="0.0" prefWidth="179.0" promptText="Enter 4-digit pin again" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="350.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </PasswordField>
+      <Label text="Date of birth" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="420.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dateOfBirthDatePicker" prefHeight="0.0" prefWidth="174.0" promptText="MM/DD/YYYY" styleClass="my-date-picker" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="450.0" />
+      <TextField fx:id="areaCodeTextField" layoutX="60.0" layoutY="260.0" prefHeight="30.0" prefWidth="44.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="550.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="phoneTextField1" layoutX="115.0" layoutY="550.0" prefHeight="30.0" prefWidth="44.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="550.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="phoneTextField2" layoutX="182.0" layoutY="550.0" prefHeight="30.0" prefWidth="51.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="550.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="60.0" layoutY="230.0" text="Mobile phone" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="520.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="530.0" text="Email address" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="620.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="emailAddressTextField" layoutX="60.0" layoutY="560.0" prefHeight="12.0" prefWidth="380.0" promptText="Enter your email address here" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="650.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXCheckBox fx:id="newsAndUpdatedCheckBox" checkedColor="#ff0073" layoutX="51.0" layoutY="694.0" selected="true" text="Send me news and updates about Stylin" textFill="WHITE" unCheckedColor="#00efff" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="690.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXCheckBox>
+      <Label layoutX="721.0" layoutY="70.0" text="Security questions" textFill="WHITE" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="120.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="721.0" layoutY="350.0" prefHeight="41.0" prefWidth="492.0" text="Select three security questions below. These questions will help verify your identity should you forget your username or password." textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="150.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="600.0" layoutY="210.0" prefHeight="20.0" prefWidth="109.0" text="Security Question" textFill="WHITE" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="210.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="securityQuestionComboBox1" layoutX="728.0" layoutY="208.0" prefHeight="25.0" prefWidth="380.0" AnchorPane.leftAnchor="730.0" AnchorPane.topAnchor="208.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="What's your favorite sports team?" />
+               <String fx:value="What is the first name of your favorite uncle?" />
+               <String fx:value="What was the first concert you attended?" />
+               <String fx:value="When is your mother's birthday?" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
+      <Label alignment="CENTER_RIGHT" layoutX="599.0" layoutY="255.0" prefHeight="20.0" prefWidth="109.0" text="Answer" textFill="WHITE" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="255.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="answerOneTextField" layoutX="728.0" layoutY="250.0" prefHeight="0.0" prefWidth="380.0" promptText="Enter your answer here" AnchorPane.leftAnchor="730.0" AnchorPane.topAnchor="250.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="600.0" layoutY="316.0" prefHeight="20.0" prefWidth="109.0" text="Security Question" textFill="WHITE" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="310.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="securityQuestionComboBox2" layoutX="728.0" layoutY="208.0" prefHeight="25.0" prefWidth="380.0" AnchorPane.leftAnchor="730.0" AnchorPane.topAnchor="308.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="What is the first name of the person you first kissed?" />
+               <String fx:value="What was the make and model of your first car?" />
+               <String fx:value="What was the name of the company where you had you first job?" />
+               <String fx:value="What was the name of your second grade teacher?" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
+      <Label alignment="CENTER_RIGHT" layoutX="600.0" layoutY="361.0" prefHeight="20.0" prefWidth="109.0" text="Answer" textFill="WHITE" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="355.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="answerTwoTextField" layoutX="728.0" layoutY="356.0" prefHeight="0.0" prefWidth="380.0" promptText="Enter your answer here" AnchorPane.leftAnchor="730.0" AnchorPane.topAnchor="350.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="600.0" layoutY="416.0" prefHeight="20.0" prefWidth="109.0" text="Security Question" textFill="WHITE" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="410.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="securityQuestionComboBox3" layoutX="728.0" layoutY="414.0" prefHeight="25.0" prefWidth="380.0" AnchorPane.leftAnchor="730.0" AnchorPane.topAnchor="408.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="What was the name of the manager at your first job?" />
+               <String fx:value="What class is your main in World of Warcraft?" />
+               <String fx:value="What character do you main in Super Smash Bros. Melee?" />
+               <String fx:value="Who was your favorite character off Rocket Power?" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
+      <Label alignment="CENTER_RIGHT" layoutX="619.0" layoutY="520.0" prefHeight="20.0" prefWidth="109.0" text="Answer" textFill="WHITE" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="455.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="answerThreeTextField" layoutX="728.0" layoutY="456.0" prefHeight="0.0" prefWidth="380.0" promptText="Enter your answer here" AnchorPane.leftAnchor="730.0" AnchorPane.topAnchor="450.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Button fx:id="nextButton" layoutX="1232.0" layoutY="688.0" mnemonicParsing="false" onAction="#OnActionNextButton" prefHeight="51.0" prefWidth="150.0" text="Next" textFill="WHITE" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="50.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="backButton" layoutX="1176.0" layoutY="692.0" mnemonicParsing="false" onAction="#OnActionBackButton" prefHeight="51.0" prefWidth="150.0" text="Back" textFill="WHITE" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="250.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

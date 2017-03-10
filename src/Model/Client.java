@@ -1,3 +1,4 @@
+package Model;
 
 public class Client {
 	private String client_id;

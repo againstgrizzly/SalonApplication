@@ -1,3 +1,5 @@
+package Model;
+
 import java.sql.*;
 
 public class MiscMethods {
@@ -35,7 +37,7 @@ public class MiscMethods {
 	} //End InsertEmployee
 	
 	/*
-	 * The following method can be used to insert a Service
+	 * The following method can be used to insert a Model.Service
 	 * into the database. It takes the URL(directory) of the database
 	 * as one of the parameters. It assumes that the username for the 
 	 * database is "sa" and the password is blank. It also assumes the
@@ -65,7 +67,7 @@ public class MiscMethods {
 	} //End InsertService
 	
 	/*
-	 * The following method can be used to insert an Appointment
+	 * The following method can be used to insert an Model.Appointment
 	 * into the database. It takes the URL(directory) of the database
 	 * as one of the parameters. It assumes that the username for the 
 	 * database is "sa" and the password is blank. It also assumes the

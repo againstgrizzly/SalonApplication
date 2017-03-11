@@ -93,12 +93,12 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dateLabel" layoutX="349.0" prefHeight="50.0" prefWidth="153.0" text="3/10/2017" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="349.0" AnchorPane.topAnchor="0.0">
+                        <Label fx:id="dateLabel" layoutX="349.0" prefHeight="50.0" prefWidth="153.0" text="99/99/9999" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="349.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="timeLabel" layoutX="556.0" layoutY="3.0" prefHeight="50.0" prefWidth="153.0" text="3/10/2017" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="0.0">
+                        <Label fx:id="timeLabel" layoutX="556.0" layoutY="3.0" prefHeight="50.0" prefWidth="153.0" text="00:00:00" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="20.0" />
                            </font>

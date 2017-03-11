@@ -183,7 +183,13 @@ public class MainWindowController implements Initializable {
             public void handle(Event event) {
                 Calendar calendar = Calendar.getInstance();
 
+                //SECOND//////////////////////////////////////
+                //A correction for when the second isn't 2 digits is implemented
                 second = calendar.get(Calendar.SECOND);
+                String secondsCorrection;
+                if(second < 10) secondsCorrection = "0" + second;
+                else secondsCorrection = String.valueOf(second);
+                /////////////////////////////////////////////////////////////////
 
                 //MINUTE//////////////////////////////////////
                 //A correction for when the minute isn't 2 digits is implemented
@@ -203,7 +209,7 @@ public class MainWindowController implements Initializable {
                 else am_pm_correction = "PM";
 
 
-                timeLabel.setText(hour + ":" + minuteCorrection + ":" + second + am_pm_correction);
+                timeLabel.setText(hour + ":" + minuteCorrection + ":" + secondsCorrection + am_pm_correction);
             }
         };
     }

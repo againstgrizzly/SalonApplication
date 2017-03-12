@@ -5,16 +5,15 @@ import java.util.*;
 
 public class Employee {
 	private String employee_id;
+	private String username;
 	private String f_name;
 	private String l_name;
-	private String email;
 	private int phone;
-	private String username;
+	private String email;
 	private Date date_of_birth;
 	private ArrayList<Service> emp_services;
 	
-	public Employee(String f_name, String l_name, String email,
-			int phone, Date date_of_birth){
+	public Employee(String f_name, String l_name, String email, int phone, Date date_of_birth){
 		setF_name(f_name);
 		setL_name(l_name);
 		setEmail(email);

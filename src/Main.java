@@ -1,6 +1,8 @@
 
 import Controller.FirstTimeSetupWelcomeScreenController;
+import Controller.LoginController;
 import Controller.MainWindowController;
+import Model.LoginModel;
 import View.LoginView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +14,17 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        System.out.println(System.getProperty("user.dir"));
+
         //this creates the flags.dat file and directory if it hasn't been created yet
         //I figure we could use this for a whole bunch of flag files for saving different
         //preferences and persistent data that wouldn't make sense to put into a database
@@ -45,9 +53,9 @@ public class Main extends Application {
 //        scene.setFill(Color.TRANSPARENT);
 //        stage.setScene(scene);
 //        stage.show();
-
-        AnchorPane rootGroup = new AnchorPane();
         LoginView loginView = new LoginView(stage);
+        LoginModel loginModel = new LoginModel();
+        LoginController loginController = new LoginController(loginView, loginModel);
 
 
 

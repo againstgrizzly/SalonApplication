@@ -1,9 +1,7 @@
 package Controller;
 
-import Model.Stylist;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -19,7 +17,6 @@ public class SchedulingTabController implements Initializable {
     @FXML
     AnchorPane rootPane;
 
-    List<Stylist> stylistList = new ArrayList<>();
 
 
     @Override

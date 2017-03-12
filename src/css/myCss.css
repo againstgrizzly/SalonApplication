@@ -5,9 +5,14 @@
 
 .button { /*button is in normal state*/
 -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-font: 14px "Segoe UI";
     -fx-background-radius: 0px, 3px, 2px, 1px;
     -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
     -fx-background-color: #00c7d4
+}
+
+.button .text{
+ -fx-fill: #FFFFFF
 }
 
 .image-view{
@@ -92,8 +97,7 @@
 -fx-text-background-color: #FFFFFF;
 -fx-background: derive(-fx-base, 26.4%);
 -fx-base: #ececec;
--fx-light-text-color: white;
--fx-dark-text-color: black;
+-fx-text-color: white;
 -fx-mid-text-color: #333333;
 }
 

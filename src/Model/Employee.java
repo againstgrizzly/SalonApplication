@@ -12,7 +12,9 @@ public class Employee {
 	private String email;
 	private Date date_of_birth;
 	private ArrayList<Service> emp_services;
-	
+
+	public Employee(){}
+
 	public Employee(String f_name, String l_name, String email, int phone, Date date_of_birth){
 		setF_name(f_name);
 		setL_name(l_name);

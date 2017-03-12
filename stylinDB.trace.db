@@ -524,3 +524,7 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/Bra
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:344)
 	... 67 more
+2017-03-12 14:28:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-192]
+2017-03-12 14:29:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-192]

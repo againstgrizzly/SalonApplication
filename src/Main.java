@@ -3,6 +3,7 @@ import Controller.FirstTimeSetupWelcomeScreenController;
 import Controller.LoginController;
 import Controller.MainWindowController;
 import Model.LoginModel;
+import Model.Queries;
 import View.LoginView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,10 +16,14 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class Main extends Application {
+
+    private String url = "jdbc:h2:" + // protocol
+            System.getProperty("user.dir") + "/stylinDB";
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -53,9 +58,18 @@ public class Main extends Application {
 //        scene.setFill(Color.TRANSPARENT);
 //        stage.setScene(scene);
 //        stage.show();
+
+        Class.forName("org.h2.Driver");
+        Connection connection = DriverManager.getConnection(url, "sa", "");
+        Statement statement = connection.createStatement();
+
+        Queries queries = new Queries(statement);
         LoginView loginView = new LoginView(stage);
-        LoginModel loginModel = new LoginModel();
-        LoginController loginController = new LoginController(loginView, loginModel);
+        LoginModel loginModel = new LoginModel(queries);
+        LoginController loginController = new LoginController(loginView, loginModel, queries);
+
+
+        connection.close();
 
 
 

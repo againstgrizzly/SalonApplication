@@ -10,12 +10,15 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import jfxtras.scene.control.LocalDatePicker;
+import sun.plugin.javascript.navig.Anchor;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -40,7 +43,6 @@ public class MainWindowController implements Initializable {
     AnchorPane mainWindowPane;
     @FXML
     SplitPane splitPane;
-
     @FXML
     Button homeButton;
     @FXML
@@ -55,6 +57,8 @@ public class MainWindowController implements Initializable {
     Tab schedulingTab;
     @FXML
     TabPane mainWindowTabPane;
+    @FXML
+    AnchorPane schedulingTabRootPane;
 
     @FXML
     private Label nameLabel;
@@ -68,10 +72,11 @@ public class MainWindowController implements Initializable {
     private int second; //only used for testing so we don't have to wait;
     private int am_pm;
 
+    @FXML private SchedulingTabController schedulingTabController;
 
     private boolean running = false;
 
-    private String name = "Captain Falcon";
+    private String name = "Welcome, Captain Falcon";
     DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     Date date = new Date();
 
@@ -88,14 +93,26 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/schedulingTab.fxml"));
+            AnchorPane schedulingPane = loader.load();
+            schedulingTabRootPane.getChildren().addAll(schedulingPane);
+            AnchorPane.setBottomAnchor(schedulingPane, 0.0);
+            AnchorPane.setTopAnchor(schedulingPane, 0.0);
+            AnchorPane.setLeftAnchor(schedulingPane, 0.0);
+            AnchorPane.setRightAnchor(schedulingPane, 0.0);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         //a temporary place to put stuff until i get organized
         aPlaceToPutStuffForNow();
 
         setNameDateTimeLabel();
-        startClock();
 
         //Actions for the 4 main Buttons;
         buttonActions();
+
+
     }
 
     @FXML
@@ -158,25 +175,18 @@ public class MainWindowController implements Initializable {
         });
     }
 
+
     public void setNameDateTimeLabel() {
         nameLabel.setText(name);
-
         dateLabel.setText(dateFormat.format(date));
-
-
-    }
-
-    private void startClock() {
         TimelineBuilder.create()
                 .cycleCount(Timeline.INDEFINITE)
-                .keyFrames(
-                        new KeyFrame(Duration.seconds(1), updateTime())
-                )
+                .keyFrames(new KeyFrame(Duration.seconds(1), updateTime()))
                 .build()
                 .play();
     }
 
-
+    //Hands time update for the clock
     private EventHandler updateTime() {
         return new EventHandler() {
             @Override

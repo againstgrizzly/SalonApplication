@@ -1,6 +1,7 @@
 
 import Controller.FirstTimeSetupWelcomeScreenController;
 import Controller.MainWindowController;
+import View.LoginView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -33,14 +34,21 @@ public class Main extends Application {
 //        stage.setScene(scene);
 //        stage.show();
 
-        FXMLLoader mainWindow = new FXMLLoader(getClass().getResource("/fxml/MainWindow.fxml"));
-        AnchorPane rootGroup = mainWindow.load();
-        MainWindowController controller = mainWindow.getController();
-        Scene scene = new Scene(rootGroup, 1366, 768);
-        scene.getStylesheets().add("css/myCss.css"); //Comment this out to remove the CSS skinning
-        scene.setFill(Color.TRANSPARENT);
-        stage.setScene(scene);
-        stage.show();
+        //Load login screen
+
+
+//        FXMLLoader mainWindow = new FXMLLoader(getClass().getResource("/fxml/MainWindow.fxml"));
+//          AnchorPane rootGroup = mainWindow.load();
+//        MainWindowController controller = mainWindow.getController();
+//          Scene scene = new Scene(rootGroup, 1366, 768);
+//          scene.getStylesheets().add("css/myCss.css"); //Comment this out to remove the CSS skinning
+//        scene.setFill(Color.TRANSPARENT);
+//        stage.setScene(scene);
+//        stage.show();
+
+        AnchorPane rootGroup = new AnchorPane();
+        LoginView loginView = new LoginView(stage);
+
 
 
     }

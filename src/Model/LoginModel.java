@@ -8,11 +8,16 @@ public class LoginModel {
 // and that is it. It doesn't know the View
 // exists
 
+    Queries queries = new Queries();
 
     public boolean isLoginValid(String username, String pin) {
         String inputtedUsername = username;
         int inputtedPin = Integer.valueOf(pin);
-        boolean validInput = new Queries().LoginAttempt(inputtedUsername, inputtedPin);
+        boolean validInput = queries.LoginAttempt(inputtedUsername, inputtedPin);
         return validInput;
+    }
+
+    public Employee getLoggedInEmployee(String enteredUsername){
+        return queries.getLoggedInEmployee(enteredUsername);
     }
 }

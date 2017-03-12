@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Employee;
 import Model.LoginModel;
-import Model.Queries;
 import View.LoginView;
 
 import java.sql.SQLException;
@@ -48,15 +47,13 @@ public class LoginController {
             if(loginSuccessful){
                 //Load the next screen and pass in employee object
                 System.out.println("login sucessful");
-                employee = new Queries().getLoggedInEmployee(enteredUsername);
-
+                employee = loginModel.getLoggedInEmployee(enteredUsername);
             }
 
             else{
                 //Display wrong password message
                 System.out.println("login unsuccessful");
             }
-
         });
 
 

@@ -8,10 +8,14 @@ public class Employee {
 	private String username;
 	private String f_name;
 	private String l_name;
-	private int phone;
+	private double phone;
 	private String email;
 	private Date date_of_birth;
 	private ArrayList<Service> emp_services;
+
+	public Employee(){
+
+	}
 	
 	public Employee(String f_name, String l_name, String email, int phone, Date date_of_birth){
 		setF_name(f_name);
@@ -19,7 +23,7 @@ public class Employee {
 		setEmail(email);
 		setPhone(phone);
 		setDate_of_birth(date_of_birth);
-		setUsername();
+		//setUsername();
 	}
 	
 	
@@ -53,24 +57,25 @@ public class Employee {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getPhone() {
+	public double getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(double phone) {
 		this.phone = phone;
 	}
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername() {
+	public void setUsername(String username) {
+		this.username = username;
 		/*
 		 * Here I want to set the username to be auto generated
 		 * by using some combination of the first and last name
 		 * with maybe an integer.
 		 */
-		String username;
-		username = f_name.substring(0,1) + l_name;
-		this.username = username;
+//		String username;
+//		username = f_name.substring(0,1) + l_name;
+//		this.username = username;
 	}
 	public Date getDate_of_birth() {
 		return date_of_birth;

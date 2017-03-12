@@ -6,10 +6,14 @@ import org.jooq.impl.DSL;
 
 import java.sql.*;
 
+
 public class Queries {
 
     private String url = "jdbc:h2:" + // protocol
             System.getProperty("user.dir") + "/stylinDB";
+
+    private Statement statement;
+
 
     /*
      * The following method can be used to insert an employee
@@ -30,7 +34,7 @@ public class Queries {
             stmnt.setString(1, emp.getF_name());
             stmnt.setString(2, emp.getL_name());
             stmnt.setString(3, emp.getEmail());
-            stmnt.setInt(4, emp.getPhone());
+            stmnt.setDouble(4, emp.getPhone());
             stmnt.setString(5, emp.getUsername());
             stmnt.setDate(6, emp.getDate_of_birth());
             stmnt.execute();
@@ -113,8 +117,12 @@ public class Queries {
             String query = "select * from logins where username = '" + username + "' and password = " + pin + ";";
             ResultSet resultSet = statement.executeQuery(query);
 
-            if (!resultSet.next()) {validInput = false;} //sets validInput to false for empty table meaning that it didn't find that user/pin
-            else {validInput = true;} //yeah buddy
+            if (!resultSet.next()) {
+                validInput = false;
+            } //sets validInput to false for empty table meaning that it didn't find that user/pin
+            else {
+                validInput = true;
+            } //yeah buddy
 
             resultSet.close();
             connection.close();
@@ -125,19 +133,44 @@ public class Queries {
         return validInput;
     }
 
-    public Employee getLoggedInEmployee(String username){
-        try{
-            Class.forName("org.h2.Diver");
+    public Employee getLoggedInEmployee(String username) {
+        Employee loggedInEmployee;
+        String employee_id;
+        String username1;
+        String firstName;
+        String lastName;
+        String email;
+        double phoneNumber;
+        Date dateOfBirth;
+
+        try {
+            Class.forName("org.h2.Driver");
             Connection conn = DriverManager.getConnection(url, "sa", "");
             Statement statement = conn.createStatement();
-            String query = "select e.employee_id, e.username, e.f_name FIRSTNAME, e.l_name LASTNAME, e.email EMAIL, e.phone PHONE, e.date_of_birth from employees e where e.username = 'iawesome';";
+            String query = "select e.employee_id ID, e.username USERNAME, e.f_name FIRSTNAME, e.l_name LASTNAME, e.email EMAIL, e.phone PHONE, e.date_of_birth DATEOFBIRTH from employees e where e.username = 'iawesome';";
+            ResultSet resultSet = statement.executeQuery(query);
 
+            while (resultSet.next()) {
+                employee_id = resultSet.getString("ID");
+                username1 = resultSet.getString("USERNAME");
+                firstName = resultSet.getString("FIRSTNAME");
+                lastName = resultSet.getString("LASTNAME");
+                email = resultSet.getString("EMAIL");
+                phoneNumber = resultSet.getDouble("PHONE");
+                dateOfBirth = resultSet.getDate("DATEOFBIRTH");
+                loggedInEmployee = new Employee();
+                loggedInEmployee.setUsername(username1);
+                loggedInEmployee.setF_name(firstName);
+                loggedInEmployee.setL_name(lastName);
+                loggedInEmployee.setEmail(email);
+                loggedInEmployee.setPhone(phoneNumber);
+                loggedInEmployee.setDate_of_birth(dateOfBirth);
+                return loggedInEmployee;
+            }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return null;
     }
 

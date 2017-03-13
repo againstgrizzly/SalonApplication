@@ -11,7 +11,8 @@ public class Employee {
 	private double phone;
 	private String email;
 	private Date date_of_birth;
-	private ArrayList<Service> emp_services;
+	private List<Service> emp_services;
+	private List<Appointment> appointments;
 
 	public Employee(){
 
@@ -27,10 +28,10 @@ public class Employee {
 	}
 	
 	
-	public ArrayList<Service> getEmp_services() {
+	public List<Service> getEmp_services() {
 		return emp_services;
 	}
-	public void setEmp_services(ArrayList<Service> emp_services) {
+	public void setEmp_services(List<Service> emp_services) {
 		this.emp_services = emp_services;
 	}
 	public String getEmployee_id() {
@@ -83,8 +84,10 @@ public class Employee {
 	public void setDate_of_birth(Date date_of_birth) {
 		this.date_of_birth = date_of_birth;
 	}
-	
-	
-	
-
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
 }

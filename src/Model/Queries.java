@@ -5,6 +5,8 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Queries {
@@ -91,7 +93,7 @@ public class Queries {
                     + "(appt_time, notes, client_id, employee_id, duration)"
                     + "VALUES(?,?,?,?,?)";
             PreparedStatement stmnt = conn.prepareStatement(sql);
-            stmnt.setTime(1, appt.getAppt_time());
+            stmnt.setTimestamp(1, appt.getAppt_time());
             stmnt.setString(2, appt.getNotes());
             stmnt.setString(3, appt.getClient_id());
             stmnt.setString(4, appt.getEmployee_id());
@@ -133,8 +135,11 @@ public class Queries {
         return validInput;
     }
 
+
+    //This method is used to create the employee object for the employee currently logged in
     public Employee getLoggedInEmployee(String username) {
-        Employee loggedInEmployee;
+        Employee loggedInEmployee = new Employee();
+        List<Appointment> appointments = new ArrayList<>();
         String employee_id;
         String username1;
         String firstName;
@@ -147,7 +152,7 @@ public class Queries {
             Class.forName("org.h2.Driver");
             Connection conn = DriverManager.getConnection(url, "sa", "");
             Statement statement = conn.createStatement();
-            String query = "select e.employee_id ID, e.username USERNAME, e.f_name FIRSTNAME, e.l_name LASTNAME, e.email EMAIL, e.phone PHONE, e.date_of_birth DATEOFBIRTH from employees e where e.username = 'iawesome';";
+            String query = "select e.employee_id ID, e.username USERNAME, e.f_name FIRSTNAME, e.l_name LASTNAME, e.email EMAIL, e.phone PHONE, e.date_of_birth DATEOFBIRTH from employees e where e.username = '"+ username +"';";
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -159,19 +164,113 @@ public class Queries {
                 phoneNumber = resultSet.getDouble("PHONE");
                 dateOfBirth = resultSet.getDate("DATEOFBIRTH");
                 loggedInEmployee = new Employee();
+                loggedInEmployee.setEmployee_id(employee_id);
                 loggedInEmployee.setUsername(username1);
                 loggedInEmployee.setF_name(firstName);
                 loggedInEmployee.setL_name(lastName);
                 loggedInEmployee.setEmail(email);
                 loggedInEmployee.setPhone(phoneNumber);
                 loggedInEmployee.setDate_of_birth(dateOfBirth);
-                return loggedInEmployee;
             }
+
+            //Get all the appointments for the currently logged in employee
+            query = "select * from appointments where employee_id = " + loggedInEmployee.getEmployee_id() + ";";
+            resultSet = statement.executeQuery(query);
+            System.out.println("the employee who is loggin in is:" + loggedInEmployee.getEmployee_id());
+
+            while(resultSet.next()){
+                Appointment appointment = new Appointment();
+                String appointmentId = resultSet.getString("APPT_ID");
+                String clientId = resultSet.getString("CLIENT_ID");
+                String employeeID = resultSet.getString("EMPLOYEE_ID");
+                Timestamp timestamp = resultSet.getTimestamp("TIME");
+                String notes = resultSet.getString("NOTES");
+                int duration = resultSet.getInt("DURATION");
+                appointment.setAppt_id(appointmentId);
+                appointment.setClient_id(clientId);
+                appointment.setEmployee_id(employeeID);
+                appointment.setAppt_time(timestamp);
+                appointment.setNotes(notes);
+                appointment.setDuration(duration);
+                appointments.add(appointment);
+            }
+
+            loggedInEmployee.setAppointments(appointments);
+
+            return loggedInEmployee;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //This is used to get all the employees data that are
+    //currently in the system
+    public List<Employee> getAllEmployees(){
+        List<Employee> listOfEmployees = new ArrayList<>();
+        String employee_id;
+        String username1;
+        String firstName;
+        String lastName;
+        String email;
+        double phoneNumber;
+        Date dateOfBirth;
+
+        try {
+            Class.forName("org.h2.Driver");
+            Connection conn = DriverManager.getConnection(url, "sa", "");
+            Statement statement = conn.createStatement();
+            String query = "select * from employees";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            //Creates a list of employee objects for each employee and adds their information sans appointments
+            while (resultSet.next()) {
+                employee_id = resultSet.getString("EMPLOYEE_ID");
+                username1 = resultSet.getString("USERNAME");
+                firstName = resultSet.getString("F_NAME");
+                lastName = resultSet.getString("L_NAME");
+                phoneNumber = resultSet.getDouble("PHONE");
+                email = resultSet.getString("EMAIL");
+                dateOfBirth = resultSet.getDate("DATE_OF_BIRTH");
+                Employee employee = new Employee();
+                employee.setEmployee_id(employee_id);
+                employee.setUsername(username1);
+                employee.setF_name(firstName);
+                employee.setL_name(lastName);
+                employee.setEmail(email);
+                employee.setPhone(phoneNumber);
+                employee.setDate_of_birth(dateOfBirth);
+                listOfEmployees.add(employee);
+            }
+
+            //Get all the appointments for the currently logged in employee
+            for(Employee e : listOfEmployees) {
+                List<Appointment> appointmentList = new ArrayList<>();
+
+                query = "select * from appointments where employee_id ='" + e.getEmployee_id() + "'";
+                resultSet = statement.executeQuery(query);
+
+                while(resultSet.next()){
+                    Appointment appointment = new Appointment();
+                    appointment.setAppt_id(resultSet.getString("APPT_ID"));
+                    appointment.setClient_id(resultSet.getString("CLIENT_ID"));
+                    appointment.setEmployee_id(resultSet.getString("EMPLOYEE_ID"));
+                    appointment.setAppt_time(resultSet.getTimestamp("TIME"));
+                    appointment.setNotes(resultSet.getString("NOTES"));
+                    appointment.setDuration(resultSet.getInt("DURATION"));
+                    appointmentList.add(appointment);
+                }
+                e.setAppointments(appointmentList);
+            }
+
+
+            return listOfEmployees;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+
     }
 
 

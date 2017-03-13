@@ -2,9 +2,9 @@ package Controller;
 
 import Model.Employee;
 import Model.LoginModel;
+import Model.MainWindowModel;
 import View.LoginView;
-
-import java.sql.SQLException;
+import View.MainWindowView;
 
 /**
  * Created by Brannon on 3/11/2017.
@@ -16,6 +16,7 @@ public class LoginController {
     private String enteredPin;
     private String enteredUsername;
     private Employee employee;
+
 
 
     public LoginController(LoginView loginView, LoginModel loginModel) {
@@ -48,6 +49,7 @@ public class LoginController {
                 //Load the next screen and pass in employee object
                 System.out.println("login sucessful");
                 employee = loginModel.getLoggedInEmployee(enteredUsername);
+                loadMainWindow();
             }
 
             else{
@@ -62,6 +64,14 @@ public class LoginController {
 
         });
 
+    }
+
+    public void loadMainWindow() {
+        try {
+            MainWindowView mainWindowView = new MainWindowView(loginView.getStage());
+            MainWindowModel mainWindowModel = new MainWindowModel();
+            MainWindowController mainWindowController = new MainWindowController(mainWindowView, mainWindowModel, employee);
+        } catch (Exception e) {e.printStackTrace();}
     }
 
 

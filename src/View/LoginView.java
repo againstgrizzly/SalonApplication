@@ -21,14 +21,14 @@ import javafx.stage.Stage;
 public class LoginView {
 
     private String stylinTheme = "css/myCss.css";
-
+    private Stage stage;
     private Button forgotButton;
     private TextField username;
     private TextField pin;
     private Button loginButton;
 
     public LoginView(Stage primaryStage) throws Exception {
-
+        stage = primaryStage;
         VBox root = new VBox();
         primaryStage.setTitle("Login Screen");
         primaryStage.setScene(new Scene(root, 300, 363));
@@ -142,5 +142,9 @@ public class LoginView {
 
     public void setLoginButton(Button loginButton) {
         this.loginButton = loginButton;
+    }
+
+    public Stage getStage(){
+        return stage;
     }
 }

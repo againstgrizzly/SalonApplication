@@ -1,24 +1,21 @@
 
-import Controller.FirstTimeSetupWelcomeScreenController;
 import Controller.LoginController;
 import Controller.MainWindowController;
+import Model.Employee;
 import Model.LoginModel;
+import Model.MainWindowModel;
 import View.LoginView;
+import View.MainWindowView;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 
 public class Main extends Application {
+
+    private int screen = 0; //Change this to jump quickly to different screens
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -53,10 +50,20 @@ public class Main extends Application {
 //        scene.setFill(Color.TRANSPARENT);
 //        stage.setScene(scene);
 //        stage.show();
-        LoginView loginView = new LoginView(stage);
-        LoginModel loginModel = new LoginModel();
-        LoginController loginController = new LoginController(loginView, loginModel);
 
+        //Loads login
+
+        if(screen == 0) {
+            LoginView loginView = new LoginView(stage);
+            LoginModel loginModel = new LoginModel();
+            LoginController loginController = new LoginController(loginView, loginModel);
+        }
+
+        if(screen == 1){
+            MainWindowView mainWindowView = new MainWindowView(stage);
+            MainWindowModel mainWindowModel = new MainWindowModel();
+            MainWindowController mainWindowController = new MainWindowController(mainWindowView, mainWindowModel, null);
+        }
 
 
     }

@@ -43,6 +43,10 @@
  -fx-fill: #FFFFFF
 }
 
+.label .text{
+-fx-fill: #FFFFFF
+}
+
 .toggle-button { /* FX theme stylesheet */
 -fx-alignment: CENTER;
 -fx-background-color: #00c7d4;

@@ -1,5 +1,6 @@
 package View;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -9,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -20,12 +22,12 @@ import javafx.stage.Stage;
 
 public class LoginView {
 
-    private String stylinTheme = "css/myCss.css";
+    private String stylinTheme = "css/StylinThemeCalmPro.css";
     private Stage stage;
-    private Button forgotButton;
+    private JFXButton forgotButton;
     private TextField username;
     private TextField pin;
-    private Button loginButton;
+    private JFXButton loginButton;
 
     public LoginView(Stage primaryStage) throws Exception {
         stage = primaryStage;
@@ -44,17 +46,17 @@ public class LoginView {
         root.setMargin(pin, new Insets(0, 40, 30, 40));
         pin.setMinHeight(40);
 
-        loginButton = new Button();
-        loginButton.getStylesheets().clear();
+        loginButton = new JFXButton();
         loginButton.getStylesheets().add(stylinTheme);
+        loginButton.setRipplerFill(Color.WHITE);
         loginButton.setText("Login");
         loginButton.setMaxWidth(200);
         loginButton.setMinHeight(50);
         root.setMargin(loginButton, new Insets(0, 0, 15, 50));
 
-        forgotButton = new Button();
-        forgotButton.getStylesheets().clear();
+        forgotButton = new JFXButton();
         forgotButton.getStylesheets().add(stylinTheme);
+        forgotButton.setRipplerFill(Color.WHITE);
         forgotButton.setText("Forgot Username/PIN");
         forgotButton.setMaxWidth(200);
         forgotButton.setMinHeight(50);
@@ -108,15 +110,13 @@ public class LoginView {
                 }
             }
         });
-
-
     }
 
-    public Button getForgotButton() {
+    public JFXButton getForgotButton() {
         return forgotButton;
     }
 
-    public void setForgotButton(Button forgotButton) {
+    public void setForgotButton(JFXButton forgotButton) {
         this.forgotButton = forgotButton;
     }
 
@@ -136,11 +136,11 @@ public class LoginView {
         this.pin = pin;
     }
 
-    public Button getLoginButton() {
+    public JFXButton getLoginButton() {
         return loginButton;
     }
 
-    public void setLoginButton(Button loginButton) {
+    public void setLoginButtonJFX(JFXButton loginButton) {
         this.loginButton = loginButton;
     }
 

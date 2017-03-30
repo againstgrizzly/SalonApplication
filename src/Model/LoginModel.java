@@ -1,6 +1,7 @@
 package Model;
 
-import java.sql.*;
+import MiscObjects.Employee;
+import MiscObjects.Queries;
 
 public class LoginModel {
 

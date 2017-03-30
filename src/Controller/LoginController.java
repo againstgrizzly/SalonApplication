@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Employee;
+import MiscObjects.Employee;
 import Model.LoginModel;
 import Model.MainWindowModel;
 import View.LoginView;

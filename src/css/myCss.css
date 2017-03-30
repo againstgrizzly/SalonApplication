@@ -23,16 +23,54 @@
  -fx-background-color: #00efff
 }
 
-.button:armed { /*Button is pressed*/
+.menu-button{
+ -fx-font: 14px "Segoe UI";
+-fx-background-color: #00c7d4
+
+}
+.menu-button: hover{
+ -fx-background-color: #00efff
+}
+.menu-button: armed{
  -fx-background-color: #ff0073
+
 }
 
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.menu-item{
+}
+.menu-item:hover {
+     -fx-background-color: #00efff;
+}
+
+
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: #00c7d4;
+/*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+}
+/*Button is pressed*/
+/*
+.button:armed {
+ -fx-background-color: #ff0073
+}
+*/
 .button: focused{} /*unusued for now*/
 
 .LocalDatePickerSkin .CalendarPickerControlSkin .weeknumber .text{
 
- -fx-fill: #FFFFFF
 
+
+}
+
+#bpane{
+-fx-border-color: #FFFFFF;
+-fx-background-color: #3d3d3d;
 }
 
 .LocalDatePickerSkin .CalendarPickerControlSkin .weekday .text{
@@ -116,4 +154,6 @@
     -fx-background-insets: 0;
     -fx-shape: " ";
 }
+
+
 

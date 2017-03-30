@@ -1,12 +1,12 @@
 
 import Controller.LoginController;
 import Controller.MainWindowController;
-import Model.Employee;
 import Model.LoginModel;
 import Model.MainWindowModel;
 import View.LoginView;
 import View.MainWindowView;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -17,8 +17,11 @@ public class Main extends Application {
 
     private int screen = 0; //Change this to jump quickly to different screens
 
+    Image logo = new Image(getClass().getResourceAsStream("res/stylinMenuLogo.png"));
+
     @Override
     public void start(Stage stage) throws Exception {
+        stage.getIcons().add(logo);
 
         System.out.println(System.getProperty("user.dir"));
 
@@ -52,6 +55,8 @@ public class Main extends Application {
 //        stage.show();
 
         //Loads login
+
+        //Styling Setup
 
         if(screen == 0) {
             LoginView loginView = new LoginView(stage);

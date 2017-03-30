@@ -1,8 +1,4 @@
-package Model;
-
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
+package MiscObjects;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -49,7 +45,7 @@ public class Queries {
     } //End InsertEmployee
 
     /*
-     * The following method can be used to insert a Model.Service
+     * The following method can be used to insert a MiscObjects.Service
      * into the database. It takes the URL(directory) of the database
      * as one of the parameters. It assumes that the username for the
      * database is "sa" and the password is blank. It also assumes the
@@ -78,7 +74,7 @@ public class Queries {
     } //End InsertService
 
     /*
-     * The following method can be used to insert an Model.Appointment
+     * The following method can be used to insert an MiscObjects.Appointment
      * into the database. It takes the URL(directory) of the database
      * as one of the parameters. It assumes that the username for the
      * database is "sa" and the password is blank. It also assumes the

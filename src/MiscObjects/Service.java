@@ -1,4 +1,4 @@
-package Model;
+package MiscObjects;
 
 public class Service {
 	private String service_id;

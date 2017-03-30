@@ -1,10 +1,9 @@
-package MiscObjects;
 
 public class Client {
 	private String client_id;
 	private String f_name;
 	private String l_name;
-	private int phone;
+	private long phone;
 	private String email;
 	private String employee_id;
 	private String color_formula;
@@ -31,10 +30,10 @@ public class Client {
 	public void setL_name(String l_name) {
 		this.l_name = l_name;
 	}
-	public int getPhone() {
+	public long getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
 	public String getEmail() {

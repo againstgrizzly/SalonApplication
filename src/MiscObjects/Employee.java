@@ -8,7 +8,7 @@ public class Employee {
 	private String username;
 	private String f_name;
 	private String l_name;
-	private double phone;
+	private long phone;
 	private String email;
 	private Date date_of_birth;
 	private List<Service> emp_services;
@@ -18,7 +18,7 @@ public class Employee {
 
 	}
 	
-	public Employee(String f_name, String l_name, String email, int phone, Date date_of_birth){
+	public Employee(String f_name, String l_name, String email, long phone, Date date_of_birth){
 		setF_name(f_name);
 		setL_name(l_name);
 		setEmail(email);
@@ -58,10 +58,10 @@ public class Employee {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public double getPhone() {
+	public long getPhone() {
 		return phone;
 	}
-	public void setPhone(double phone) {
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
 	public String getUsername() {

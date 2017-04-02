@@ -1,53 +1,64 @@
 package View;
 
-import Controller.SchedulingTabController;
-import Model.SchedulingTabModel;
+import Controller.MainWindowController;
+import MiscObjects.Employee;
+import com.jfoenix.controls.JFXButton;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import sun.applet.Main;
-import sun.awt.image.ShortComponentRaster;
+import javafx.util.Duration;
+import jfxtras.scene.control.LocalDatePicker;
 import sun.plugin.javascript.navig.Anchor;
+
 
 /**
  * Created by Brannon on 3/12/2017.
  */
 public class MainWindowView {
 
+    private Employee employee;
+    private GaussianBlur gaussianBlur;
+
     private Stage stage;
     private AnchorPane rootPane;
+    private AnchorPane differentScreenContainer;
     private BorderPane dividerPane;
-    private AnchorPane leftMenu;
+    private AnchorPane leftMenu;////////LEft menu
     private AnchorPane mainPane;
     private TilePane buttonStackPane;
-    private Button homeButton;
+    private ToggleButton homeButton;
     private ImageView homeButtonImage;
-    private Button schedulingButton;
+    private ToggleButton schedulingButton;
     private ImageView schedulingButtonImage;
-    private Button clientButton;
+    private ToggleButton clientButton;
     private ImageView clientButtonImage;
-    private Button settingsButton;
+    private ToggleButton settingsButton;
     private ImageView settingsButtonImage;
-    private AnchorPane tabPaneHolder;
-    private TabPane tabPane;
-    private Tab homeTab;
-    private Tab schedulingTab;
+    private AnchorPane homeScreen;
+    private ScrollPane schedulingScreen;
     private AnchorPane topBar;
     private Label nameLabel;
     private Label dateLabel;
     private Label timeLabel;
     private Button hamburgerButton;
     private ImageView hamburgerButtonImage;
+    private ToggleGroup toggleGroup;
+    private AnchorPane blockerPane; //this pane blocks the user from clicking main gui elements when the login screen is up
+
+    private AnchorPane loginPane;
 
     private Slider verticalSlider;
     private Slider horizontalSlider;
@@ -56,89 +67,276 @@ public class MainWindowView {
     private ScrollPane schedulingScrollPaneTabPane;
     private AnchorPane schedulingTabPane;
 
-    private String stylinTheme = "css/myCss.css";
+    private LocalDatePicker schedulingDatePicker;
 
-    private boolean openClose = true;
+    private String stylinTheme = "css/StylinThemeCalmPro.css";
+
+    private boolean open = false;
+
+    double buttonAndMenuCollapsedSize = 50.0;
+    double innerImageSize = 30.0;
 
 
-    public MainWindowView(Stage primaryStage) throws Exception {
-        stage = primaryStage;
-        rootPane = new AnchorPane();
+    public MainWindowView(Stage stage, LoginView loginView) throws Exception {
+        rootPane = new AnchorPane();//This is the base pane for everything
         stage.setTitle("Stylin");
-        stage.setScene(new Scene(rootPane, 1366, 768));
+        this.stage = stage;
+        Scene scene = new Scene(rootPane, 1366, 768);
+        scene.getStylesheets().add(stylinTheme);
+        stage.setScene(scene);
         rootPane.requestFocus();
+        loadMainWindowGui();
+
+        blockerPane = new AnchorPane();
+        AnchorPane.setBottomAnchor(blockerPane, 0.0);
+        AnchorPane.setLeftAnchor(blockerPane, 0.0);
+        AnchorPane.setRightAnchor(blockerPane, 0.0);
+        AnchorPane.setTopAnchor(blockerPane, 0.0);
+        rootPane.getChildren().add(blockerPane);
+
+        loadLoginGui(loginView);
+
+        gaussianBlur = new GaussianBlur(100);
+        dividerPane.setEffect(gaussianBlur);
+
+
+        stage.show();
+    }
+
+    public void loadLoginGui(LoginView loginView){
+        loginPane = new AnchorPane();
+        loginPane.setPrefSize(loginView.getRoot().getPrefWidth(), loginView.getRoot().getPrefHeight());
+        System.out.println(loginView.getRoot().getPrefWidth());
+        loginPane.getChildren().add(loginView.getRoot());
+
+        loginPane.setLayoutX(rootPane.getWidth()/2 - loginView.getRoot().getPrefWidth()/2);
+        loginPane.setLayoutY(rootPane.getHeight()/2 - loginView.getRoot().getPrefHeight()/2);
+
+
+        rootPane.widthProperty().addListener(e ->{
+            loginPane.setLayoutX(rootPane.getWidth()/2 - loginPane.getWidth()/2);
+            System.out.println(rootPane.getWidth()/2 - loginPane.getWidth()/2);
+        });
+
+        rootPane.heightProperty().addListener(e ->{
+            loginPane.setLayoutY((rootPane.getHeight()/2 -  loginPane.getHeight()/2));
+        });
+
+        rootPane.getChildren().add(loginPane);
+    }
+
+    public void loadMainWindowGui() {
         mainPane = new AnchorPane();
         mainPane.setStyle("-fx-background-color: #00c712;");
 
         dividerPane = new BorderPane();
 
+        //LeftBorderPane aka the Left menu controlled by the hamburger button
+        leftMenuPane();
+
+
+        //Center Border Pane/////////////////////////////////////////////////////////////////
+        topBar = new AnchorPane();
+        topBar.setMinHeight(buttonAndMenuCollapsedSize);
+        topBar.setMaxHeight(buttonAndMenuCollapsedSize);
+        topBar.setPrefHeight(buttonAndMenuCollapsedSize);
+        topBar.setStyle("-fx-background-color: #565656");
+        /////////////////////////////////////
+
+
+        //Home Screen
+        homeScreen = new AnchorPane();
+
+
+        //Scheduling Screen
+        schedulingScreen = new ScrollPane();
+
+        verticalSlider = new Slider();
+        verticalSlider.setOrientation(Orientation.VERTICAL);
+        AnchorPane.setBottomAnchor(verticalSlider, 50.0);
+        AnchorPane.setRightAnchor(verticalSlider, 30.0);
+        verticalSlider.setMax(4000.0);
+        verticalSlider.setMin(200);
+
+        horizontalSlider = new Slider();
+        horizontalSlider.setOrientation(Orientation.HORIZONTAL);
+        AnchorPane.setBottomAnchor(horizontalSlider, 30.0);
+        AnchorPane.setRightAnchor(horizontalSlider, 50.0);
+        horizontalSlider.setMax(4000.0);
+        horizontalSlider.setMin(600);
+
+
+        //Add topBar to mainPane
+        mainPane = new AnchorPane();
+        mainPane.getChildren().add(topBar);
+        AnchorPane.setTopAnchor(topBar, 0.0);
+        AnchorPane.setLeftAnchor(topBar, 0.0);
+        AnchorPane.setRightAnchor(topBar, 0.0);
+
+        //Create different screen container
+        differentScreenContainer = new AnchorPane();
+        differentScreenContainer.setStyle(" -fx-background-color: #ffae00");//orange
+
+
+        //add the home screen as initial default screen
+        addHomeScreenToScreenContainer();
+
+
+        //Adds the screen container to the mainPane
+        //The mainPane has the screenContainer and the topBar
+        //the screenContainer sits below the topBar
+        mainPane.getChildren().add(differentScreenContainer);
+        AnchorPane.setTopAnchor(differentScreenContainer, buttonAndMenuCollapsedSize);
+        AnchorPane.setBottomAnchor(differentScreenContainer, 0.0);
+        AnchorPane.setRightAnchor(differentScreenContainer, 0.0);
+        AnchorPane.setLeftAnchor(differentScreenContainer, 0.0);
+
+
+        //This sets the mainPane to the center of
+        //BorderPane dividerPane
+        dividerPane.setCenter(mainPane);
+
+    }
+
+    public void addHomeScreenToScreenContainer() {
+        differentScreenContainer.getChildren().add(homeScreen);
+        AnchorPane.setTopAnchor(homeScreen, 0.0);
+        AnchorPane.setBottomAnchor(homeScreen, 0.0);
+        AnchorPane.setLeftAnchor(homeScreen, 0.0);
+        AnchorPane.setRightAnchor(homeScreen, 0.0);
+    }
+
+    public void addSchedulingScreenToScreenContainer() {
+        differentScreenContainer.getChildren().add(schedulingScreen);
+        AnchorPane.setTopAnchor(schedulingScreen, 0.0);
+        AnchorPane.setBottomAnchor(schedulingScreen, 0.0);
+        AnchorPane.setLeftAnchor(schedulingScreen, 0.0);
+        AnchorPane.setRightAnchor(schedulingScreen, 0.0);
+        differentScreenContainer.getChildren().add(horizontalSlider);
+        differentScreenContainer.getChildren().add(verticalSlider);
+    }
+
+
+    public void topBarContent(AnchorPane topBar, String firstName, String lastName) {
+
+        //Add user name to Top Bar
+        nameLabel = new Label();
+        nameLabel.setText(firstName + " " + lastName);
+        nameLabel.setFont(Font.font(24.0));
+        nameLabel.setTextFill(Color.WHITE);
+
+        topBar.getChildren().add(nameLabel);
+        AnchorPane.setBottomAnchor(nameLabel, 0.0);
+        AnchorPane.setTopAnchor(nameLabel, 0.0);
+        AnchorPane.setLeftAnchor(nameLabel, 35.0);
+
+
+    }
+
+
+    public void hamburgerOpenCloseOperation(MainWindowController.SelectedPane selectedPane) {
+        if (open) {
+            leftMenu.setPrefWidth(50.0);
+            leftMenu.setMaxWidth(50.0);
+            leftMenu.setMinWidth(50.0);
+            open = false;
+            leftMenuPaneCustomComponents(selectedPane);
+
+        } else {
+            leftMenu.setPrefWidth(260.0);
+            leftMenu.setMaxWidth(260.0);
+            leftMenu.setMinWidth(260.0);
+            open = true;
+            leftMenuPaneCustomComponents(selectedPane);
+        }
+        System.out.println("Is open: " + open);
+
+    }
+
+    public void leftMenuPane() {
+
+
         //Left Border Pane/////////////////////////////////////////////
         leftMenu = new AnchorPane();
-        leftMenu.setMaxWidth(200.0);
+        leftMenu.setMaxWidth(buttonAndMenuCollapsedSize);
+        leftMenu.setStyle("-fx-background-color: #e9e9e9;");
+
+        schedulingDatePicker = new LocalDatePicker();
+        schedulingDatePicker.setPrefWidth(240.0);
 
         buttonStackPane = new TilePane();
-        buttonStackPane.setStyle("-fx-background-color: #000000;");
+        buttonStackPane.setStyle("-fx-background-color: #e9e9e9;");
         buttonStackPane.setTileAlignment(Pos.CENTER);
         buttonStackPane.setAlignment(Pos.BOTTOM_LEFT);
-        buttonStackPane.setPrefHeight(50.0);
+        buttonStackPane.setPrefHeight(buttonAndMenuCollapsedSize);
 
-        homeButton = new Button();
-        homeButton.getStylesheets().add(stylinTheme);
+        toggleGroup = new ToggleGroup();
+
+        //<editor-fold desc="Home, Scheduling, Client, Settings, Hamburger button instantiations">
+        homeButton = new ToggleButton();
         homeButtonImage = new ImageView();
         homeButtonImage.setImage(new Image("res/whiteHomeIcon.png"));
-        homeButtonImage.setFitHeight(30.0);
-        homeButtonImage.setFitWidth(30.0);
+        homeButtonImage.setFitHeight(innerImageSize);
+        homeButtonImage.setFitWidth(innerImageSize);
         homeButton.setGraphic(homeButtonImage);
-        homeButton.setPrefSize(50.0, 50.0);
-        homeButton.setMaxSize(50.0, 50.0);
-        homeButton.setMinSize(50.0, 50.0);
+        homeButton.setPrefSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        homeButton.setMaxSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        homeButton.setMinSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        homeButton.setSelected(true);
 
-        schedulingButton = new Button();
-        schedulingButton.getStylesheets().add(stylinTheme);
+        homeButton.setToggleGroup(toggleGroup);
+
+        schedulingButton = new ToggleButton();
         schedulingButtonImage = new ImageView();
         schedulingButtonImage.setImage(new Image("res/whiteSchedulingIcon.png"));
-        schedulingButtonImage.setFitHeight(30.0);
-        schedulingButtonImage.setFitWidth(30.0);
+        schedulingButtonImage.setFitHeight(innerImageSize);
+        schedulingButtonImage.setFitWidth(innerImageSize);
         schedulingButton.setGraphic(schedulingButtonImage);
-        schedulingButton.setPrefSize(50.0, 50.0);
-        schedulingButton.setMaxSize(50.0, 50.0);
-        schedulingButton.setMinSize(50.0, 50.0);
+        schedulingButton.setPrefSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        schedulingButton.setMaxSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        schedulingButton.setMinSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        schedulingButton.setToggleGroup(toggleGroup);
 
-        clientButton = new Button();
-        clientButton.getStylesheets().add(stylinTheme);
+
+        clientButton = new ToggleButton();
         clientButtonImage = new ImageView();
         clientButtonImage.setImage(new Image("res/whiteClientIcon.png"));
-        clientButtonImage.setFitHeight(30.0);
-        clientButtonImage.setFitWidth(30.0);
+        clientButtonImage.setFitHeight(innerImageSize);
+        clientButtonImage.setFitWidth(innerImageSize);
         clientButton.setGraphic(clientButtonImage);
-        clientButton.setPrefSize(50.0, 50.0);
-        clientButton.setMaxSize(50.0, 50.0);
-        clientButton.setMinSize(50.0, 50.0);
+        clientButton.setPrefSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        clientButton.setMaxSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        clientButton.setMinSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        clientButton.setToggleGroup(toggleGroup);
 
-        settingsButton = new Button();
-        settingsButton.getStylesheets().add(stylinTheme);
+        settingsButton = new ToggleButton();
         settingsButtonImage = new ImageView();
         settingsButtonImage.setImage(new Image("res/whiteSettingsIcon.png"));
-        settingsButtonImage.setFitHeight(30.0);
-        settingsButtonImage.setFitWidth(30.0);
+        settingsButtonImage.setFitHeight(innerImageSize);
+        settingsButtonImage.setFitWidth(innerImageSize);
         settingsButton.setGraphic(settingsButtonImage);
-        settingsButton.setPrefSize(50.0, 50.0);
-        settingsButton.setMaxSize(50.0, 50.0);
-        settingsButton.setMinSize(50.0, 50.0);
+        settingsButton.setPrefSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        settingsButton.setMaxSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        settingsButton.setMinSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        settingsButton.setToggleGroup(toggleGroup);
 
         hamburgerButton = new Button();
-        hamburgerButton.getStylesheets().add(stylinTheme);
         hamburgerButtonImage = new ImageView();
         hamburgerButtonImage.setImage(new Image("res/hamburgerIcon.png"));
-        hamburgerButtonImage.setFitHeight(30.0);
-        hamburgerButtonImage.setFitWidth(30.0);
+        hamburgerButtonImage.setFitHeight(innerImageSize);
+        hamburgerButtonImage.setFitWidth(innerImageSize);
         hamburgerButton.setGraphic(hamburgerButtonImage);
-        hamburgerButton.setPrefSize(50.0, 50.0);
-        hamburgerButton.setMaxSize(50.0, 50.0);
-        hamburgerButton.setMinSize(50.0, 50.0);
+        hamburgerButton.setPrefSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        hamburgerButton.setMaxSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+        hamburgerButton.setMinSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
+
+        //</editor-fold>
+
 
         leftMenu.getChildren().add(hamburgerButton);
         AnchorPane.setTopAnchor(hamburgerButton, 0.0);
+
+        //Dont add datepicker to pane initially
 
         leftMenu.getChildren().add(buttonStackPane);
         AnchorPane.setBottomAnchor(buttonStackPane, 0.0);
@@ -153,122 +351,99 @@ public class MainWindowView {
         leftMenu.setPrefSize(200.0, 300.0);
         dividerPane.setLeft(leftMenu);
         dividerPane.setRight(mainPane);
-        dividerPane.getLeft().setStyle("-fx-background-color: #00c7d4;");
+        dividerPane.getLeft().setStyle("-fx-background-color: #e9e9e9;");
         rootPane.getChildren().add(dividerPane);
         AnchorPane.setBottomAnchor(dividerPane, 0.0);
         AnchorPane.setTopAnchor(dividerPane, 0.0);
         AnchorPane.setLeftAnchor(dividerPane, 0.0);
         AnchorPane.setRightAnchor(dividerPane, 0.0);
-
         ////////////////////////////////////////////////////////////////////////////////////
-
-        //Center Border Pane/////////////////////////////////////////////////////////////////
-        topBar = new AnchorPane();
-        topBar.setMinHeight(50.0);
-        topBar.setMaxHeight(50.0);
-        topBar.setPrefHeight(50.0);
-        topBar.setStyle("-fx-background-color: #00c7d4;");
-        /////////////////////////////////////
-
-        tabPane = new TabPane();
-        homeTab = new Tab();
-        homeTab.setClosable(false);
-        homeTab.setText("Home");
-        tabPane.getTabs().add(homeTab);
-
-        schedulingTabPane = new AnchorPane();
-
-        schedulingTab = new Tab();
-        schedulingScrollPaneTabPane = new ScrollPane();
-        schedulingTabContent(schedulingScrollPaneTabPane); ///////////////////
-
-        schedulingTabPane.getChildren().add(schedulingScrollPaneTabPane);
-        AnchorPane.setBottomAnchor(schedulingScrollPaneTabPane, 0.0);
-        AnchorPane.setLeftAnchor(schedulingScrollPaneTabPane, 0.0);
-        AnchorPane.setRightAnchor(schedulingScrollPaneTabPane, 0.0);
-        AnchorPane.setTopAnchor(schedulingScrollPaneTabPane, 0.0);
-
-        verticalSlider = new Slider();
-        verticalSlider.setOrientation(Orientation.VERTICAL);
-        schedulingTabPane.getChildren().add(verticalSlider);
-        AnchorPane.setBottomAnchor(verticalSlider, 50.0);
-        AnchorPane.setRightAnchor(verticalSlider, 30.0);
-
-
-        horizontalSlider = new Slider();
-        horizontalSlider.setOrientation(Orientation.HORIZONTAL);
-        schedulingTabPane.getChildren().add(horizontalSlider);
-        AnchorPane.setBottomAnchor(horizontalSlider, 30.0);
-        AnchorPane.setRightAnchor(horizontalSlider, 50.0);
-
-
-
-        schedulingTab.setContent(schedulingTabPane);
-        schedulingTab.setText("Scheduling");
-        tabPane.getTabs().add(schedulingTab);
-
-
-        //Add Content to homeTab and Scheduling Tab etc.
-
-        AnchorPane tabPaneHolder = new AnchorPane();
-        tabPaneHolder.setStyle("-fx-background-color: #ffff00;");
-
-
-        mainPane = new AnchorPane();
-        mainPane.getChildren().add(topBar);
-        AnchorPane.setTopAnchor(topBar, 0.0);
-        AnchorPane.setLeftAnchor(topBar, 0.0);
-        AnchorPane.setRightAnchor(topBar, 0.0);
-
-        mainPane.getChildren().add(tabPane);
-        AnchorPane.setTopAnchor(tabPane, 50.0);
-        AnchorPane.setBottomAnchor(tabPane, 0.0);
-        AnchorPane.setLeftAnchor(tabPane, 0.0);
-        AnchorPane.setRightAnchor(tabPane, 0.0);
-
-        dividerPane.setCenter(mainPane);
-
-
-        stage.show();
     }
 
-    public void homeTabContent(ScrollPane homeTabPane){
+    public void logMeIn(Employee employee){
+        this.employee = employee;
 
-    }
+        nameLabel.setText(employee.getF_name() + " " + employee.getL_name());
+        System.out.println("logged in brah");
+        System.out.println(gaussianBlur.radiusProperty());
+        Timeline timeline = new Timeline();
 
-    public void topBarContent(AnchorPane topBar, String firstName){
-        nameLabel = new Label();
-        nameLabel.setText("Welcome, " + firstName);
-        nameLabel.setFont(Font.font(24.0));
-        nameLabel.setTextFill(Color.WHITE);
+        KeyValue blurValue = new KeyValue(gaussianBlur.radiusProperty(), 0.0);
+        KeyFrame blurFrame = new KeyFrame(Duration.millis(1000), blurValue);
+        timeline.getKeyFrames().add(blurFrame);
 
-        topBar.getChildren().add(nameLabel);
-        AnchorPane.setBottomAnchor(nameLabel, 0.0);
-        AnchorPane.setTopAnchor(nameLabel, 0.0);
-        AnchorPane.setLeftAnchor(nameLabel, 35.0);
+        KeyValue opacityValue = new KeyValue(loginPane.opacityProperty(), 0.0);
+        KeyFrame opacityFrame = new KeyFrame(Duration.millis(1000), opacityValue);
+
+        timeline.getKeyFrames().addAll(blurFrame, opacityFrame);
+
+
+        timeline.setOnFinished(e -> {
+            dividerPane.setEffect(null);
+            rootPane.getChildren().remove(loginPane);
+            rootPane.getChildren().remove(blockerPane);
+                });
+        timeline.play();
+        System.out.println(gaussianBlur.radiusProperty());
+
 
 
     }
 
-    public void schedulingTabContent(ScrollPane schedulingTabPane){
-        SchedulingTabView schedulingTabView = new SchedulingTabView(schedulingTabPane, verticalSlider, horizontalSlider);
-        SchedulingTabModel schedulingTabModel = new SchedulingTabModel();
-        SchedulingTabController schedulingTabController = new SchedulingTabController(schedulingTabModel, schedulingTabView);
-    }
+    //This method handles changing the left pane to custom components for the currently selected
+    //tab
+    public void leftMenuPaneCustomComponents(MainWindowController.SelectedPane selected) {
+        leftMenu.getChildren().clear();
+        leftMenu.getChildren().add(hamburgerButton);
+        leftMenu.getChildren().add(buttonStackPane);
 
-    public void hamburgerOpenCloseOperation(){
-
-        if(openClose) {
-            leftMenu.setPrefWidth(50.0);
-            leftMenu.setMaxWidth(50.0);
-            leftMenu.setMinWidth(50.0);
-            openClose = false;
-        }else{
-            leftMenu.setPrefWidth(200.0);
-            leftMenu.setMaxWidth(200.0);
-            leftMenu.setMinWidth(200.0);
-            openClose = true;
+        switch (selected) {
+            case HOME:
+                homeLeftMenuInterface();
+                break;
+            case SCHEDULING:
+                schedulingLeftMenuInterface();
+                break;
+            case CLIENT:
+                clientLeftMenuInterface();
+                break;
+            case SETTINGS:
+                settingsLeftMenuInterface();
+                break;
+            default:
+                System.out.println("DEFAULT");
+                break;
         }
+    }
+
+    public void homeLeftMenuInterface() {
+
+
+    }
+
+    //This method handles the adding and removing of components on the left
+    //menu when on the scheduling tab when we open and close the menu. Right it only has the Date Picker
+    //but if we decide to add more stuff this will handle it
+    public void schedulingLeftMenuInterface() {
+        if (open) {
+
+            leftMenu.getChildren().add(schedulingDatePicker);
+            AnchorPane.setTopAnchor(schedulingDatePicker, 100.0);
+            AnchorPane.setLeftAnchor(schedulingDatePicker, 10.0);
+            AnchorPane.setRightAnchor(schedulingDatePicker, 10.0);
+        } else {
+            if (leftMenu.getChildren().contains(schedulingDatePicker)) {
+                leftMenu.getChildren().remove(schedulingDatePicker);
+            }
+            //For now, do not add anything
+        }
+    }
+
+    public void clientLeftMenuInterface() {
+
+    }
+
+    public void settingsLeftMenuInterface() {
 
     }
 
@@ -320,11 +495,11 @@ public class MainWindowView {
         this.buttonStackPane = buttonStackPane;
     }
 
-    public Button getHomeButton() {
+    public ToggleButton getHomeButton() {
         return homeButton;
     }
 
-    public void setHomeButton(Button homeButton) {
+    public void setHomeButton(ToggleButton homeButton) {
         this.homeButton = homeButton;
     }
 
@@ -336,11 +511,11 @@ public class MainWindowView {
         this.homeButtonImage = homeButtonImage;
     }
 
-    public Button getSchedulingButton() {
+    public ToggleButton getSchedulingButton() {
         return schedulingButton;
     }
 
-    public void setSchedulingButton(Button schedulingButton) {
+    public void setSchedulingButton(ToggleButton schedulingButton) {
         this.schedulingButton = schedulingButton;
     }
 
@@ -352,11 +527,11 @@ public class MainWindowView {
         this.schedulingButtonImage = schedulingButtonImage;
     }
 
-    public Button getClientButton() {
+    public ToggleButton getClientButton() {
         return clientButton;
     }
 
-    public void setClientButton(Button clientButton) {
+    public void setClientButton(ToggleButton clientButton) {
         this.clientButton = clientButton;
     }
 
@@ -368,11 +543,11 @@ public class MainWindowView {
         this.clientButtonImage = clientButtonImage;
     }
 
-    public Button getSettingsButton() {
+    public ToggleButton getSettingsButton() {
         return settingsButton;
     }
 
-    public void setSettingsButton(Button settingsButton) {
+    public void setSettingsButton(ToggleButton settingsButton) {
         this.settingsButton = settingsButton;
     }
 
@@ -382,38 +557,6 @@ public class MainWindowView {
 
     public void setSettingsButtonImage(ImageView settingsButtonImage) {
         this.settingsButtonImage = settingsButtonImage;
-    }
-
-    public AnchorPane getTabPaneHolder() {
-        return tabPaneHolder;
-    }
-
-    public void setTabPaneHolder(AnchorPane tabPaneHolder) {
-        this.tabPaneHolder = tabPaneHolder;
-    }
-
-    public TabPane getTabPane() {
-        return tabPane;
-    }
-
-    public void setTabPane(TabPane tabPane) {
-        this.tabPane = tabPane;
-    }
-
-    public Tab getHomeTab() {
-        return homeTab;
-    }
-
-    public void setHomeTab(Tab homeTab) {
-        this.homeTab = homeTab;
-    }
-
-    public Tab getSchedulingTab() {
-        return schedulingTab;
-    }
-
-    public void setSchedulingTab(Tab schedulingTab) {
-        this.schedulingTab = schedulingTab;
     }
 
     public AnchorPane getTopBar() {
@@ -462,5 +605,93 @@ public class MainWindowView {
 
     public void setHamburgerButtonImage(ImageView hamburgerButtonImage) {
         this.hamburgerButtonImage = hamburgerButtonImage;
+    }
+
+    public AnchorPane getDifferentScreenContainer() {
+        return differentScreenContainer;
+    }
+
+    public void setDifferentScreenContainer(AnchorPane differentScreenContainer) {
+        this.differentScreenContainer = differentScreenContainer;
+    }
+
+    public AnchorPane getHomeScreen() {
+        return homeScreen;
+    }
+
+    public void setHomeScreen(AnchorPane homeScreen) {
+        this.homeScreen = homeScreen;
+    }
+
+    public Slider getVerticalSlider() {
+        return verticalSlider;
+    }
+
+    public void setVerticalSlider(Slider verticalSlider) {
+        this.verticalSlider = verticalSlider;
+    }
+
+    public Slider getHorizontalSlider() {
+        return horizontalSlider;
+    }
+
+    public void setHorizontalSlider(Slider horizontalSlider) {
+        this.horizontalSlider = horizontalSlider;
+    }
+
+    public ScrollPane getHomeTabPane() {
+        return homeTabPane;
+    }
+
+    public void setHomeTabPane(ScrollPane homeTabPane) {
+        this.homeTabPane = homeTabPane;
+    }
+
+    public ScrollPane getSchedulingScrollPaneTabPane() {
+        return schedulingScrollPaneTabPane;
+    }
+
+    public void setSchedulingScrollPaneTabPane(ScrollPane schedulingScrollPaneTabPane) {
+        this.schedulingScrollPaneTabPane = schedulingScrollPaneTabPane;
+    }
+
+    public AnchorPane getSchedulingTabPane() {
+        return schedulingTabPane;
+    }
+
+    public void setSchedulingTabPane(AnchorPane schedulingTabPane) {
+        this.schedulingTabPane = schedulingTabPane;
+    }
+
+    public String getStylinTheme() {
+        return stylinTheme;
+    }
+
+    public void setStylinTheme(String stylinTheme) {
+        this.stylinTheme = stylinTheme;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean openClose) {
+        this.open = openClose;
+    }
+
+    public ScrollPane getSchedulingScreen() {
+        return schedulingScreen;
+    }
+
+    public void setSchedulingScreen(ScrollPane schedulingScreen) {
+        this.schedulingScreen = schedulingScreen;
+    }
+
+    public LocalDatePicker getSchedulingDatePicker() {
+        return schedulingDatePicker;
+    }
+
+    public void setSchedulingDatePicker(LocalDatePicker schedulingDatePicker) {
+        this.schedulingDatePicker = schedulingDatePicker;
     }
 }

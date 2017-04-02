@@ -1,4 +1,4 @@
-package Model;
+package MiscObjects;
 
 import java.sql.*;
 

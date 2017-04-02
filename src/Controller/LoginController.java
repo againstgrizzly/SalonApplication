@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Employee;
+import MiscObjects.Employee;
 import Model.LoginModel;
 import Model.MainWindowModel;
 import View.LoginView;
@@ -17,11 +17,16 @@ public class LoginController {
     private String enteredUsername;
     private Employee employee;
 
+    //This will load the screen behind the login window initially
+    private MainWindowController mainWindowController;
 
 
-    public LoginController(LoginView loginView, LoginModel loginModel) {
+
+    public LoginController(LoginView loginView, LoginModel loginModel, MainWindowController mainWindowController) {
         this.loginModel = loginModel;
         this.loginView = loginView;
+        this.mainWindowController = mainWindowController;
+
         handles();
     }
 
@@ -31,12 +36,15 @@ public class LoginController {
             System.out.println("Login Button Pressed");
             enteredUsername = loginView.getUsername().getText();
             boolean loginSuccessful;
+
+            //Username
             if (loginView.getUsername().getText() == null) {
                 enteredUsername = "";
             } else {
                 enteredUsername = loginView.getUsername().getText();
             }
 
+            //Pin
             if (loginView.getPin().getText().equals("")) {
                 enteredPin = "-1";
             } else {
@@ -49,7 +57,8 @@ public class LoginController {
                 //Load the next screen and pass in employee object
                 System.out.println("login sucessful");
                 employee = loginModel.getLoggedInEmployee(enteredUsername);
-                loadMainWindow();
+                mainWindowController.logMeIn(employee);
+
             }
 
             else{
@@ -66,13 +75,54 @@ public class LoginController {
 
     }
 
-    public void loadMainWindow() {
-        try {
-            MainWindowView mainWindowView = new MainWindowView(loginView.getStage());
-            MainWindowModel mainWindowModel = new MainWindowModel();
-            MainWindowController mainWindowController = new MainWindowController(mainWindowView, mainWindowModel, employee);
-        } catch (Exception e) {e.printStackTrace();}
+
+    public LoginModel getLoginModel() {
+        return loginModel;
     }
 
+    public void setLoginModel(LoginModel loginModel) {
+        this.loginModel = loginModel;
+    }
+
+    public LoginView getLoginView() {
+        return loginView;
+    }
+
+    public void setLoginView(LoginView loginView) {
+        this.loginView = loginView;
+    }
+
+    public String getEnteredPin() {
+        return enteredPin;
+    }
+
+    public void setEnteredPin(String enteredPin) {
+        this.enteredPin = enteredPin;
+    }
+
+    public String getEnteredUsername() {
+        return enteredUsername;
+    }
+
+    public void setEnteredUsername(String enteredUsername) {
+        this.enteredUsername = enteredUsername;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+
+    public MainWindowController getMainWindowController() {
+        return mainWindowController;
+    }
+
+    public void setMainWindowController(MainWindowController mainWindowController) {
+        this.mainWindowController = mainWindowController;
+    }
 
 }

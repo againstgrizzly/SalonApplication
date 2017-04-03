@@ -22,6 +22,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
+        stage.setTitle("Stylin");
+        stage.getIcons().add(logo);
 
         LoginView loginView = new LoginView();
         LoginModel loginModel = new LoginModel();

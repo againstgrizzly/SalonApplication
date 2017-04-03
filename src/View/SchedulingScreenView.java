@@ -12,6 +12,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import jfxtras.scene.control.LocalDatePicker;
+import sun.plugin.javascript.navig.Anchor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,6 @@ public class SchedulingScreenView {
 
 
 
-        rootPane.setContent(schedulingBasePane);
     }
 
     public void createTimeBox(VBox timeBox){

@@ -112,7 +112,7 @@ public class Queries {
         String firstName;
         String lastName;
         String email;
-        double phoneNumber;
+        long phoneNumber;
         Date dateOfBirth;
 
         try {
@@ -128,7 +128,7 @@ public class Queries {
                 username1 = resultSet.getString("USERNAME");
                 firstName = resultSet.getString("F_NAME");
                 lastName = resultSet.getString("L_NAME");
-                phoneNumber = resultSet.getDouble("PHONE");
+                phoneNumber = resultSet.getLong("PHONE");
                 email = resultSet.getString("EMAIL");
                 dateOfBirth = resultSet.getDate("DATE_OF_BIRTH");
                 Employee employee = new Employee();

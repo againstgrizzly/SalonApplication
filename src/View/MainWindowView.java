@@ -175,7 +175,7 @@ public class MainWindowView {
 
         //Create different screen container
         differentScreenContainer = new AnchorPane();
-        differentScreenContainer.setStyle(" -fx-background-color: #ffae00");//orange
+        differentScreenContainer.setStyle(" -fx-background-color: ##d2d4d8");//orange
 
 
         //add the home screen as initial default screen

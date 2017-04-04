@@ -62,7 +62,7 @@ public class LoginModel {
         String firstName;
         String lastName;
         String email;
-        double phoneNumber;
+        long phoneNumber;
         Date dateOfBirth;
 
         try {
@@ -78,7 +78,7 @@ public class LoginModel {
                 firstName = resultSet.getString("FIRSTNAME");
                 lastName = resultSet.getString("LASTNAME");
                 email = resultSet.getString("EMAIL");
-                phoneNumber = resultSet.getDouble("PHONE");
+                phoneNumber = resultSet.getLong("PHONE");
                 dateOfBirth = resultSet.getDate("DATEOFBIRTH");
                 loggedInEmployee = new Employee();
                 loggedInEmployee.setEmployee_id(employee_id);

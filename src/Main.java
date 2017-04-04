@@ -1,17 +1,19 @@
 
 import Controller.LoginController;
 import Controller.MainWindowController;
+import MiscObjects.Employee;
+import Model.AddAppointmentWindowModel;
+import Model.AddAppointmentWindowModel;
 import Model.LoginModel;
 import Model.MainWindowModel;
+import View.AddAppointmentWindowView;
 import View.LoginView;
 import View.MainWindowView;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Date;
 
 public class Main extends Application {
 
@@ -35,6 +37,8 @@ public class Main extends Application {
         LoginController loginController = new LoginController(loginView, loginModel, mainWindowController);
 
 
+//        AddAppointmentWindowView addAppointmentWindowView = new AddAppointmentWindowView(new Employee(), new Date());
+//        AddAppointmentWindowModel addAppointmentWindowModel = new AddAppointmentWindowModel();
 
 
     }

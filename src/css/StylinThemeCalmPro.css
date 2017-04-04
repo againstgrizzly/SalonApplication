@@ -1,0 +1,202 @@
+.root{
+
+    /*Colors*/
+    -grey-standard-color: #55606e;    
+    -grey-focus-color: #343a41;
+    -prompt-color: #d2d4d8;
+    -accent-color: #24afb2;
+    -error-color: #cd4237;
+
+}
+
+/*Button Things*/
+
+.button, .toggle-button{
+    -fx-background-color: #55606e;
+    -fx-background-radius: 0px, 0px, 0px, 0px;
+    -fx-text-fill: white;
+    -fx-padding: 0em 0em 0em 0em;
+}
+
+.button:hover,
+.toggle-button:hover{
+    -fx-background-color: #343a41;
+}
+
+
+.toggle-button:focused, .button:pressed{
+        -fx-background-color: #24afb2;
+}
+
+
+.ListSpinner {
+-fx-background-color: #d2d4d8;
+-fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
+-fx-background-radius: 0px, 0px, 0px, 0px;
+-fx-padding: 0.266667em 0.233333em 0.25em 0.233333em;
+-fx-text-fill: white;
+
+}
+
+.ListSpinner{
+-fx-text-fill: white;
+
+}
+
+/*
+.ListSpinner:hover { 
+-fx-background-color: #00efff;
+-fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
+-fx-background-radius: 5px, 5px, 4px, 3px;
+-fx-padding: 0.266667em 0.233333em 0.25em 0.233333em;
+}
+*/
+/*TextField-like things*/
+.text-field {
+    -fx-background-color:
+        #FFFFFF,
+        #FFFFFF;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 0, 0;
+ }
+
+.text-field:focused {
+    -fx-background-color:
+        #24afb2,
+        #FFFFFF;
+}
+
+.text-field:hover {
+    -fx-background-color:
+        #909090,
+        #FFFFFF;
+}
+
+.text-field:focused:hover {
+    -fx-background-color:
+        #24afb2,
+        #FFFFFF;
+}
+
+/*Disable today button on calendar*/
+.today-button{
+    display: none;
+    visibility: hidden;
+}
+
+/** CSS **/
+.mylistview{
+	-fx-border-color:derive(gray,80%);
+}
+
+/* The main scrollbar CSS class of ListView */
+.mylistview .scroll-bar:horizontal ,
+.mylistview  .scroll-bar:vertical{
+    -fx-background-color:transparent;
+
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.mylistview .increment-button ,.mylistview .decrement-button {
+    -fx-background-color:transparent;
+	-fx-border-color:derive(gray,80%);
+}
+
+/* The main scrollbar **track** CSS class  */
+.mylistview .scroll-bar:horizontal .track ,
+.mylistview .scroll-bar:vertical .track{
+     -fx-background-color: transparent;
+	 -fx-border-color:derive(gray,80%);
+	 -fx-background-radius: 0em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.mylistview .scroll-bar:horizontal .thumb,
+.mylistview .scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+	-fx-background-insets: 0, 0, 0;
+	-fx-background-radius: 0em;
+
+}
+
+/****************************************************************
+ 
+  ScrollBar Skin  
+ 
+****************************************************************/
+.scroll-bar{
+ -fx-background-color: #55606e;
+ -fx-background-radius: 0em;
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+ -fx-background-color: transparent;
+ -fx-border-color:transparent;
+ -fx-background-radius: 0em;
+}
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+ -fx-background-color: transparent;
+ -fx-background-insets: 0;
+ -fx-background-radius: 0em;
+}
+.scroll-bar:horizontal .thumb {
+ -fx-background-color: #d2d4d8;
+ -fx-background-insets: 4 0 4 0;
+ -fx-background-radius: 0em;
+}
+.scroll-bar:vertical .thumb {
+ -fx-background-color: #d2d4d8;
+ -fx-background-insets: 0 4 0 4;
+ -fx-background-radius: 0em;
+}
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+ -fx-background-color: #d2d4d8;
+}
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+ -fx-background-color: #d2d4d8;
+}
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+ -fx-background-color:transparent;
+ -fx-background-radius: 0em;
+ -fx-padding: 5;
+}
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+ -fx-background-color:transparent;
+ -fx-background-radius: 0em;
+ -fx-padding: 5;
+}
+.scroll-bar:horizontal .increment-arrow {
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-background-color: #d2d4d8;
+ -fx-padding: 0.25em;
+ -fx-rotate: -90;
+}
+.scroll-bar:vertical .increment-arrow {
+ -fx-background-color: #d2d4d8;
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 0;
+}
+.scroll-bar:horizontal .decrement-arrow {
+ -fx-background-color: #d2d4d8;
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 90;
+}
+.scroll-bar:vertical .decrement-arrow {
+ -fx-background-color: #d2d4d8;
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: -180;
+}
+.scroll-bar:vertical:focused,
+.scroll-bar:horizontal:focused {
+ -fx-background-color: transparent,#55606e,#55606e;
+}
+
+
+
+

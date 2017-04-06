@@ -39,7 +39,7 @@ public class SchedulingScreenView {
         localDatePicker = datePicker;
 
 
-        employees = new Queries().getAllEmployees();
+        //employees = new Queries().getAllEmployees();
         timesList = new ListView<>();
         AnchorPane testingPane = new AnchorPane();
         testingPane.setStyle("-fx-background-color: #00c7d4");

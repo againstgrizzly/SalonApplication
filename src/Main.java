@@ -1,4 +1,5 @@
 
+import Controller.AddAppointmentWindowController;
 import Controller.LoginController;
 import Controller.MainWindowController;
 import MiscObjects.Employee;
@@ -7,6 +8,7 @@ import Model.AddAppointmentWindowModel;
 import Model.LoginModel;
 import Model.MainWindowModel;
 import View.AddAppointmentWindowView;
+import View.EmployeeScheduleView;
 import View.LoginView;
 import View.MainWindowView;
 import javafx.application.Application;
@@ -20,13 +22,20 @@ public class Main extends Application {
     private int screen = 0; //Change this to jump quickly to different screens
 
     Image logo = new Image(getClass().getResourceAsStream("res/stylinMenuLogo.png"));
+    private String url = "jdbc:h2:" + // protocol
+            System.getProperty("user.dir") + "/stylinDB";
 
     @Override
     public void start(Stage stage) throws Exception {
 
+        System.out.println(url);
+
         stage.setTitle("Stylin");
         stage.getIcons().add(logo);
 
+
+//        EmployeeScheduleView e = new EmployeeScheduleView(new Employee());
+//
         LoginView loginView = new LoginView();
         LoginModel loginModel = new LoginModel();
 
@@ -39,6 +48,7 @@ public class Main extends Application {
 
 //        AddAppointmentWindowView addAppointmentWindowView = new AddAppointmentWindowView(new Employee(), new Date());
 //        AddAppointmentWindowModel addAppointmentWindowModel = new AddAppointmentWindowModel();
+//        AddAppointmentWindowController addAppointmentWindowController = new AddAppointmentWindowController(de)
 
 
     }

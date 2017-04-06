@@ -56,13 +56,18 @@ public class LoginController {
             if(loginSuccessful){
                 //Load the next screen and pass in employee object
                 System.out.println("login sucessful");
-                employee = loginModel.getLoggedInEmployee(enteredUsername);
+                try {
+                    employee = loginModel.getLoggedInEmployee(enteredUsername);
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
                 mainWindowController.logMeIn(employee);
 
             }
 
             else{
                 //Display wrong password message
+                loginView.incorrectLoginSlide();
                 System.out.println("login unsuccessful");
             }
         });

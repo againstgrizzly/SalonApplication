@@ -34,9 +34,7 @@ public class MainWindowController {
         this.loginController = loginController;
         //this.employee = employee;
 
-        this.employee = new Employee();
-        this.employee.setF_name("Bob");
-        this.employee.setL_name("Dylan");
+
         selectedPane = HOME;
 
         //This passes reference for the pane displayed when the home button is clicked
@@ -117,10 +115,10 @@ public class MainWindowController {
 
         });
 
-        mainWindowView.topBarContent(mainWindowView.getTopBar(), employee.getF_name(), employee.getL_name());
     }
 
     public void logMeIn(Employee employee){
+        System.out.print(employee);
         mainWindowView.logMeIn(employee);
 
     }

@@ -217,7 +217,7 @@ public class MainWindowView {
     }
 
 
-    public void topBarContent(AnchorPane topBar, String firstName, String lastName) {
+    public void topBarContent(String firstName, String lastName) {
 
         //Add user name to Top Bar
         nameLabel = new Label();
@@ -362,15 +362,12 @@ public class MainWindowView {
 
     public void logMeIn(Employee employee){
         this.employee = employee;
-
-        nameLabel.setText(employee.getF_name() + " " + employee.getL_name());
-        System.out.println("logged in brah");
-        System.out.println(gaussianBlur.radiusProperty());
+        topBarContent(employee.getF_name(), employee.getL_name());
+        System.out.println("Logging in");
         Timeline timeline = new Timeline();
 
         KeyValue blurValue = new KeyValue(gaussianBlur.radiusProperty(), 0.0);
         KeyFrame blurFrame = new KeyFrame(Duration.millis(1000), blurValue);
-        timeline.getKeyFrames().add(blurFrame);
 
         KeyValue opacityValue = new KeyValue(loginPane.opacityProperty(), 0.0);
         KeyFrame opacityFrame = new KeyFrame(Duration.millis(1000), opacityValue);
@@ -384,11 +381,9 @@ public class MainWindowView {
             rootPane.getChildren().remove(blockerPane);
                 });
         timeline.play();
-        System.out.println(gaussianBlur.radiusProperty());
-
-
 
     }
+
 
     //This method handles changing the left pane to custom components for the currently selected
     //tab

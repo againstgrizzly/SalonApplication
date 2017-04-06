@@ -198,5 +198,16 @@
 }
 
 
+.choice-box {
+   -fx-background-color: #55606e;
+}
+
+
+.choice-box .label {
+   -fx-text-fill: #FFFFFF;
+   -fx-font-size: 14;
+}
+
+
 
 

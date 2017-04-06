@@ -2,6 +2,7 @@ package View;
 
 import MiscObjects.Appointment;
 import MiscObjects.Employee;
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -28,6 +31,9 @@ import java.util.List;
 public class AddAppointmentWindowView {
 
     private Stage stage;
+
+
+    private VBox vBox;
 
     private Date date;
     private Employee employee;
@@ -49,7 +55,7 @@ public class AddAppointmentWindowView {
     private Label startTimeLabel;
     private ChoiceBox<String> startTimeChoiceBox;
     private Label endTimeLabel;
-    private ChoiceBox<String> endTimeChoiceBox;
+    private JFXCheckBox endTimeChoiceBox;
 
     private CheckBox recurring;
 
@@ -77,8 +83,7 @@ public class AddAppointmentWindowView {
         stage = new Stage();
         stage.setResizable(false);
 
-        this.employee = employee; //employee selected from scheduling pane
-        this.employee = getLoggedInEmployee("iawesome");
+        this.employee = employee; //employee selected from scheduling pane;
 
         basePane = new BorderPane();
 
@@ -127,18 +132,9 @@ public class AddAppointmentWindowView {
 
         servicesScrollPane = new ScrollPane();
 
-        servicesList = services(employee);
-        VBox vBox = new VBox();
-
-        for(String service : servicesList){
-            CheckBox checkBox = new CheckBox(service);
-            checkBox.setFont(Font.font(14.0));
-            vBox.getChildren().add(checkBox);
-            System.out.println(service);
-            VBox.setVgrow(servicesScrollPane, Priority.ALWAYS);
-        }
-
         servicesScrollPane.setContent(vBox);
+
+        appointmentPane.setStyle("-fx-background-color: #e9e9e9");
 
         appointmentPane.getChildren().add(servicesScrollPane);
         AnchorPane.setBottomAnchor(servicesScrollPane, 0.0);
@@ -167,7 +163,7 @@ public class AddAppointmentWindowView {
         AnchorPane.setLeftAnchor(appointmentNotesLabel, 420.0);
 
         appointmentNotesTextField = new TextArea();
-        appointmentNotesTextField.setPromptText("Enter client notes here");
+        appointmentNotesTextField.setPromptText("Enter appointment notes here");
         appointmentPane.getChildren().add(appointmentNotesTextField);
         AnchorPane.setTopAnchor(appointmentNotesTextField, 350.0);
         AnchorPane.setBottomAnchor(appointmentNotesTextField, 30.0);
@@ -178,6 +174,19 @@ public class AddAppointmentWindowView {
 
 
         basePane.setCenter(appointmentPane);
+    }
+
+    public void setUpServicesList(List<String> services){
+        vBox = new VBox();
+
+        for(String service : services){
+            JFXCheckBox checkBox = new JFXCheckBox(service);
+            checkBox.setCheckedColor(Color.rgb(36, 175, 178));
+            checkBox.setFont(Font.font(14.0));
+            vBox.getChildren().add(checkBox);
+            System.out.println(service);
+            VBox.setVgrow(servicesScrollPane, Priority.ALWAYS);
+        }
     }
 
     public void choiceBoxSetup(){
@@ -244,105 +253,5 @@ public class AddAppointmentWindowView {
 
         basePane.setTop(topPane);
     }
-
-    //This method is used to create the employee object for the employee currently logged in
-    public Employee getLoggedInEmployee(String username) {
-        String url = "jdbc:h2:" + // protocol
-                System.getProperty("user.dir") + "/stylinDB";
-        Employee loggedInEmployee = new Employee();
-        List<Appointment> appointments = new ArrayList<>();
-        String employee_id;
-        String username1;
-        String firstName;
-        String lastName;
-        String email;
-        long phoneNumber;
-        java.sql.Date dateOfBirth;
-
-        try {
-            Class.forName("org.h2.Driver");
-            Connection conn = DriverManager.getConnection(url, "sa", "");
-            Statement statement = conn.createStatement();
-            String query = "select e.employee_id ID, e.username USERNAME, e.f_name FIRSTNAME, e.l_name LASTNAME, e.email EMAIL, e.phone PHONE, e.date_of_birth DATEOFBIRTH from employees e where e.username = '" + username + "';";
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                employee_id = resultSet.getString("ID");
-                username1 = resultSet.getString("USERNAME");
-                firstName = resultSet.getString("FIRSTNAME");
-                lastName = resultSet.getString("LASTNAME");
-                email = resultSet.getString("EMAIL");
-                phoneNumber = resultSet.getLong("PHONE");
-                dateOfBirth = resultSet.getDate("DATEOFBIRTH");
-                loggedInEmployee = new Employee();
-                loggedInEmployee.setEmployee_id(employee_id);
-                loggedInEmployee.setUsername(username1);
-                loggedInEmployee.setF_name(firstName);
-                loggedInEmployee.setL_name(lastName);
-                loggedInEmployee.setEmail(email);
-                loggedInEmployee.setPhone(phoneNumber);
-                loggedInEmployee.setDate_of_birth(dateOfBirth);
-            }
-
-            //Get all the appointments for the currently logged in employee
-            query = "select * from appointments where employee_id = " + loggedInEmployee.getEmployee_id() + ";";
-            resultSet = statement.executeQuery(query);
-            System.out.println("the employee who is loggin in is:" + loggedInEmployee.getEmployee_id());
-
-            while (resultSet.next()) {
-                Appointment appointment = new Appointment();
-                String appointmentId = resultSet.getString("APPT_ID");
-                String clientId = resultSet.getString("CLIENT_ID");
-                String employeeID = resultSet.getString("EMPLOYEE_ID");
-                Timestamp timestamp = resultSet.getTimestamp("TIME");
-                String notes = resultSet.getString("NOTES");
-                int duration = resultSet.getInt("DURATION");
-                appointment.setAppt_id(appointmentId);
-                appointment.setClient_id(clientId);
-                appointment.setEmployee_id(employeeID);
-                appointment.setAppt_time(timestamp);
-                appointment.setNotes(notes);
-                appointment.setDuration(duration);
-                appointments.add(appointment);
-            }
-
-            loggedInEmployee.setAppointments(appointments);
-
-            return loggedInEmployee;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public List<String> services(Employee employee) {
-        String url = "jdbc:h2:" + // protocol
-                System.getProperty("user.dir") + "/stylinDB";
-
-        String username = employee.getUsername();
-
-        List<String> services = new ArrayList<>();
-
-
-        try {
-            Class.forName("org.h2.Driver");
-            Connection conn = DriverManager.getConnection(url, "sa", "");
-            Statement statement = conn.createStatement();
-            String query = "select s.name from service s inner join employees e where e.employee_id = 2;";
-
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                services.add(resultSet.getString("NAME"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return services;
-
-    }
-
 
 }

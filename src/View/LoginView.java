@@ -1,20 +1,27 @@
 package View;
 
+import aurelienribon.tweenengine.Tween;
 import com.jfoenix.controls.JFXButton;
-import javafx.application.Application;
+import javafx.animation.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.HLineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import javafx.scene.transform.Translate;
+import javafx.util.Duration;
+
 
 // This is the View
 // Its only job is to display what the user sees
@@ -29,10 +36,10 @@ public class LoginView {
     private TextField username;
     private TextField pin;
     private Button loginButton;
-    private VBox root;
+    private AnchorPane root;
 
     public LoginView() throws Exception {
-        root = new VBox();
+        root = new AnchorPane();
         root.setPrefSize(300, 350);
         root.setStyle("-fx-background-color: #e9e9e9");
 
@@ -42,13 +49,17 @@ public class LoginView {
     public void loginSetup(){
         username = new TextField();
         username.setPromptText("Please Enter Username");
-        root.setMargin(username, new Insets(50, 40, 15, 40));
+        AnchorPane.setTopAnchor(username,50.0);
+        AnchorPane.setRightAnchor(username,40.0);
+        AnchorPane.setLeftAnchor(username,40.0);
         username.setMinHeight(40);
         textLimite(username, 15);//limit username to 15 characters (random number I chose)
 
         pin = new PasswordField();
         pin.setPromptText("Please Enter PIN");
-        root.setMargin(pin, new Insets(0, 40, 30, 40));
+        AnchorPane.setTopAnchor(pin,100.0);
+        AnchorPane.setRightAnchor(pin,40.0);
+        AnchorPane.setLeftAnchor(pin,40.0);
         pin.setMinHeight(40);
         textLimite(pin, 4);
         limitToNumeric(pin);
@@ -58,16 +69,62 @@ public class LoginView {
         loginButton.setText("Login");
         loginButton.setMaxWidth(200);
         loginButton.setMinHeight(50);
-        root.setMargin(loginButton, new Insets(0, 0, 15, 50));
+        AnchorPane.setTopAnchor(loginButton,175.0);
+        AnchorPane.setRightAnchor(loginButton,40.0);
+        AnchorPane.setLeftAnchor(loginButton,40.0);
 
         forgotButton = new Button();
         forgotButton.getStylesheets().add(stylinTheme);
         forgotButton.setText("Forgot Username/PIN");
         forgotButton.setMaxWidth(200);
         forgotButton.setMinHeight(50);
-        root.setMargin(forgotButton, new Insets(0, 0, 0, 50));
+        AnchorPane.setTopAnchor(forgotButton,250.0);
+        AnchorPane.setRightAnchor(forgotButton,40.0);
+        AnchorPane.setLeftAnchor(forgotButton,40.0);
 
         root.getChildren().addAll(username, pin, loginButton, forgotButton);
+    }
+
+    public void incorrectLoginSlide(){
+
+//        AnchorPane anchorPane = new AnchorPane();
+//        anchorPane.setStyle("-fx-background-color: pink");
+//        Label label = new Label("Wrong username or pin");
+//        label.setAlignment(Pos.CENTER);
+//        label.setFont(Font.font(24.0));
+//        AnchorPane.setLeftAnchor(label, 0.0);
+//        AnchorPane.setRightAnchor(label, 0.0);
+//
+//        anchorPane.getChildren().add(label);
+//
+//        GaussianBlur errorBlur = new GaussianBlur(0);
+//        root.setEffect(errorBlur);
+//
+//        root.getChildren().add(anchorPane);
+//        AnchorPane.setLeftAnchor(anchorPane, 15.0);
+//        AnchorPane.setRightAnchor(anchorPane, 15.0);
+//        AnchorPane.setTopAnchor(anchorPane, 15.0);
+//        AnchorPane.setBottomAnchor(anchorPane, 15.0);
+//
+//        Timeline timeline = new Timeline();
+//
+//        anchorPane.setOpacity(0.0);
+//
+//        KeyValue blurValue = new KeyValue(errorBlur.radiusProperty(), 100.0);
+//        KeyFrame blurFrame = new KeyFrame(Duration.millis(5000), blurValue);
+//
+//        KeyValue opacityValue = new KeyValue(anchorPane.opacityProperty(), 100.0);
+//        KeyFrame opacityFrame = new KeyFrame(Duration.millis(5000), opacityValue);
+//
+//        timeline.getKeyFrames().addAll(opacityFrame, blurFrame);
+//
+//        timeline.setOnFinished(e -> {
+//
+//        });
+//
+//        timeline.play();
+
+
     }
 
     //This method limits the number of characters and data that can
@@ -154,11 +211,11 @@ public class LoginView {
         this.forgotButton = forgotButton;
     }
 
-    public VBox getRoot() {
+    public AnchorPane getRoot() {
         return root;
     }
 
-    public void setRoot(VBox root) {
+    public void setRoot(AnchorPane root) {
         this.root = root;
     }
 }

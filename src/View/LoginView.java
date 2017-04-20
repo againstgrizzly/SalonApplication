@@ -9,11 +9,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.MoveTo;
@@ -37,29 +40,34 @@ public class LoginView {
     private TextField pin;
     private Button loginButton;
     private AnchorPane root;
+    private AnchorPane incorrectInputPane;
+    private Label incorrectInputLabel;
+    private ImageView errorImageView;
 
     public LoginView() throws Exception {
         root = new AnchorPane();
         root.setPrefSize(300, 350);
         root.setStyle("-fx-background-color: #e9e9e9");
 
+
         loginSetup();
+        errorPaneSetup();
     }
 
-    public void loginSetup(){
+    public void loginSetup() {
         username = new TextField();
         username.setPromptText("Please Enter Username");
-        AnchorPane.setTopAnchor(username,50.0);
-        AnchorPane.setRightAnchor(username,40.0);
-        AnchorPane.setLeftAnchor(username,40.0);
+        AnchorPane.setTopAnchor(username, 50.0);
+        AnchorPane.setRightAnchor(username, 40.0);
+        AnchorPane.setLeftAnchor(username, 40.0);
         username.setMinHeight(40);
         textLimite(username, 15);//limit username to 15 characters (random number I chose)
 
         pin = new PasswordField();
         pin.setPromptText("Please Enter PIN");
-        AnchorPane.setTopAnchor(pin,100.0);
-        AnchorPane.setRightAnchor(pin,40.0);
-        AnchorPane.setLeftAnchor(pin,40.0);
+        AnchorPane.setTopAnchor(pin, 100.0);
+        AnchorPane.setRightAnchor(pin, 40.0);
+        AnchorPane.setLeftAnchor(pin, 40.0);
         pin.setMinHeight(40);
         textLimite(pin, 4);
         limitToNumeric(pin);
@@ -69,61 +77,57 @@ public class LoginView {
         loginButton.setText("Login");
         loginButton.setMaxWidth(200);
         loginButton.setMinHeight(50);
-        AnchorPane.setTopAnchor(loginButton,175.0);
-        AnchorPane.setRightAnchor(loginButton,40.0);
-        AnchorPane.setLeftAnchor(loginButton,40.0);
+        AnchorPane.setTopAnchor(loginButton, 175.0);
+        AnchorPane.setRightAnchor(loginButton, 40.0);
+        AnchorPane.setLeftAnchor(loginButton, 40.0);
 
         forgotButton = new Button();
         forgotButton.getStylesheets().add(stylinTheme);
         forgotButton.setText("Forgot Username/PIN");
         forgotButton.setMaxWidth(200);
         forgotButton.setMinHeight(50);
-        AnchorPane.setTopAnchor(forgotButton,250.0);
-        AnchorPane.setRightAnchor(forgotButton,40.0);
-        AnchorPane.setLeftAnchor(forgotButton,40.0);
+        AnchorPane.setTopAnchor(forgotButton, 250.0);
+        AnchorPane.setRightAnchor(forgotButton, 40.0);
+        AnchorPane.setLeftAnchor(forgotButton, 40.0);
 
         root.getChildren().addAll(username, pin, loginButton, forgotButton);
     }
 
-    public void incorrectLoginSlide(){
+    public void errorPaneSetup() {
+        //Error Pane
+        incorrectInputPane = new AnchorPane();
+        incorrectInputPane.setStyle("-fx-background-color: #343a41");
 
-//        AnchorPane anchorPane = new AnchorPane();
-//        anchorPane.setStyle("-fx-background-color: pink");
-//        Label label = new Label("Wrong username or pin");
-//        label.setAlignment(Pos.CENTER);
-//        label.setFont(Font.font(24.0));
-//        AnchorPane.setLeftAnchor(label, 0.0);
-//        AnchorPane.setRightAnchor(label, 0.0);
-//
-//        anchorPane.getChildren().add(label);
-//
-//        GaussianBlur errorBlur = new GaussianBlur(0);
-//        root.setEffect(errorBlur);
-//
-//        root.getChildren().add(anchorPane);
-//        AnchorPane.setLeftAnchor(anchorPane, 15.0);
-//        AnchorPane.setRightAnchor(anchorPane, 15.0);
-//        AnchorPane.setTopAnchor(anchorPane, 15.0);
-//        AnchorPane.setBottomAnchor(anchorPane, 15.0);
-//
-//        Timeline timeline = new Timeline();
-//
-//        anchorPane.setOpacity(0.0);
-//
-//        KeyValue blurValue = new KeyValue(errorBlur.radiusProperty(), 100.0);
-//        KeyFrame blurFrame = new KeyFrame(Duration.millis(5000), blurValue);
-//
-//        KeyValue opacityValue = new KeyValue(anchorPane.opacityProperty(), 100.0);
-//        KeyFrame opacityFrame = new KeyFrame(Duration.millis(5000), opacityValue);
-//
-//        timeline.getKeyFrames().addAll(opacityFrame, blurFrame);
-//
-//        timeline.setOnFinished(e -> {
-//
-//        });
-//
-//        timeline.play();
+        incorrectInputLabel = new Label("Incorrect Username/Pin");
+        incorrectInputLabel.setAlignment(Pos.CENTER);
+        incorrectInputLabel.setTextFill(Color.WHITE);
+        incorrectInputLabel.setFont(Font.font(20));
+        AnchorPane.setTopAnchor(incorrectInputLabel, 50.0);
+        AnchorPane.setRightAnchor(incorrectInputLabel, 0.0);
+        AnchorPane.setLeftAnchor(incorrectInputLabel, 0.0);
 
+        incorrectInputPane.getChildren().add(incorrectInputLabel);
+
+        errorImageView = new ImageView(new Image("res/error.png"));
+        errorImageView.setX(300 / 2 - 65);
+        errorImageView.setY(100);
+        incorrectInputPane.getChildren().add(errorImageView);
+
+
+        AnchorPane.setLeftAnchor(incorrectInputPane, 15.0);
+        AnchorPane.setRightAnchor(incorrectInputPane, 15.0);
+        AnchorPane.setTopAnchor(incorrectInputPane, 15.0);
+        AnchorPane.setBottomAnchor(incorrectInputPane, 15.0);
+
+    }
+
+    public void incorrectLoginSlide() {
+
+        root.getChildren().add(incorrectInputPane);
+
+        incorrectInputPane.setOnMouseClicked(e ->{
+            root.getChildren().remove(incorrectInputPane);
+        });
 
     }
 
@@ -132,7 +136,7 @@ public class LoginView {
     //For example, limiting the pin to 4 numbers
     //and restricting the length of the username to 15 characters (random number I chose)
 
-    public void textLimite(TextField textField, int length){
+    public void textLimite(TextField textField, int length) {
         textField.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

@@ -23,6 +23,8 @@ import javafx.util.Duration;
 import jfxtras.scene.control.LocalDatePicker;
 import sun.plugin.javascript.navig.Anchor;
 
+import java.time.LocalDate;
+
 
 /**
  * Created by Brannon on 3/12/2017.
@@ -48,7 +50,7 @@ public class MainWindowView {
     private ToggleButton settingsButton;
     private ImageView settingsButtonImage;
     private AnchorPane homeScreen;
-    private ScrollPane schedulingScreen;
+    private AnchorPane schedulingScreen;
     private AnchorPane topBar;
     private Label nameLabel;
     private Label dateLabel;
@@ -64,7 +66,6 @@ public class MainWindowView {
     private Slider horizontalSlider;
 
     private ScrollPane homeTabPane;
-    private ScrollPane schedulingScrollPaneTabPane;
     private AnchorPane schedulingTabPane;
 
     private LocalDatePicker schedulingDatePicker;
@@ -87,6 +88,7 @@ public class MainWindowView {
         rootPane.requestFocus();
         loadMainWindowGui();
 
+        //Blocks the main gui during login
         blockerPane = new AnchorPane();
         AnchorPane.setBottomAnchor(blockerPane, 0.0);
         AnchorPane.setLeftAnchor(blockerPane, 0.0);
@@ -94,8 +96,8 @@ public class MainWindowView {
         AnchorPane.setTopAnchor(blockerPane, 0.0);
         rootPane.getChildren().add(blockerPane);
 
+        //load login gui
         loadLoginGui(loginView);
-
         gaussianBlur = new GaussianBlur(100);
         dividerPane.setEffect(gaussianBlur);
 
@@ -134,22 +136,20 @@ public class MainWindowView {
         //LeftBorderPane aka the Left menu controlled by the hamburger button
         leftMenuPane();
 
-
         //Center Border Pane/////////////////////////////////////////////////////////////////
         topBar = new AnchorPane();
         topBar.setMinHeight(buttonAndMenuCollapsedSize);
         topBar.setMaxHeight(buttonAndMenuCollapsedSize);
         topBar.setPrefHeight(buttonAndMenuCollapsedSize);
-        topBar.setStyle("-fx-background-color: #565656");
+        topBar.setStyle("-fx-background-color: #55606e");
         /////////////////////////////////////
 
 
         //Home Screen
         homeScreen = new AnchorPane();
 
-
-        //Scheduling Screen
-        schedulingScreen = new ScrollPane();
+        //Scheduling Screen///////////////////////////////
+        schedulingScreen = new AnchorPane();
 
         verticalSlider = new Slider();
         verticalSlider.setOrientation(Orientation.VERTICAL);
@@ -164,7 +164,7 @@ public class MainWindowView {
         AnchorPane.setRightAnchor(horizontalSlider, 50.0);
         horizontalSlider.setMax(4000.0);
         horizontalSlider.setMin(600);
-
+////////////////////////////////////////////////////////////////////////////
 
         //Add topBar to mainPane
         mainPane = new AnchorPane();
@@ -207,6 +207,7 @@ public class MainWindowView {
     }
 
     public void addSchedulingScreenToScreenContainer() {
+        differentScreenContainer.getChildren().clear();
         differentScreenContainer.getChildren().add(schedulingScreen);
         AnchorPane.setTopAnchor(schedulingScreen, 0.0);
         AnchorPane.setBottomAnchor(schedulingScreen, 0.0);
@@ -250,7 +251,6 @@ public class MainWindowView {
             leftMenuPaneCustomComponents(selectedPane);
         }
         System.out.println("Is open: " + open);
-
     }
 
     public void leftMenuPane() {
@@ -338,15 +338,17 @@ public class MainWindowView {
 
         //Dont add datepicker to pane initially
 
+        buttonStackPane.getChildren().add(0, homeButton);
+        buttonStackPane.getChildren().add(1, schedulingButton);
+        buttonStackPane.getChildren().add(2, clientButton);
+        buttonStackPane.getChildren().add(3, settingsButton);
+
         leftMenu.getChildren().add(buttonStackPane);
         AnchorPane.setBottomAnchor(buttonStackPane, 0.0);
         AnchorPane.setLeftAnchor(buttonStackPane, 0.0);
         AnchorPane.setRightAnchor(buttonStackPane, 0.0);
 
-        buttonStackPane.getChildren().add(0, homeButton);
-        buttonStackPane.getChildren().add(1, schedulingButton);
-        buttonStackPane.getChildren().add(2, clientButton);
-        buttonStackPane.getChildren().add(3, settingsButton);
+
 
         leftMenu.setPrefSize(200.0, 300.0);
         dividerPane.setLeft(leftMenu);
@@ -420,13 +422,13 @@ public class MainWindowView {
     //menu when on the scheduling tab when we open and close the menu. Right it only has the Date Picker
     //but if we decide to add more stuff this will handle it
     public void schedulingLeftMenuInterface() {
-        if (open) {
+        if (open) {//if the left scheduling pane is open add the datepicker to the pane
 
-            leftMenu.getChildren().add(schedulingDatePicker);
-            AnchorPane.setTopAnchor(schedulingDatePicker, 100.0);
-            AnchorPane.setLeftAnchor(schedulingDatePicker, 10.0);
-            AnchorPane.setRightAnchor(schedulingDatePicker, 10.0);
-        } else {
+            leftMenu.getChildren().add(schedulingDatePicker); //add the date picker to left pane
+            AnchorPane.setTopAnchor(schedulingDatePicker, 100.0); //positioning
+            AnchorPane.setLeftAnchor(schedulingDatePicker, 10.0);//positioning
+            AnchorPane.setRightAnchor(schedulingDatePicker, 10.0);//positioning
+        } else {//else (pane is closed) remove the scheduling date picker
             if (leftMenu.getChildren().contains(schedulingDatePicker)) {
                 leftMenu.getChildren().remove(schedulingDatePicker);
             }
@@ -642,13 +644,6 @@ public class MainWindowView {
         this.homeTabPane = homeTabPane;
     }
 
-    public ScrollPane getSchedulingScrollPaneTabPane() {
-        return schedulingScrollPaneTabPane;
-    }
-
-    public void setSchedulingScrollPaneTabPane(ScrollPane schedulingScrollPaneTabPane) {
-        this.schedulingScrollPaneTabPane = schedulingScrollPaneTabPane;
-    }
 
     public AnchorPane getSchedulingTabPane() {
         return schedulingTabPane;
@@ -674,11 +669,11 @@ public class MainWindowView {
         this.open = openClose;
     }
 
-    public ScrollPane getSchedulingScreen() {
+    public AnchorPane getSchedulingScreen() {
         return schedulingScreen;
     }
 
-    public void setSchedulingScreen(ScrollPane schedulingScreen) {
+    public void setSchedulingScreen(AnchorPane schedulingScreen) {
         this.schedulingScreen = schedulingScreen;
     }
 

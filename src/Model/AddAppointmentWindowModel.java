@@ -41,7 +41,7 @@ public class AddAppointmentWindowModel {
                 String serviceID = resultSet.getString("SERVICE_ID");
 
                 //Create the service object
-                Service service = new Service(name, description,price);
+                Service service = new Service();
                 service.setService_id(serviceID);
 
                 //add it to the list of services

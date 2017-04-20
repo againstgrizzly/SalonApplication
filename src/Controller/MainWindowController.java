@@ -61,7 +61,7 @@ public class MainWindowController {
     }
 
     //Scheduling content
-    public void schedulingContent(ScrollPane schedulingScreenBasePane){
+    public void schedulingContent(AnchorPane schedulingScreenBasePane){
         SchedulingScreenView schedulingScreenView = new SchedulingScreenView(schedulingScreenBasePane, mainWindowView.getVerticalSlider(), mainWindowView.getHorizontalSlider(), mainWindowView.getSchedulingDatePicker());
         SchedulingScreenModel schedulingScreenModel = new SchedulingScreenModel();
         SchedulingScreenController schedulingScreenController = new SchedulingScreenController(schedulingScreenModel, schedulingScreenView);
@@ -94,14 +94,12 @@ public class MainWindowController {
             //Else, do nothing
             System.out.println("Scheduling Button Pressed");
             if(!mainWindowView.getDifferentScreenContainer().getChildren().contains(mainWindowView.getSchedulingScreen())){
-                mainWindowView.getDifferentScreenContainer().getChildren().clear();
                 mainWindowView.addSchedulingScreenToScreenContainer();
                 selectedPane = SCHEDULING;
 
                 //Set the custom components of the left menu pane (hamburger)
                 mainWindowView.leftMenuPaneCustomComponents(selectedPane);
             }
-            //mainWindowView.getTabPane().getSelectionModel().select(mainWindowView.getSchedulingTab());
 
         });
 

@@ -6,12 +6,6 @@ public class Service {
 	private String description;
 	private double price;
 	
-	public Service(String name, String description, double price){
-		setName(name);
-		setDescription(description);
-		setPrice(price);
-	}
-	
 	public String getService_id() {
 		return service_id;
 	}

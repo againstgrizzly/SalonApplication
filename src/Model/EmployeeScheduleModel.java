@@ -48,7 +48,7 @@ public class EmployeeScheduleModel {
 
                 appointmentList.add(appointment);
             }
-
+            conn.close();
 
         } catch (Exception e) {
             e.printStackTrace();

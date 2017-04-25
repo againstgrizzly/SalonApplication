@@ -79,5 +79,10 @@ public class Client {
 	public void setPostal_code(String postal_code) {
 		this.postal_code = postal_code;
 	}
+
+	@Override
+	public String toString(){
+		return getF_name() + " " + getL_name();
+	}
 	
 }

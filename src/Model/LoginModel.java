@@ -35,7 +35,9 @@ public class LoginModel {
             Connection connection = DriverManager.getConnection(url, "sa", ""); // password
 
             Statement statement = connection.createStatement();
-            String query = "select * from logins where username = '" + username + "' and password = " + pin + ";";
+            String query = "select * from LOGINS" +
+                    " where username = '" + username +
+                    "' and password = '" + pin + "';";
             ResultSet resultSet = statement.executeQuery(query);
 
             if (!resultSet.next()) {
@@ -89,7 +91,14 @@ public class LoginModel {
 
         System.out.println(email);
 
-        employee = new Employee(employee_id, username, firstName, lastName, email, phone, dateOfBirth);
+        employee = new Employee();
+
+        employee.setEmployee_id(employee_id);
+        employee.setF_name(firstName);
+        employee.setL_name(lastName);
+        employee.setPhone(phone);
+        employee.setEmail(email);
+        employee.setDate_of_birth(dateOfBirth);
 
         return employee;
     }

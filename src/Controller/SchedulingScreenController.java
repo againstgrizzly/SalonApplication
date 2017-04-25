@@ -20,7 +20,7 @@ import MiscObjects.AppointmentPane;
 /**
  * Created by Brannon on 3/10/2017.
  */
-public class SchedulingScreenController{
+public class SchedulingScreenController {
 
     private SchedulingScreenModel schedulingScreenModel;
     private SchedulingScreenView schedulingScreenView;
@@ -28,41 +28,41 @@ public class SchedulingScreenController{
     private List<AppointmentPane> appointmentPaneList;
     private Map<Integer, Appointment> appointmentMap = new HashMap<>();
 
-    public SchedulingScreenController(SchedulingScreenModel schedulingScreenModel, SchedulingScreenView schedulingScreenView){
+    public SchedulingScreenController(SchedulingScreenModel schedulingScreenModel, SchedulingScreenView schedulingScreenView) {
         this.schedulingScreenModel = schedulingScreenModel;
         this.schedulingScreenView = schedulingScreenView;
+
+        schedulingScreenView.setEmployees(schedulingScreenModel.getAllEmployees());
 
         datePickerListener();
 
 
+    }
+
+
+    public void getAppointmentsForASpecificDate() {
 
     }
 
-    public void insertInitialAppointments(){
-        //I need to get all the appointments for this day
-        Date todaysDate = Date.valueOf(LocalDate.now());
-        appointmentList = schedulingScreenModel.findAppsDate(todaysDate);
 
-        for(Appointment appointment : appointmentList){
-            appointmentMap.put(Integer.valueOf(appointment.getClient_id()), appointment);
-        }
-
-
-    }
-
-    public void datePickerListener(){
+    public void datePickerListener() {
 
         LocalDatePicker datePicker = schedulingScreenView.getLocalDatePicker();
+        Date date = Date.valueOf(datePicker.getLocalDate());
+
+        schedulingScreenView.populateTodaysAppointmentsIntoSchedulingContentPane(schedulingScreenModel.findAppsDate(date));
 
         datePicker.localDateProperty().addListener(e -> {
+            if (datePicker.getLocalDate() != null && date.toLocalDate() != datePicker.getLocalDate()) {
+                LocalDate newDate = datePicker.getLocalDate();
+                schedulingScreenView.populateTodaysAppointmentsIntoSchedulingContentPane(schedulingScreenModel.findAppsDate(Date.valueOf(schedulingScreenView.getLocalDatePicker().getLocalDate())));
+            }
+
             System.out.println(datePicker.getLocalDate());
         });
 
 
     }
-
-
-
 
 
 }

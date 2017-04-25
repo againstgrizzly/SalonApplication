@@ -1,16 +1,19 @@
 package View;
 
+import MiscObjects.Appointment;
 import MiscObjects.Employee;
-import MiscObjects.Queries;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import jfxtras.scene.control.LocalDatePicker;
-import sun.plugin.javascript.navig.Anchor;
 
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +34,17 @@ public class SchedulingScreenView {
     AnchorPane timeLabelPane; //This is where the time label will go
     AnchorPane allTheTimesPane; //This will have the times of the day
 
+    Date todaysDate;
+    List<EmployeeScheduleView> employeeScheduleViews;
+    List<Appointment> appointmentsForTheCurrentlySelectedDate;
+
     BorderPane schedulingBorderPane;
     HBox namesHeaderPane; //This is where all the names of people will go
     HBox schedulingContainmentPane; //This is there all the schedules will be listed
 
-    ScrollPane scrollSchedulingContaintmentPane; //This will hold the scheduling containment pane to scroll in
-    ScrollPane scrollAllTimesPane; //This will hold the allTimesPane to scroll in
+    //ScrollPane timeScrollPane;
+    ScrollPane schedulingScrollPane;
+
 
     public SchedulingScreenView(AnchorPane rootPane, Slider verticalSlider, Slider horizontalSlider, LocalDatePicker datePicker) {
         this.rootPane = rootPane;
@@ -45,8 +53,9 @@ public class SchedulingScreenView {
         localDatePicker = datePicker;
 
         basePane = new AnchorPane();
-        basePane.setStyle("-fx-background-color: blue");
-        basePane.setOnMouseClicked(e -> {System.out.println("Clicked Me");});
+        basePane.setStyle("-fx-background-color: green");
+
+
         AnchorPane.setTopAnchor(basePane, 0.0);
         AnchorPane.setBottomAnchor(basePane, 0.0);
         AnchorPane.setLeftAnchor(basePane, 0.0);
@@ -60,43 +69,108 @@ public class SchedulingScreenView {
         the left side of the basePane border
          */
 
+//        timeScrollPane.setPannable(false);
+//        //Link the scroll bars
+//        schedulingScrollPane.hvalueProperty().addListener(e -> {
+//            System.out.println("TRIGGERED");
+//            timeScrollPane.setHvalue(schedulingScrollPane.getHvalue());
+//        });
+            rootPane.getChildren().add(basePane);
 
-
-        rootPane.getChildren().add(basePane);
+//        timeScrollPane.setOnMouseEntered(e -> System.out.println("ENTERED"));
+//        schedulingScrollPane.addEventFilter(ScrollEvent.ANY, e ->{
+//
+//            timeScrollPane.setVvalue(schedulingScrollPane.getVvalue());
+//
+//        });
 
 
     }
-
-
 
 
     public void schedulingBorderPaneSetup(AnchorPane basePane) {
 
         AnchorPane rightAnchorPane = new AnchorPane();
-        rightAnchorPane.setStyle("-fx-background-color: red");
+        rightAnchorPane.setStyle("-fx-background-color: pink");
         AnchorPane.setTopAnchor(rightAnchorPane, 0.0);
-        AnchorPane.setLeftAnchor(rightAnchorPane, 100.0);
+        AnchorPane.setLeftAnchor(rightAnchorPane, 0.0);
         AnchorPane.setRightAnchor(rightAnchorPane, 0.0);
         AnchorPane.setBottomAnchor(rightAnchorPane, 0.0);
 
         ScrollPane nameScrollPane = new ScrollPane();
         nameScrollPane.setPrefHeight(30.0);
-        nameScrollPane.setStyle("-fx-background-color: #55606e");
+        nameScrollPane.setStyle("-fx-background-color: red"); //Actual Color : #55606e
         AnchorPane.setTopAnchor(nameScrollPane, 0.0);
         AnchorPane.setLeftAnchor(nameScrollPane, 0.0);
         AnchorPane.setRightAnchor(nameScrollPane, 0.0);
 
-        ScrollPane schedulingContentPane = new ScrollPane();
-        AnchorPane.setTopAnchor(schedulingContentPane, 30.0);
-        AnchorPane.setLeftAnchor(schedulingContentPane, 0.0);
-        AnchorPane.setRightAnchor(schedulingContentPane, 0.0);
-        AnchorPane.setBottomAnchor(schedulingContentPane, 0.0);
+        schedulingScrollPane = new ScrollPane();
+        schedulingScrollPane.setStyle("-fx-background-color:blue"); //Actual Color: #55606e
+        AnchorPane.setTopAnchor(schedulingScrollPane, 30.0);
+        AnchorPane.setLeftAnchor(schedulingScrollPane, 0.0);
+        AnchorPane.setRightAnchor(schedulingScrollPane, 0.0);
+        AnchorPane.setBottomAnchor(schedulingScrollPane, 0.0);
 
-        rightAnchorPane.getChildren().addAll(nameScrollPane, schedulingContentPane);
+        namesHeaderPane = new HBox();
+        schedulingContainmentPane = new HBox();
+        schedulingContainmentPane.setStyle("-fx-background-color: cyan");
+        schedulingContainmentPane.setPrefHeight(4800.0);
+
+        namesHeaderPane.getChildren().add(timeLabelPane);
+        schedulingContainmentPane.getChildren().add(allTheTimesPane);
+
+        nameScrollPane.setContent(namesHeaderPane);
+        schedulingScrollPane.setContent(schedulingContainmentPane);
+
+
+        rightAnchorPane.getChildren().add(nameScrollPane);
+        rightAnchorPane.getChildren().add(schedulingScrollPane);
 
         basePane.getChildren().add(rightAnchorPane);
 
+
+
     }
+
+    public void populateTodaysAppointmentsIntoSchedulingContentPane(List<Appointment> appointmentsForTheCurrentlySelectedDate) {
+
+        if(namesHeaderPane.getChildren() != null && schedulingContainmentPane.getChildren() != null){
+            namesHeaderPane.getChildren().clear();
+            schedulingContainmentPane.getChildren().clear();
+        }
+
+
+        LocalDate local = localDatePicker.getLocalDate();
+
+        java.sql.Date date = java.sql.Date.valueOf(local);
+
+        employeeScheduleViews = new ArrayList<>();
+
+        namesHeaderPane.getChildren().add(timeLabelPane);
+        schedulingContainmentPane.getChildren().add(allTheTimesPane);
+
+        for (Employee employee : employees) {
+
+            EmployeeScheduleView employeeScheduleView = new EmployeeScheduleView(employee, date);
+
+            AnchorPane namePane = employeeScheduleView.getNameAnchorPane();
+            AnchorPane schedulePane = employeeScheduleView.getScheduleBasePane();
+
+            namesHeaderPane.getChildren().add(namePane);
+            AnchorPane.setBottomAnchor(namePane, 0.0);
+            AnchorPane.setTopAnchor(namePane, 0.0);
+
+            schedulingContainmentPane.getChildren().add(schedulePane);
+
+            AnchorPane.setBottomAnchor(schedulePane, 0.0);
+            AnchorPane.setTopAnchor(schedulePane, 0.0);
+
+            employeeScheduleViews.add(employeeScheduleView);
+
+        }
+
+    }
+
 
     public void timeBorderPaneSetup(AnchorPane basePane) {
 
@@ -115,29 +189,29 @@ public class SchedulingScreenView {
         AnchorPane.setLeftAnchor(label1, 0.0);
         timeLabelPane.setStyle("-fx-background-color: #55606e");
         timeLabelPane.setPrefSize(100.0, 30.0);
-        timeLabelPane.setOnMouseEntered(e -> {timeLabelPane.setStyle("-fx-background-color: #343a41");});
-        timeLabelPane.setOnMouseExited(e -> {timeLabelPane.setStyle("-fx-background-color: #55606e");});
+        timeLabelPane.setOnMouseEntered(e -> {
+            timeLabelPane.setStyle("-fx-background-color: #343a41");
+        });
+        timeLabelPane.setOnMouseExited(e -> {
+            timeLabelPane.setStyle("-fx-background-color: #55606e");
+        });
 
-        ScrollPane myScrollPane = new ScrollPane();
-        AnchorPane.setTopAnchor(myScrollPane, 30.0);
-        AnchorPane.setLeftAnchor(myScrollPane, 0.0);
-        AnchorPane.setBottomAnchor(myScrollPane, 0.0);
-        myScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        myScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
+//        timeScrollPane = new ScrollPane();
+//        AnchorPane.setTopAnchor(timeScrollPane, 30.0);
+//        AnchorPane.setLeftAnchor(timeScrollPane, 0.0);
+//        AnchorPane.setBottomAnchor(timeScrollPane, 0.0);
+//        timeScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//        timeScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         allTheTimesPane = new AnchorPane();
         allTheTimesPane.setPrefWidth(100.0);
         insertTimesAndLogin(allTheTimesPane);
 
-        myScrollPane.setContent(allTheTimesPane);
+        //timeScrollPane.setContent(allTheTimesPane);
+        System.out.println("All Pane Height: " + allTheTimesPane.getHeight());
 
-
-
-
-
-        basePane.getChildren().add(myScrollPane);
-        basePane.getChildren().add(timeLabelPane);
+        //basePane.getChildren().add(timeScrollPane);
+        //basePane.getChildren().add(timeLabelPane);
     }
 
     public void insertTimesAndLogin(AnchorPane allTheTimesPane) {
@@ -155,7 +229,7 @@ public class SchedulingScreenView {
             labelList.add(label);
         }
 
-        String hours[] = {"24" ,"01", "02", "03", "04", "05", "06", "07", "08", "09",
+        String hours[] = {"24", "01", "02", "03", "04", "05", "06", "07", "08", "09",
                 "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
                 "20", "21", "22", "23"};
 
@@ -178,17 +252,23 @@ public class SchedulingScreenView {
 
         }
 
-        double sizeOfPanel = 1440;
-        double incrementSize = 15;
+        double sizeOfPanel = 4800;
+        double incrementSize = 50;
         double position = 0;
 
         for (int i = 0; i < labelList.size(); i++) {
 
 
             AnchorPane pane = new AnchorPane();
+            pane.setPrefHeight(50.0);
             pane.setStyle("-fx-background-color: #55606e");
-            pane.setOnMouseEntered(e -> {pane.setStyle("-fx-background-color: #343a41");});
-            pane.setOnMouseExited(e -> {pane.setStyle("-fx-background-color: #55606e");});
+            pane.setOnMouseEntered(e -> {
+                pane.setStyle("-fx-background-color: #343a41");
+                System.out.println(AnchorPane.getTopAnchor(pane));
+            });
+            pane.setOnMouseExited(e -> {
+                pane.setStyle("-fx-background-color: #55606e");
+            });
 
 
             AnchorPane.setBottomAnchor(labelList.get(i), 0.0);
@@ -208,8 +288,6 @@ public class SchedulingScreenView {
         }
 
         System.out.println(position);
-        System.out.println("Size of panel: " + allTheTimesPane.getLayoutY());
-
 
 
     }

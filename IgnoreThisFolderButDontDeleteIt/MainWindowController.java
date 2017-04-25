@@ -1,5 +1,7 @@
-package Controller;
 
+/*
+import Model.MainWindowModel;
+import View.MainWindowView;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -82,7 +84,7 @@ public class MainWindowController implements Initializable {
 
     private boolean isOpen = false;
 
-    public MainWindowController() {
+    public MainWindowController(MainWindowView mainWindowView, MainWindowModel mainWindowModel) {
         System.out.println("Default Constructor Called");
     }
 
@@ -226,3 +228,4 @@ public class MainWindowController implements Initializable {
 
 
 }
+*/

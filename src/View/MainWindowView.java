@@ -1,7 +1,9 @@
 package View;
 
+import Controller.AddAppointmentWindowController;
 import Controller.MainWindowController;
 import MiscObjects.Employee;
+import Model.AddAppointmentWindowModel;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -59,6 +61,10 @@ public class MainWindowView {
     private ImageView hamburgerButtonImage;
     private ToggleGroup toggleGroup;
     private AnchorPane blockerPane; //this pane blocks the user from clicking main gui elements when the login screen is up
+    private Label newAppointmentLabel;
+    private Button newAppointmentButton;
+
+    private ImageView plusImage;
 
     private AnchorPane loginPane;
 
@@ -105,23 +111,23 @@ public class MainWindowView {
         stage.show();
     }
 
-    public void loadLoginGui(LoginView loginView){
+    public void loadLoginGui(LoginView loginView) {
         loginPane = new AnchorPane();
         loginPane.setPrefSize(loginView.getRoot().getPrefWidth(), loginView.getRoot().getPrefHeight());
         System.out.println(loginView.getRoot().getPrefWidth());
         loginPane.getChildren().add(loginView.getRoot());
 
-        loginPane.setLayoutX(rootPane.getWidth()/2 - loginView.getRoot().getPrefWidth()/2);
-        loginPane.setLayoutY(rootPane.getHeight()/2 - loginView.getRoot().getPrefHeight()/2);
+        loginPane.setLayoutX(rootPane.getWidth() / 2 - loginView.getRoot().getPrefWidth() / 2);
+        loginPane.setLayoutY(rootPane.getHeight() / 2 - loginView.getRoot().getPrefHeight() / 2);
 
 
-        rootPane.widthProperty().addListener(e ->{
-            loginPane.setLayoutX(rootPane.getWidth()/2 - loginPane.getWidth()/2);
-            System.out.println(rootPane.getWidth()/2 - loginPane.getWidth()/2);
+        rootPane.widthProperty().addListener(e -> {
+            loginPane.setLayoutX(rootPane.getWidth() / 2 - loginPane.getWidth() / 2);
+            System.out.println(rootPane.getWidth() / 2 - loginPane.getWidth() / 2);
         });
 
-        rootPane.heightProperty().addListener(e ->{
-            loginPane.setLayoutY((rootPane.getHeight()/2 -  loginPane.getHeight()/2));
+        rootPane.heightProperty().addListener(e -> {
+            loginPane.setLayoutY((rootPane.getHeight() / 2 - loginPane.getHeight() / 2));
         });
 
         rootPane.getChildren().add(loginPane);
@@ -263,6 +269,7 @@ public class MainWindowView {
 
         schedulingDatePicker = new LocalDatePicker();
         schedulingDatePicker.setPrefWidth(240.0);
+        schedulingDatePicker.setLocalDate(LocalDate.now());
 
         buttonStackPane = new TilePane();
         buttonStackPane.setStyle("-fx-background-color: #e9e9e9;");
@@ -330,6 +337,20 @@ public class MainWindowView {
         hamburgerButton.setMaxSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
         hamburgerButton.setMinSize(buttonAndMenuCollapsedSize, buttonAndMenuCollapsedSize);
 
+        newAppointmentButton = new Button();
+        plusImage = new ImageView();
+        plusImage.setImage(new Image("res/addAppointmentIcon.png"));
+        plusImage.setFitHeight(innerImageSize);
+        plusImage.setFitWidth(innerImageSize);
+        newAppointmentButton.setPrefHeight(buttonAndMenuCollapsedSize);
+        newAppointmentLabel = new Label("Add Appointment");
+        newAppointmentButton.setGraphic(plusImage);
+        leftMenu.getChildren().add(newAppointmentButton);
+        AnchorPane.setLeftAnchor(newAppointmentButton, 0.0);
+        AnchorPane.setRightAnchor(newAppointmentButton, 0.0);
+        AnchorPane.setTopAnchor(newAppointmentButton, 300.0);
+
+
         //</editor-fold>
 
 
@@ -349,7 +370,6 @@ public class MainWindowView {
         AnchorPane.setRightAnchor(buttonStackPane, 0.0);
 
 
-
         leftMenu.setPrefSize(200.0, 300.0);
         dividerPane.setLeft(leftMenu);
         dividerPane.setRight(mainPane);
@@ -362,7 +382,7 @@ public class MainWindowView {
         ////////////////////////////////////////////////////////////////////////////////////
     }
 
-    public void logMeIn(Employee employee){
+    public void logMeIn(Employee employee) {
         this.employee = employee;
         topBarContent(employee.getF_name(), employee.getL_name());
         System.out.println("Logging in");
@@ -381,7 +401,7 @@ public class MainWindowView {
             dividerPane.setEffect(null);
             rootPane.getChildren().remove(loginPane);
             rootPane.getChildren().remove(blockerPane);
-                });
+        });
         timeline.play();
 
     }
@@ -393,6 +413,7 @@ public class MainWindowView {
         leftMenu.getChildren().clear();
         leftMenu.getChildren().add(hamburgerButton);
         leftMenu.getChildren().add(buttonStackPane);
+        leftMenu.getChildren().add(newAppointmentButton);
 
         switch (selected) {
             case HOME:
@@ -415,13 +436,6 @@ public class MainWindowView {
 
     public void homeLeftMenuInterface() {
 
-
-    }
-
-    //This method handles the adding and removing of components on the left
-    //menu when on the scheduling tab when we open and close the menu. Right it only has the Date Picker
-    //but if we decide to add more stuff this will handle it
-    public void schedulingLeftMenuInterface() {
         if (open) {//if the left scheduling pane is open add the datepicker to the pane
 
             leftMenu.getChildren().add(schedulingDatePicker); //add the date picker to left pane
@@ -431,17 +445,73 @@ public class MainWindowView {
         } else {//else (pane is closed) remove the scheduling date picker
             if (leftMenu.getChildren().contains(schedulingDatePicker)) {
                 leftMenu.getChildren().remove(schedulingDatePicker);
+
             }
+        }
+
+
+    }
+
+    //This method handles the adding and removing of components on the left
+    //menu when on the scheduling tab when we open and close the menu. Right it only has the Date Picker
+    //but if we decide to add more stuff this will handle it
+    public void schedulingLeftMenuInterface() {
+
+        if (open) {//if the left scheduling pane is open add the datepicker to the pane
+
+            leftMenu.getChildren().add(schedulingDatePicker); //add the date picker to left pane
+            AnchorPane.setTopAnchor(schedulingDatePicker, 100.0); //positioning
+            AnchorPane.setLeftAnchor(schedulingDatePicker, 10.0);//positioning
+            AnchorPane.setRightAnchor(schedulingDatePicker, 10.0);//positioning
+        } else {//else (pane is closed) remove the scheduling date picker
+            if (leftMenu.getChildren().contains(schedulingDatePicker)) {
+                leftMenu.getChildren().remove(schedulingDatePicker);
+
+            }
+
+
             //For now, do not add anything
         }
     }
 
     public void clientLeftMenuInterface() {
 
+        if (open) {//if the left scheduling pane is open add the datepicker to the pane
+
+            leftMenu.getChildren().add(schedulingDatePicker); //add the date picker to left pane
+            AnchorPane.setTopAnchor(schedulingDatePicker, 100.0); //positioning
+            AnchorPane.setLeftAnchor(schedulingDatePicker, 10.0);//positioning
+            AnchorPane.setRightAnchor(schedulingDatePicker, 10.0);//positioning
+        } else {//else (pane is closed) remove the scheduling date picker
+            if (leftMenu.getChildren().contains(schedulingDatePicker)) {
+                leftMenu.getChildren().remove(schedulingDatePicker);
+
+            }
+        }
+
     }
 
     public void settingsLeftMenuInterface() {
+        if (open) {//if the left scheduling pane is open add the datepicker to the pane
 
+            leftMenu.getChildren().add(schedulingDatePicker); //add the date picker to left pane
+            AnchorPane.setTopAnchor(schedulingDatePicker, 100.0); //positioning
+            AnchorPane.setLeftAnchor(schedulingDatePicker, 10.0);//positioning
+            AnchorPane.setRightAnchor(schedulingDatePicker, 10.0);//positioning
+        } else {//else (pane is closed) remove the scheduling date picker
+            if (leftMenu.getChildren().contains(schedulingDatePicker)) {
+                leftMenu.getChildren().remove(schedulingDatePicker);
+
+            }
+        }
+    }
+
+    public void loadAddAppointmentWindowView(){
+        java.util.Date date = java.sql.Date.valueOf(schedulingDatePicker.getLocalDate());
+
+        AddAppointmentWindowView  addAppointmentWindowView = new AddAppointmentWindowView(employee, date);
+        AddAppointmentWindowModel addAppointmentWindowModel = new AddAppointmentWindowModel();
+        AddAppointmentWindowController addAppointmentWindowController = new AddAppointmentWindowController(addAppointmentWindowModel, addAppointmentWindowView, employee);
     }
 
     public Stage getStage() {
@@ -683,5 +753,13 @@ public class MainWindowView {
 
     public void setSchedulingDatePicker(LocalDatePicker schedulingDatePicker) {
         this.schedulingDatePicker = schedulingDatePicker;
+    }
+
+    public Button getNewAppointmentButton() {
+        return newAppointmentButton;
+    }
+
+    public void setNewAppointmentButton(Button newAppointmentButton) {
+        this.newAppointmentButton = newAppointmentButton;
     }
 }

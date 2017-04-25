@@ -1,17 +1,9 @@
 package View;
 
-import MiscObjects.Appointment;
+import MiscObjects.AppointmentPane;
 import MiscObjects.Employee;
-import MiscObjects.Queries;
-import Model.EmployeeScheduleModel;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import sun.plugin.javascript.navig.Anchor;
-
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.sql.Date;
 
 /*
 This purpose of this class is to create the visual representation
@@ -21,81 +13,64 @@ of an employee scheduling block for a specific date
 
 public class EmployeeScheduleView {
 
-    AnchorPane basePane;
-    AnchorPane namePane;
-    Label nameLabel;
-    AnchorPane scheduleHolderPane;
-    List<AnchorPane> appointmentsForToday = new ArrayList<>();
-    List<Appointment> appointmentList = new ArrayList<>();
-
-    Appointment testAppointment;
-
+    AppointmentPane appointmentPane;
     Employee employee;
-    String name = "e";
+    Date date;
 
+    AnchorPane nameAnchorPane;
+    AnchorPane scheduleBasePane;
 
-    public EmployeeScheduleView(Employee employee) {
+    public EmployeeScheduleView(Employee employee, Date date){
         this.employee = employee;
-        //testAppointment = new Queries().getAllEmployees().get(0).getAppointments().get(0);
-
-        namePane = new AnchorPane();
-        nameLabel = new Label(name);
-        namePane.getChildren().add(nameLabel);
+        this.date = date;
 
 
-        scheduleHolderPane = new AnchorPane();
+        nameAnchorPane = new AnchorPane();
 
-        populateAppointments(scheduleHolderPane);
+        scheduleBasePane = new AnchorPane();
 
-        addAppointmentToEmployeeScheduleView(new Appointment());
-
-        basePane = new AnchorPane();
+        appointmentPane = new AppointmentPane(employee, date, nameAnchorPane, scheduleBasePane);
 
     }
 
-    public void populateAppointments(AnchorPane scheduleHolderPane) {
-
-
+    public AppointmentPane getAppointmentPane() {
+        return appointmentPane;
     }
 
-    public void addAppointmentToEmployeeScheduleView(Appointment appointment) {
-
-        double basePaneHeight = basePane.getHeight();
-        //double
-
+    public void setAppointmentPane(AppointmentPane appointmentPane) {
+        this.appointmentPane = appointmentPane;
     }
 
-
-    public void scheduleHolderPaneInterfacing() {
-
-        scheduleHolderPane.setOnMouseClicked(e -> {
-            //Open new appointment dialog window
-
-            AnchorPane newAppointmentPane;
-
-            if (false) {
-
-
-            } else {
-                //do nothing
-            }
-
-        });
-
-        scheduleHolderPane.setOnMouseEntered(e -> {
-
-        });
-
-        scheduleHolderPane.setOnMouseExited(e -> {
-
-        });
-
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public Appointment newAppointment() {
-        return new Appointment();//place holder
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
+    public Date getDate() {
+        return date;
+    }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public AnchorPane getNameAnchorPane() {
+        return nameAnchorPane;
+    }
+
+    public void setNameAnchorPane(AnchorPane nameAnchorPane) {
+        this.nameAnchorPane = nameAnchorPane;
+    }
+
+    public AnchorPane getScheduleBasePane() {
+        return scheduleBasePane;
+    }
+
+    public void setScheduleBasePane(AnchorPane scheduleBasePane) {
+        this.scheduleBasePane = scheduleBasePane;
+    }
 }
 

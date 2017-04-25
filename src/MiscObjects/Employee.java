@@ -12,7 +12,7 @@ public class Employee {
     private String email;
     private Date date_of_birth;
 
-    public Employee(String employee_id, String username, String f_name, String l_name, String email, long phone, Date date_of_birth) {
+    public Employee() {
         setEmployee_id(employee_id);
         setUsername(username);
         setF_name(f_name);

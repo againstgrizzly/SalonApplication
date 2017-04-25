@@ -1,8 +1,10 @@
 package MiscObjects;
 
+import javax.xml.transform.Result;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 public class Queries {
@@ -145,5 +147,134 @@ public class Queries {
         return found;
     } //End FindClient
 
+    public String resetPIN(String pin, String username){
+        try{
+            Class.forName("org.h2.Driver");
+            Connection connection = DriverManager.getConnection(url,"sa", "");
 
-} //End Class
+            Statement statement = connection.createStatement();
+            String query = "update logins set password = '" + pin + "' where username = '" + username + "';";
+            statement.executeUpdate(query);
+            connection.close();
+        }catch (Exception e) {e.printStackTrace();}
+        return pin;
+    }
+
+   public Boolean returnPIN(String username, String dateOfBirth) {
+        boolean validInput = false;
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+       java.util.Date dob;
+        try {
+            Class.forName("org.h2.Driver");
+            Connection connection = DriverManager.getConnection(url, "sa", "");
+
+            dob = df.parse(dateOfBirth);
+            String newDate = df.format(dob);
+
+            System.out.println(newDate);
+            Statement statement = connection.createStatement();
+
+            String query = "select * from employees where username = '" + username + "' and date_of_birth = '" + newDate + "';";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (!resultSet.next()) {
+                validInput = false;
+            }
+            else {
+                validInput = true;
+            }
+            resultSet.close();
+            connection.close();
+
+        }catch (Exception e) {e.printStackTrace();}
+        return validInput;
+    }
+
+    public Boolean UsernameDisplayAttempt(String firstname, String lastname, String dateOfBirth){
+        boolean validInput = false;
+        try {
+            Class.forName("org.h2.Driver");
+            Connection connection = DriverManager.getConnection(url, "sa", "");
+
+            Statement statement = connection.createStatement();
+            String query = "select * from employees where f_name = '" + firstname + "' and l_name = '" + lastname + "' and date_of_birth = '" + dateOfBirth + "';";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (!resultSet.next()) {
+                validInput = false;
+            } //sets validInput to false for empty table meaning that it didn't find that user/pin
+            else {
+                validInput = true;
+            }
+            resultSet.close();
+            connection.close();
+
+        }catch (Exception e) {e.printStackTrace();}
+        return validInput;
+    }
+    public Client getClientInfoUsingID(String id){
+
+        Client client = new Client();
+
+        try {
+            Class.forName("org.h2.Driver");
+            Connection connection = DriverManager.getConnection(url, "sa", ""); // password
+            Statement statement = connection.createStatement();
+
+            //Get client using client id
+            String query = "select * from client where client_id = ' " + id + "'";
+
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                client.setClient_id(resultSet.getString("CLIENT_ID"));
+                client.setEmployee_id(resultSet.getString("EMPLOYEE_ID"));
+                client.setF_name(resultSet.getString("F_NAME"));
+                client.setL_name(resultSet.getString("L_NAME"));
+                client.setPhone(resultSet.getLong("PHONE"));
+                client.setEmail(resultSet.getString("EMAIL"));
+                client.setColor_formula(resultSet.getString("COLOR_FORMULA"));
+                client.setAddress(resultSet.getString("ADDRESS"));
+                client.setCity(resultSet.getString("CITY"));
+                client.setState(resultSet.getString("STATE"));
+                client.setPostal_code(resultSet.getString("POSTAL_CODE"));
+            }
+
+            connection.close();//close that connect, bruh
+
+        }catch (Exception e){
+            System.out.println(e);
+            System.exit(1);
+        }
+
+        return client;
+    }
+
+    public Appointment getEmployeeAppointments(){
+        Appointment appointment = new Appointment();
+        try {
+            Class.forName("org.h2.Driver");
+            Connection connection = DriverManager.getConnection(url, "sa", ""); // password
+            Statement statement = connection.createStatement();
+
+            String query = "select * from appointments;";
+
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+            appointment.setAppt_id(resultSet.getString("APPT_ID"));
+            appointment.setClient_id(resultSet.getString("CLIENT_ID"));
+            appointment.setEmployee_id(resultSet.getString("EMPLOYEE_ID"));
+            appointment.setDate(resultSet.getDate("DATE"));
+            appointment.setStart_time(resultSet.getTime("START_TIME"));
+            appointment.setEnd_time(resultSet.getTime("END_TIME"));
+            appointment.setDuration(resultSet.getInt("DURATION"));
+            appointment.setNotes(resultSet.getString("NOTES"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return appointment;
+    }
+
+}//End Class

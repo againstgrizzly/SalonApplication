@@ -1,9 +1,11 @@
 package Controller;
 
 import MiscObjects.Employee;
+import Model.AddAppointmentWindowModel;
 import Model.HomeScreenModel;
 import Model.MainWindowModel;
 import Model.SchedulingScreenModel;
+import View.AddAppointmentWindowView;
 import View.HomeScreenView;
 import View.MainWindowView;
 import View.SchedulingScreenView;
@@ -111,6 +113,12 @@ public class MainWindowController {
         mainWindowView.getSettingsButton().setOnAction(e -> {
             System.out.println("Settings Button Pressed");
 
+        });
+
+        mainWindowView.getNewAppointmentButton().setOnAction(e ->{
+            //Load add appointment window
+            System.out.println("Add New Appointment");
+            mainWindowView.loadAddAppointmentWindowView();
         });
 
     }

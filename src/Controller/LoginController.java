@@ -1,10 +1,10 @@
 package Controller;
 
 import MiscObjects.Employee;
-import Model.LoginModel;
-import Model.MainWindowModel;
+import Model.*;
 import View.LoginView;
 import View.MainWindowView;
+import javafx.event.ActionEvent;
 
 /**
  * Created by Brannon on 3/11/2017.
@@ -15,17 +15,30 @@ public class LoginController {
     private LoginView loginView;
     private String enteredPin;
     private String enteredUsername;
+    private String enteredBirthDate;
     private Employee employee;
+
+    private String lastname;
+    private String firstname;
+    private String newPin;
+
+
+    private DisplayUsernameModel displayUsernameModel;
+    private DisplayPinModel displayPinModel;
+
 
     //This will load the screen behind the login window initially
     private MainWindowController mainWindowController;
-
+    private MainWindowView mainWindowView;
 
 
     public LoginController(LoginView loginView, LoginModel loginModel, MainWindowController mainWindowController) {
         this.loginModel = loginModel;
         this.loginView = loginView;
         this.mainWindowController = mainWindowController;
+
+        displayUsernameModel = new DisplayUsernameModel();
+        displayPinModel = new DisplayPinModel();
 
         handles();
     }
@@ -53,19 +66,17 @@ public class LoginController {
 
             loginSuccessful = loginModel.isLoginValid(enteredUsername, enteredPin);
 
-            if(loginSuccessful){
+            if (loginSuccessful) {
                 //Load the next screen and pass in employee object
-                System.out.println("login sucessful");
+                System.out.println("login successful");
                 try {
                     employee = loginModel.getLoggedInEmployee(enteredUsername);
-                }catch(Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
                 mainWindowController.logMeIn(employee);
 
-            }
-
-            else{
+            } else {
                 //Display wrong password message
                 loginView.incorrectLoginSlide();
                 System.out.println("login unsuccessful");
@@ -73,13 +84,130 @@ public class LoginController {
         });
 
 
-        loginView.getForgotButton().setOnAction(e -> {
+        loginView.getForgotButton().setOnAction((ActionEvent e) -> {
             System.out.println("Forgot Button Pressed");
+            try {
+                loginView.getRoot().getChildren().clear();
+                loginView.loadResetGui();
+                handles();
+                loginView.getBackButton().setOnAction(event -> {
+                    System.out.println("Back Button Pressed");
+                    try {
+                        loginView.getRoot().getChildren().clear();
+                        loginView.loginSetup();
+                        handles();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                });
+                loginView.getResetUsername().setOnAction(event -> {
+                    loginView.getRoot().getChildren().clear();
+                    loginView.loadForgotUsername();
+                    handles();
+                    loginView.getVerifyButton().setOnAction(event1 -> {
 
+                        boolean infoValid = false;
+                        System.out.println("Verify Button Pressed");
+                        firstname = loginView.getFirstname().getText();
+                        lastname = loginView.getLastname().getText();
+                        enteredBirthDate = loginView.getDateOfBirth().getText();
+                        if (firstname == null) {
+                            System.out.println("Missing Field FirstName");
+                        }
+                        if (lastname == null) {
+                            System.out.println("Missing Field LastName");
+                        }
+                        if (enteredBirthDate == null) {
+                            System.out.println("Missing Field Birth Date");
+                        } else {
+                            System.out.println(firstname + " " + lastname + " " + enteredBirthDate);
+                        }
+                        try {
+                            infoValid = displayUsernameModel.isInfoValid(firstname, lastname, enteredBirthDate);
+                            if (infoValid) {
+                                System.out.println("Employee Found");
+                                System.out.println("Your Username is: " + firstname.toLowerCase().substring(0, 1) + lastname.toLowerCase());
+                                loginView.getRoot().getChildren().clear();
+                                loginView.loginSetup();
+                                handles();
+                            } else {
+                                System.out.println("Employee Not Found");
+
+                            }
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    });
+                    loginView.getBackButton().setOnAction(event1 -> {
+                        loginView.getRoot().getChildren().clear();
+                        loginView.loginSetup();
+                        handles();
+                    });
+                });
+                loginView.getResetPin().setOnAction(event -> {
+                    loginView.getRoot().getChildren().clear();
+                    loginView.loadResetPin();
+                    handles();
+                    loginView.getVerifyButton().setOnAction(event1 -> {
+                        System.out.println("Verify Button Pressed");
+                        boolean infoValid;
+                        enteredUsername = loginView.getUsername().getText();
+                        enteredBirthDate = loginView.getDateOfBirth().getText();
+                        if (enteredUsername == null) {
+                            enteredUsername = "";
+                        } else {
+                            System.out.println(enteredUsername);
+                        }
+                        if (enteredBirthDate == null) {
+                            enteredBirthDate = "";
+                        } else {
+                            System.out.println(enteredBirthDate);
+
+                        }
+
+                        infoValid = displayPinModel.isInfoValid(enteredUsername, enteredBirthDate);
+                        try {
+                            if (infoValid) {
+                                System.out.println("Employee Found");
+                                loginView.getRoot().getChildren().clear();
+                                loginView.loadPINReset();
+                                loginView.getResetButton().setOnAction(event2 -> {
+                                    System.out.println("Reset Pin Pressed");
+                                    newPin = loginView.getPin().getText();
+                                    enteredUsername = loginView.getUsername().getText();
+                                    if (newPin == null || enteredUsername == null) {
+                                        newPin = "";
+                                        enteredUsername = "";
+                                    } else {
+                                        newPin = loginView.getPin().getText();
+                                        enteredUsername = loginView.getUsername().getText();
+                                        displayPinModel.resetPin(newPin, enteredUsername);
+                                        System.out.println(newPin);
+                                        loginView.getRoot().getChildren().clear();
+                                        loginView.loginSetup();
+                                        handles();
+                                    }
+                                });
+                            } else {
+                                System.out.println("Employee Not Found");
+
+                            }
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    });
+
+                    loginView.getBackButton().setOnAction(event1 -> {
+                        loginView.getRoot().getChildren().clear();
+                        loginView.loginSetup();
+                        handles();
+                    });
+                });
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         });
-
     }
-
 
     public LoginModel getLoginModel() {
         return loginModel;

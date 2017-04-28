@@ -196,7 +196,34 @@ public class AddAppointmentWindowView {
 
         servicesScrollPane = new ScrollPane();
 
+        vBox = new VBox();
+
+        JFXCheckBox checkBox = new JFXCheckBox("Haircut");
+        checkBox.setCheckedColor(Color.rgb(36, 175, 178));
+        checkBox.setFont(Font.font(14.0));
+        vBox.getChildren().add(checkBox);
+        VBox.setVgrow(servicesScrollPane, Priority.ALWAYS);
+
+        JFXCheckBox checkBox1 = new JFXCheckBox("Manicure");
+        checkBox1.setCheckedColor(Color.rgb(36, 175, 178));
+        checkBox1.setFont(Font.font(14.0));
+        vBox.getChildren().add(checkBox1);
+        VBox.setVgrow(servicesScrollPane, Priority.ALWAYS);
+
+        JFXCheckBox checkBox2 = new JFXCheckBox("Perm");
+        checkBox2.setCheckedColor(Color.rgb(36, 175, 178));
+        checkBox2.setFont(Font.font(14.0));
+        vBox.getChildren().add(checkBox2);
+        VBox.setVgrow(servicesScrollPane, Priority.ALWAYS);
+
+        JFXCheckBox checkBox3 = new JFXCheckBox("Dye");
+        checkBox3.setCheckedColor(Color.rgb(36, 175, 178));
+        checkBox3.setFont(Font.font(14.0));
+        vBox.getChildren().add(checkBox3);
+        VBox.setVgrow(servicesScrollPane, Priority.ALWAYS);
+
         servicesScrollPane.setContent(vBox);
+        servicesScrollPane.setOnMouseEntered(e -> System.out.println("Mouse Entered"));
 
         root.setStyle("-fx-background-color: #e9e9e9");
 
@@ -259,17 +286,16 @@ public class AddAppointmentWindowView {
     }
 
 
-    public void setUpServicesList(List<String> services){
-        vBox = new VBox();
+    public void setUpServicesList(){
 
-        for(String service : services){
-            JFXCheckBox checkBox = new JFXCheckBox(service);
-            checkBox.setCheckedColor(Color.rgb(36, 175, 178));
-            checkBox.setFont(Font.font(14.0));
-            vBox.getChildren().add(checkBox);
-            System.out.println(service);
-            VBox.setVgrow(servicesScrollPane, Priority.ALWAYS);
-        }
+//        for(String service : services){
+//            JFXCheckBox checkBox = new JFXCheckBox(service);
+//            checkBox.setCheckedColor(Color.rgb(36, 175, 178));
+//            checkBox.setFont(Font.font(14.0));
+//            vBox.getChildren().add(checkBox);
+//            System.out.println(service);
+//            VBox.setVgrow(servicesScrollPane, Priority.ALWAYS);
+//        }
     }
 
     public void choiceBoxSetup(){

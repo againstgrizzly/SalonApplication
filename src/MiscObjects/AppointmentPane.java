@@ -1,17 +1,20 @@
 package MiscObjects;
 
 
+import Controller.AddAppointmentWindowController;
+import Model.AddAppointmentWindowModel;
+import View.AddAppointmentWindowView;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableListValue;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*;
 import javafx.scene.text.Font;
-import sun.plugin.javascript.navig4.Anchor;
-
-import java.awt.*;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -28,6 +31,7 @@ public class AppointmentPane {
     Map<String, Double> endTimeDistance;
 
     private List<AnchorPane> appointmentPanels;
+    private List<Client> clients = new ArrayList<>();
     private Date date;
     Employee employee;
 
@@ -103,6 +107,10 @@ public class AppointmentPane {
 //
             AnchorPane appointmentAnchorPane = new AnchorPane();
             Client client = getClientForThisAppointment(appointment);
+            String clientId = client.getClient_id();
+            appointmentAnchorPane.setAccessibleText(clientId);
+            String yourMom = appointmentAnchorPane.getAccessibleText();
+            clients.add(client);
 
             Label clientNameLabel = new Label();
             Label servicesBeingProvidedLabel = new Label();
@@ -138,7 +146,6 @@ public class AppointmentPane {
             AnchorPane.setTopAnchor(servicesBeingProvidedLabel, 40.0);
             AnchorPane.setLeftAnchor(servicesBeingProvidedLabel, 0.0);
             AnchorPane.setRightAnchor(servicesBeingProvidedLabel, 0.0);
-
 
             startAndEndTimeLabel.setText(appointment.getStart_time() + " - " + appointment.getEnd_time());
             startAndEndTimeLabel.setTextFill(Color.WHITE);
@@ -176,7 +183,7 @@ public class AppointmentPane {
 
             scheduleBasePane.getChildren().add(appointmentAnchorPane);
 
-            appointmentAnchorPane.setStyle("-fx-background-color: blue");
+            appointmentAnchorPane.setStyle("-fx-background-color: #24afb2");
             //Handles
             appointmentAnchorPane.setOnMouseExited(e -> {
                 appointmentAnchorPane.setStyle("-fx-background-color: #24afb2");
@@ -188,6 +195,32 @@ public class AppointmentPane {
 
             appointmentAnchorPane.setOnMouseClicked(e -> {
                 System.out.println("you clicked me: " + appointmentAnchorPane.toString());
+                String accessibleText = appointmentAnchorPane.getAccessibleText();
+                Client thisClient = new Queries().getClientInfoUsingID(appointmentAnchorPane.getAccessibleText());
+
+
+
+                AddAppointmentWindowView addAppointmentWindowView = new AddAppointmentWindowView(employee, date);
+                AddAppointmentWindowModel addAppointmentWindowModel = new AddAppointmentWindowModel();
+                AddAppointmentWindowController addAppointmentWindowController = new AddAppointmentWindowController(addAppointmentWindowModel, addAppointmentWindowView, employee, thisClient);
+
+                addAppointmentWindowView.getClientLabel().setText(thisClient.getF_name() + " " + thisClient.getL_name());
+                addAppointmentWindowView.getPhoneNumberLabel().setText(String.valueOf(thisClient.getPhone()));
+                addAppointmentWindowView.getClientNotesTextField().setText(thisClient.getColor_formula());
+                addAppointmentWindowView.getStartTimeChoiceBox().getItems().clear();
+                List<String> stringList = new ArrayList<>();
+                stringList.add("8:00 AM");
+                ObservableList<String> something = FXCollections.observableList(stringList);
+                addAppointmentWindowView.getStartTimeChoiceBox().setItems(something);
+
+                List<String> endList = new ArrayList<>();
+                endList.add("8:30 AM");
+                ObservableList<String> somethingElse = FXCollections.observableList(endList);
+                addAppointmentWindowView.getEndTimeChoiceBox().getItems().clear();
+                addAppointmentWindowView.getEndTimeChoiceBox().setItems(somethingElse);
+
+
+
             });
 
         }

@@ -41,13 +41,13 @@ public class HomeScreenView {
         homePane = new AnchorPane();
         homePane.setStyle("-fx-background-color: #000000");
 
-        numberOfAppointmentsToday = new Label(" ");
+        numberOfAppointmentsToday = new Label("4");
         numberOfAppointmentsToday.setFont(Font.font(14.0));
-        numberOfCompletedAppointmentsLabel = new Label(" ");
+        numberOfCompletedAppointmentsLabel = new Label("0");
         numberOfCompletedAppointmentsLabel.setFont(Font.font(14.0));
-        numberOfRemainingAppointments = new Label(" ");
+        numberOfRemainingAppointments = new Label("4");
         numberOfRemainingAppointments.setFont(Font.font(14.0));
-        nextAppointmentTimeLabel = new Label(" ");
+        nextAppointmentTimeLabel = new Label("6:30 PM");
         nextAppointmentTimeLabel.setFont(Font.font(14.0));
 
         greetingLabel = new Label(randomGreeting(firstName));

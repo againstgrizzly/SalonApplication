@@ -1,5 +1,8 @@
 package MiscObjects;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.sql.Date;
 import java.util.*;
 
@@ -89,4 +92,13 @@ public class Employee {
     public void setDate_of_birth(Date date_of_birth) {
         this.date_of_birth = date_of_birth;
     }
+
+    private StringProperty firstName;
+    public void setFirstName(String value) { firstNameProperty().set(value); }
+    public String getFirstName() { return firstNameProperty().get(); }
+    public StringProperty firstNameProperty() {
+        if (firstName == null) firstName = new SimpleStringProperty(this, "firstName");
+        return firstName;
+    }
+
 }

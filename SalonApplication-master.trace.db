@@ -1,0 +1,12 @@
+2017-04-25 07:04:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "EMPLOYEES" not found; SQL statement:
+select * from employees [42102-192]
+2017-04-25 07:04:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "APPOINTMENTS" not found; SQL statement:
+SELECT appt_id FROM appointments WHERE date = ? [42102-192]
+2017-04-25 07:06:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "LOGINS" not found; SQL statement:
+select * from LOGINS where username = 'iawesome' and password = '8080'; [42102-192]
+2017-04-25 07:06:10 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "LOGINS" not found; SQL statement:
+select * from LOGINS where username = 'iawesome' and password = '8080'; [42102-192]

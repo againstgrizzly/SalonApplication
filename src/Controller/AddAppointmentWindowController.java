@@ -35,57 +35,71 @@ public class AddAppointmentWindowController {
     AddAppointmentWindowView view;
     Employee employee;
     Client selectedClient;
-        public AddAppointmentWindowController(AddAppointmentWindowModel model, AddAppointmentWindowView view, Employee employee){
-            this.view = view;
-            this.model = model;
-            this.employee = employee;
 
-           // populateServicesVBox(employee);
-            handles();
-        }
+    public AddAppointmentWindowController(AddAppointmentWindowModel model, AddAppointmentWindowView view, Employee employee) {
+        this.view = view;
+        this.model = model;
+        this.employee = employee;
 
-        public void populateServicesVBox(Employee employee){
-           try {
-               List<Service> services;
-               services = model.getServicesForThisEmployee(employee);
-
-               List<String> serviceStringList = new ArrayList<>();
-
-               for (Service service : services) {
-                   serviceStringList.add(service.getName());
-               }
-               view.setUpServicesList(serviceStringList);
-           }catch(Exception e){
-               e.printStackTrace();
-           }
-        }
-
-        public void handles(){
-            view.getSelectClientButton().setOnAction(event -> {
-                view.loadSelectClientWindow();
-                handles();
-                view.getClientButton().setOnAction(event1 -> {
-                    selectedClient = view.getListView().getSelectionModel().getSelectedItem();
-                    view.getClientLabel().setText(selectedClient.getF_name() + " " + selectedClient.getL_name());
-                    view.getClientNotesTextField().setText(selectedClient.getColor_formula());
-                    view.getPhoneNumberLabel().setText("Contact Number: " + selectedClient.getPhone());
-                    handles();
-                    view.getStage().close();
-                });
-                view.getAddClientButton().setOnAction(event1 -> {
-                    view.addNewClientWindow();
-                    handles();
-                });
-            });
-
-
-            view.getConfirm().setOnAction(event -> {
-                view.getStage().close();
-            });
-
-            view.getCancel().setOnAction(event -> {
-                view.getStage().close();
-            });
-        }
-
+        // populateServicesVBox(employee);
+        handles();
     }
+
+    public AddAppointmentWindowController(AddAppointmentWindowModel model, AddAppointmentWindowView view, Employee employee, Client client) {
+        this.view = view;
+        this.model = model;
+        this.employee = employee;
+        client = selectedClient;
+
+       // view.getClientLabel().setText(client.getF_name() +" " + client.getL_name());
+        //view.getPhoneNumberLabel().setText(String.valueOf(client.getPhone()));
+
+        // populateServicesVBox(employee);
+        handles();
+    }
+
+    public void populateServicesVBox(Employee employee) {
+        try {
+            List<Service> services;
+            services = model.getServicesForThisEmployee(employee);
+
+            List<String> serviceStringList = new ArrayList<>();
+
+            for (Service service : services) {
+                serviceStringList.add(service.getName());
+            }
+            //view.setUpServicesList(serviceStringList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handles() {
+        view.getSelectClientButton().setOnAction(event -> {
+            view.loadSelectClientWindow();
+            handles();
+            view.getClientButton().setOnAction(event1 -> {
+                selectedClient = view.getListView().getSelectionModel().getSelectedItem();
+                view.getClientLabel().setText(selectedClient.getF_name() + " " + selectedClient.getL_name());
+                view.getClientNotesTextField().setText(selectedClient.getColor_formula());
+                view.getPhoneNumberLabel().setText("Contact Number: " + selectedClient.getPhone());
+                handles();
+                view.getStage().close();
+            });
+            view.getAddClientButton().setOnAction(event1 -> {
+                view.addNewClientWindow();
+                handles();
+            });
+        });
+
+
+        view.getConfirm().setOnAction(event -> {
+            view.getStage().close();
+        });
+
+        view.getCancel().setOnAction(event -> {
+            view.getStage().close();
+        });
+    }
+
+}

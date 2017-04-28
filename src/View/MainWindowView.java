@@ -53,6 +53,7 @@ public class MainWindowView {
     private ImageView settingsButtonImage;
     private AnchorPane homeScreen;
     private AnchorPane schedulingScreen;
+    private AnchorPane clientScreen;
     private AnchorPane topBar;
     private Label nameLabel;
     private Label dateLabel;
@@ -170,6 +171,9 @@ public class MainWindowView {
         AnchorPane.setRightAnchor(horizontalSlider, 50.0);
         horizontalSlider.setMax(4000.0);
         horizontalSlider.setMin(600);
+
+        //Client Screen
+        clientScreen = new AnchorPane();
 ////////////////////////////////////////////////////////////////////////////
 
         //Add topBar to mainPane
@@ -221,6 +225,15 @@ public class MainWindowView {
         AnchorPane.setRightAnchor(schedulingScreen, 0.0);
         differentScreenContainer.getChildren().add(horizontalSlider);
         differentScreenContainer.getChildren().add(verticalSlider);
+    }
+
+    public void addClientScreenToScreenContainer(){
+        differentScreenContainer.getChildren().clear();
+        differentScreenContainer.getChildren().add(clientScreen);
+        AnchorPane.setTopAnchor(clientScreen, 0.0);
+        AnchorPane.setBottomAnchor(clientScreen, 0.0);
+        AnchorPane.setLeftAnchor(clientScreen, 0.0);
+        AnchorPane.setRightAnchor(clientScreen, 0.0);
     }
 
 
@@ -761,5 +774,85 @@ public class MainWindowView {
 
     public void setNewAppointmentButton(Button newAppointmentButton) {
         this.newAppointmentButton = newAppointmentButton;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public GaussianBlur getGaussianBlur() {
+        return gaussianBlur;
+    }
+
+    public void setGaussianBlur(GaussianBlur gaussianBlur) {
+        this.gaussianBlur = gaussianBlur;
+    }
+
+    public AnchorPane getClientScreen() {
+        return clientScreen;
+    }
+
+    public void setClientScreen(AnchorPane clientScreen) {
+        this.clientScreen = clientScreen;
+    }
+
+    public ToggleGroup getToggleGroup() {
+        return toggleGroup;
+    }
+
+    public void setToggleGroup(ToggleGroup toggleGroup) {
+        this.toggleGroup = toggleGroup;
+    }
+
+    public AnchorPane getBlockerPane() {
+        return blockerPane;
+    }
+
+    public void setBlockerPane(AnchorPane blockerPane) {
+        this.blockerPane = blockerPane;
+    }
+
+    public Label getNewAppointmentLabel() {
+        return newAppointmentLabel;
+    }
+
+    public void setNewAppointmentLabel(Label newAppointmentLabel) {
+        this.newAppointmentLabel = newAppointmentLabel;
+    }
+
+    public ImageView getPlusImage() {
+        return plusImage;
+    }
+
+    public void setPlusImage(ImageView plusImage) {
+        this.plusImage = plusImage;
+    }
+
+    public AnchorPane getLoginPane() {
+        return loginPane;
+    }
+
+    public void setLoginPane(AnchorPane loginPane) {
+        this.loginPane = loginPane;
+    }
+
+    public double getButtonAndMenuCollapsedSize() {
+        return buttonAndMenuCollapsedSize;
+    }
+
+    public void setButtonAndMenuCollapsedSize(double buttonAndMenuCollapsedSize) {
+        this.buttonAndMenuCollapsedSize = buttonAndMenuCollapsedSize;
+    }
+
+    public double getInnerImageSize() {
+        return innerImageSize;
+    }
+
+    public void setInnerImageSize(double innerImageSize) {
+        this.innerImageSize = innerImageSize;
     }
 }

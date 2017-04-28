@@ -1,0 +1,656 @@
+2017-04-04 15:13:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "TABLE" not found; SQL statement:
+select c.client
+from table client c
+where c.client_id =2 [42102-193]
+2017-04-04 15:13:07 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Column "C.CLIENT" not found; SQL statement:
+select c.client
+from client c
+where c.client_id =2 [42122-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.command.dml.Select.prepare(Select.java:853)
+	at org.h2.command.Parser.prepareCommand(Parser.java:259)
+	at org.h2.engine.Session.prepareLocal(Session.java:561)
+	at org.h2.engine.Session.prepareCommand(Session.java:502)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1203)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-04 15:13:23 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "C" not found; SQL statement:
+select c.client
+from c client 
+where c.client_id =2 [42102-193]
+2017-04-04 15:13:55 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "C" not found; SQL statement:
+select 
+from c client 
+where c.client_id =2 [42102-193]
+2017-04-04 15:13:59 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "C" not found; SQL statement:
+select *
+from c client 
+where c.client_id =2 [42102-193]
+2017-04-04 18:03:55 jdbc[6]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:184)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:126)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 14 more
+2017-04-04 18:03:55 jdbc[6]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:184)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:126)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 14 more
+2017-04-05 13:32:33 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLException: Cannot truncate "PUBLIC.APPOINTMENTS"; SQL statement:
+truncate table appointments [90106-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.command.ddl.TruncateTable.update(TruncateTable.java:35)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:98)
+	at org.h2.command.Command.executeUpdate(Command.java:258)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:184)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 13:33:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLException: Table "APPOINTMENTS" not found; SQL statement:
+select*from appointments [42102-193]
+2017-04-05 13:39:31 jdbc[8]: java.lang.Exception: Open Stack Trace
+	at org.h2.util.CloseWatcher.register(CloseWatcher.java:100)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:127)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:184)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:126)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 14 more
+2017-04-05 13:40:14 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLException: Table "CLIENT" not found; SQL statement:
+CREATE TABLE Appointments
+(
+	appt_id varchar NOT NULL AUTO_INCREMENT,
+	client_id varchar NOT NULL AUTO_INCREMENT,
+	employee_id varchar NOT NULL AUTO_INCREMENT,
+	starttime datetime NOT NULL,
+    endtime datetime NOT NULL,
+	notes varchar,
+	duration int,
+	CONSTRAINT pk_appt_appt_id PRIMARY KEY (appt_id),
+	CONSTRAINT fk_appt_client_id FOREIGN KEY (client_id)
+	REFERENCES Client (client_id),
+	CONSTRAINT fk_appt_employee_id FOREIGN KEY (employee_id)
+	REFERENCES Employees (employee_id)
+) [42102-193]
+2017-04-05 13:40:14 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLException: Table "APPOINTMENTS" not found; SQL statement:
+/*Appointments*/
+INSERT into Appointments (time, notes, client_id, employee_id, duration)
+values ('2017-03-08 11:30:00', 'Only wants a 1" trim', 
+(select client_id from client where f_name='Sam'), 
+(select employee_id from employees where f_name = 'Shelby'), 30) [42102-193]
+2017-04-05 13:40:14 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLException: Table "APPOINTMENTS" not found; SQL statement:
+INSERT into Appointments (time, notes, client_id, employee_id, duration)
+values ('2017-03-10 09:30:00', 'Likes Coconut Lotion and short 0.5" trim', 
+(select client_id from client where f_name='Tom'), 
+(select employee_id from employees where f_name = 'Ian'), 60) [42102-193]
+2017-04-05 13:40:14 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLException: Table "APPOINTMENTS" not found; SQL statement:
+INSERT into Appointments (time, notes, client_id, employee_id, duration)
+values ('2017-03-25 12:30:00', 'Likes Super Coconut Lotion better', 
+(select client_id from client where f_name='Tom'), 
+(select employee_id from employees where f_name = 'Ian'), 20) [42102-193]
+2017-04-05 13:40:14 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLException: Table "APPOINTMENTS" not found; SQL statement:
+INSERT into Appointments (time, notes, client_id, employee_id, duration)
+values ('2017-03-15 15:15:00', 'Put out Oprah Magazines before', 
+(select client_id from client where f_name='Oprah'), 
+(select employee_id from employees where f_name = 'Uma'), 60) [42102-193]
+2017-04-05 15:32:26 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Table "EMPLOYEE" not found; SQL statement:
+select * from employee [42102-193]
+2017-04-05 15:33:47 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM EMPLOYEES
+
+SELECT[*] * FROM EMP_SERV "; SQL statement:
+select * from employees
+
+select * from emp_serv [42000-193]
+2017-04-05 15:35:43 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Table "APP_SERV" not found; SQL statement:
+select * from app_serv [42102-193]
+2017-04-05 15:42:49 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Table "TABLE" not found; SQL statement:
+select *
+from table service [42102-193]
+2017-04-05 16:04:00 jdbc[12]: java.lang.Exception: Open Stack Trace
+	at org.h2.util.CloseWatcher.register(CloseWatcher.java:100)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:127)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:184)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:126)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 14 more
+2017-04-05 16:04:14 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT *APPOINTMENTS[*] "; SQL statement:
+select *appointments [42000-193]
+2017-04-05 16:04:14 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT*APPT_SERV[*] "; SQL statement:
+select*appt_serv [42000-193]
+2017-04-05 21:38:04 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Function "LAST" not found; SQL statement:
+SELECT LAST(appt_id) FROM appointment [90022-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.command.Parser.readJavaFunction(Parser.java:2421)
+	at org.h2.command.Parser.readFunction(Parser.java:2473)
+	at org.h2.command.Parser.readTerm(Parser.java:2807)
+	at org.h2.command.Parser.readFactor(Parser.java:2324)
+	at org.h2.command.Parser.readSum(Parser.java:2311)
+	at org.h2.command.Parser.readConcat(Parser.java:2281)
+	at org.h2.command.Parser.readCondition(Parser.java:2128)
+	at org.h2.command.Parser.readAnd(Parser.java:2100)
+	at org.h2.command.Parser.readExpression(Parser.java:2092)
+	at org.h2.command.Parser.parseSelectSimpleSelectPart(Parser.java:2004)
+	at org.h2.command.Parser.parseSelectSimple(Parser.java:2036)
+	at org.h2.command.Parser.parseSelectSub(Parser.java:1891)
+	at org.h2.command.Parser.parseSelectUnion(Parser.java:1709)
+	at org.h2.command.Parser.parseSelect(Parser.java:1697)
+	at org.h2.command.Parser.parsePrepared(Parser.java:445)
+	at org.h2.command.Parser.parse(Parser.java:317)
+	at org.h2.command.Parser.parse(Parser.java:289)
+	at org.h2.command.Parser.prepareCommand(Parser.java:254)
+	at org.h2.engine.Session.prepareLocal(Session.java:561)
+	at org.h2.engine.Session.prepareCommand(Session.java:502)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1203)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 21:38:50 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Function "LAST" not found; SQL statement:
+SELECT LAST(appt_id) FROM appointment [90022-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.command.Parser.readJavaFunction(Parser.java:2421)
+	at org.h2.command.Parser.readFunction(Parser.java:2473)
+	at org.h2.command.Parser.readTerm(Parser.java:2807)
+	at org.h2.command.Parser.readFactor(Parser.java:2324)
+	at org.h2.command.Parser.readSum(Parser.java:2311)
+	at org.h2.command.Parser.readConcat(Parser.java:2281)
+	at org.h2.command.Parser.readCondition(Parser.java:2128)
+	at org.h2.command.Parser.readAnd(Parser.java:2100)
+	at org.h2.command.Parser.readExpression(Parser.java:2092)
+	at org.h2.command.Parser.parseSelectSimpleSelectPart(Parser.java:2004)
+	at org.h2.command.Parser.parseSelectSimple(Parser.java:2036)
+	at org.h2.command.Parser.parseSelectSub(Parser.java:1891)
+	at org.h2.command.Parser.parseSelectUnion(Parser.java:1709)
+	at org.h2.command.Parser.parseSelect(Parser.java:1697)
+	at org.h2.command.Parser.parsePrepared(Parser.java:445)
+	at org.h2.command.Parser.parse(Parser.java:317)
+	at org.h2.command.Parser.parse(Parser.java:289)
+	at org.h2.command.Parser.prepareCommand(Parser.java:254)
+	at org.h2.engine.Session.prepareLocal(Session.java:561)
+	at org.h2.engine.Session.prepareCommand(Session.java:502)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1203)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 21:39:37 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Table "APPOINTMENT" not found; SQL statement:
+SELECT TOP 1 appt_id FROM appointment
+ORDER BY appt_id DESC [42102-193]
+2017-04-05 21:56:34 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM APPOINTMENTS
+
+SELECT[*] * FROM APPT_SERV "; SQL statement:
+select * from appointments
+
+select * from appt_serv [42000-193]
+2017-04-05 22:22:04 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Column "IAWESOME" not found; SQL statement:
+select * 
+from employees e
+where e.username = iawesome [42122-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:856)
+	at org.h2.command.Parser.prepareCommand(Parser.java:259)
+	at org.h2.engine.Session.prepareLocal(Session.java:561)
+	at org.h2.engine.Session.prepareCommand(Session.java:502)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1203)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 22:22:26 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Column "IAWESOME" not found; SQL statement:
+select  * 
+from employees e
+where e.username = iawesome [42122-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:856)
+	at org.h2.command.Parser.prepareCommand(Parser.java:259)
+	at org.h2.engine.Session.prepareLocal(Session.java:561)
+	at org.h2.engine.Session.prepareCommand(Session.java:502)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1203)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 22:22:45 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Column "IAWESOME" not found; SQL statement:
+select  * 
+from employees e
+where e.username = iawesome [42122-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:856)
+	at org.h2.command.Parser.prepareCommand(Parser.java:259)
+	at org.h2.engine.Session.prepareLocal(Session.java:561)
+	at org.h2.engine.Session.prepareCommand(Session.java:502)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1203)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 22:23:02 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Column "IAWESOME" not found; SQL statement:
+select  * 
+from employees e
+where e.username is iawesome [42122-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:856)
+	at org.h2.command.Parser.prepareCommand(Parser.java:259)
+	at org.h2.engine.Session.prepareLocal(Session.java:561)
+	at org.h2.engine.Session.prepareCommand(Session.java:502)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1203)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 22:23:36 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Table "E" not found; SQL statement:
+select  * 
+from e
+where e.username = iawesome [42102-193]
+2017-04-05 23:11:07 jdbc[14]: java.lang.Exception: Open Stack Trace
+	at org.h2.util.CloseWatcher.register(CloseWatcher.java:100)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:127)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:184)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:126)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 14 more
+2017-04-13 11:17:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Cannot parse "DATE" constant "2009"; SQL statement:
+select * from appointments a
+where a.date = 2017-03-05 [22007-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.value.ValueDate.parse(ValueDate.java:81)
+	at org.h2.value.Value.convertTo(Value.java:928)
+	at org.h2.expression.Comparison.getValue(Comparison.java:256)
+	at org.h2.expression.Expression.getBooleanValue(Expression.java:178)
+	at org.h2.command.dml.Select.queryFlat(Select.java:544)
+	at org.h2.command.dml.Select.queryWithoutCache(Select.java:655)
+	at org.h2.command.dml.Query.query(Query.java:341)
+	at org.h2.command.dml.Query.query(Query.java:309)
+	at org.h2.command.dml.Query.query(Query.java:36)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:110)
+	at org.h2.command.Command.executeQuery(Command.java:201)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:179)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.IllegalArgumentException: 2009
+	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:313)
+	at org.h2.value.ValueDate.parse(ValueDate.java:79)
+	... 19 more
+2017-04-22 23:09:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM
+CLIENT
+ 
+SELECT[*] * FROM CLIENT WHERE CLIENT_ID = 1 "; SQL statement:
+select * from
+client
+ 
+select * from client where client_id = 1 [42000-193]
+2017-04-22 23:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM
+CLIENT
+ 
+SELECT[*] * FROM CLIENT WHERE CLIENT_ID = '1' "; SQL statement:
+select * from
+client
+ 
+select * from client where client_id = '1' [42000-193]
+2017-04-23 06:00:45 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "EMPLOYEE" not found; SQL statement:
+select * from employee [42102-193]
+2017-04-23 15:22:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * APPT_ID[*] FROM APPOINTMENTS WHERE DATE = ""2017-03-05"" "; SQL statement:
+select * appt_id from appointments where date = "2017-03-05" [42000-193]
+2017-04-23 15:22:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * APPT_ID[*] FROM APPOINTMENTS WHERE DATE = 2017-03-05 "; SQL statement:
+select * appt_id from appointments where date = 2017-03-05 [42000-193]
+2017-04-23 15:22:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Cannot parse "DATE" constant "2009"; SQL statement:
+select  appt_id from appointments where date = 2017-03-05 [22007-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.value.ValueDate.parse(ValueDate.java:81)
+	at org.h2.value.Value.convertTo(Value.java:928)
+	at org.h2.expression.Comparison.getValue(Comparison.java:256)
+	at org.h2.expression.Expression.getBooleanValue(Expression.java:178)
+	at org.h2.command.dml.Select.queryFlat(Select.java:544)
+	at org.h2.command.dml.Select.queryWithoutCache(Select.java:655)
+	at org.h2.command.dml.Query.query(Query.java:341)
+	at org.h2.command.dml.Query.query(Query.java:309)
+	at org.h2.command.dml.Query.query(Query.java:36)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:110)
+	at org.h2.command.Command.executeQuery(Command.java:201)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:179)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.IllegalArgumentException: 2009
+	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:313)
+	at org.h2.value.ValueDate.parse(ValueDate.java:79)
+	... 19 more
+2017-04-23 15:22:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Cannot parse "DATE" constant "2009"; SQL statement:
+select  appt_id from appointments where date = 2017-03-05 [22007-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.value.ValueDate.parse(ValueDate.java:81)
+	at org.h2.value.Value.convertTo(Value.java:928)
+	at org.h2.expression.Comparison.getValue(Comparison.java:256)
+	at org.h2.expression.Expression.getBooleanValue(Expression.java:178)
+	at org.h2.command.dml.Select.queryFlat(Select.java:544)
+	at org.h2.command.dml.Select.queryWithoutCache(Select.java:655)
+	at org.h2.command.dml.Query.query(Query.java:341)
+	at org.h2.command.dml.Query.query(Query.java:309)
+	at org.h2.command.dml.Query.query(Query.java:36)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:110)
+	at org.h2.command.Command.executeQuery(Command.java:201)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:179)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.IllegalArgumentException: 2009
+	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:313)
+	at org.h2.value.ValueDate.parse(ValueDate.java:79)
+	... 19 more
+2017-04-23 15:22:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Cannot parse "DATE" constant "2009"; SQL statement:
+select  appt_id from appointments where date is 2017-03-05 [22007-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.value.ValueDate.parse(ValueDate.java:81)
+	at org.h2.value.Value.convertTo(Value.java:928)
+	at org.h2.expression.Comparison.getValue(Comparison.java:256)
+	at org.h2.expression.Expression.getBooleanValue(Expression.java:178)
+	at org.h2.command.dml.Select.queryFlat(Select.java:544)
+	at org.h2.command.dml.Select.queryWithoutCache(Select.java:655)
+	at org.h2.command.dml.Query.query(Query.java:341)
+	at org.h2.command.dml.Query.query(Query.java:309)
+	at org.h2.command.dml.Query.query(Query.java:36)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:110)
+	at org.h2.command.Command.executeQuery(Command.java:201)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:179)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1380)
+	at org.h2.server.web.WebApp.query(WebApp.java:1053)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1015)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1002)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.IllegalArgumentException: 2009
+	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:313)
+	at org.h2.value.ValueDate.parse(ValueDate.java:79)
+	... 19 more
+2017-04-23 15:49:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "select * from services[*]';"; SQL statement:
+select * from services'; [42000-193]
+2017-04-23 15:49:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SERVICES" not found; SQL statement:
+select * from services [42102-193]
+2017-04-23 15:53:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "APPOINTMENT" not found; SQL statement:
+select * from appointment [42102-193]
+2017-04-23 16:03:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "APPOINTMENT" not found; SQL statement:
+select * from appointment [42102-193]
+2017-04-23 18:04:22 jdbc[4]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:184)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:126)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 14 more
+2017-04-24 02:19:20 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: Table "EMPLOYEE" not found; SQL statement:
+select * from employee [42102-193]
+2017-04-24 02:37:20 jdbc[6]: java.lang.Exception: Open Stack Trace
+	at org.h2.util.CloseWatcher.register(CloseWatcher.java:100)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:127)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:184)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:126)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:99)
+	at org.h2.Driver.connect(Driver.java:69)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:735)
+	at org.h2.server.web.WebApp.login(WebApp.java:947)
+	at org.h2.server.web.WebApp.process(WebApp.java:210)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:169)
+	at org.h2.server.web.WebThread.process(WebThread.java:133)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-193]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 14 more
+2017-04-24 02:45:11 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLException: Table "EMPLOYEE" not found; SQL statement:
+select * from employee [42102-193]

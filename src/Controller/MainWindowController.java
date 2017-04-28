@@ -5,14 +5,12 @@ import Model.AddAppointmentWindowModel;
 import Model.HomeScreenModel;
 import Model.MainWindowModel;
 import Model.SchedulingScreenModel;
-import View.AddAppointmentWindowView;
-import View.HomeScreenView;
-import View.MainWindowView;
-import View.SchedulingScreenView;
+import View.*;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import jfxtras.scene.control.LocalDatePicker;
 
+import static Controller.MainWindowController.SelectedPane.CLIENT;
 import static Controller.MainWindowController.SelectedPane.HOME;
 import static Controller.MainWindowController.SelectedPane.SCHEDULING;
 
@@ -51,13 +49,16 @@ public class MainWindowController {
         //Creates the schedulingscreen tabs content
         schedulingContent(mainWindowView.getSchedulingScreen());
 
+        //Create the client screen tab content
+        employeeClientContent(mainWindowView.getClientScreen());
+
         //Implements Listeners for Home, Scheduling, Client, Settings, and Hamburger buttons
         handles();
     }
 
     //Home Content
     public void homeContent(AnchorPane homeScreenBasePane, Employee employee){
-        HomeScreenView homeScreenView = new HomeScreenView(homeScreenBasePane, "bobby");
+        HomeScreenView homeScreenView = new HomeScreenView(homeScreenBasePane, "Ian");
         HomeScreenModel homeScreenModel = new HomeScreenModel();
         HomeScreenController homeScreenController = new HomeScreenController(homeScreenModel, homeScreenView, employee);
     }
@@ -67,6 +68,11 @@ public class MainWindowController {
         SchedulingScreenView schedulingScreenView = new SchedulingScreenView(schedulingScreenBasePane, mainWindowView.getVerticalSlider(), mainWindowView.getHorizontalSlider(), mainWindowView.getSchedulingDatePicker());
         SchedulingScreenModel schedulingScreenModel = new SchedulingScreenModel();
         SchedulingScreenController schedulingScreenController = new SchedulingScreenController(schedulingScreenModel, schedulingScreenView);
+    }
+
+    //Employee/Client Content
+    void employeeClientContent(AnchorPane basePane){
+        ClientScreenView clientScreenView = new ClientScreenView(basePane);
     }
 
 
@@ -107,6 +113,16 @@ public class MainWindowController {
 
         mainWindowView.getClientButton().setOnAction(e -> {
             System.out.println("Client Button Pressed");
+            //If the current screen is not the scheduling screen
+            //Make the current screen the scheduling screen\
+            //Else, do nothing
+            if(!mainWindowView.getDifferentScreenContainer().getChildren().contains(mainWindowView.getClientScreen())){
+                mainWindowView.addClientScreenToScreenContainer();
+                selectedPane = CLIENT;
+
+                //Set the custom components of the left menu pane (hamburger)
+                mainWindowView.leftMenuPaneCustomComponents(selectedPane);
+            }
 
         });
 
